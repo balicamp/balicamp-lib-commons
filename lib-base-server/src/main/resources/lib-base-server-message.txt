@@ -1,0 +1,15 @@
+------------------------------------------------------------------------------------
+Selamat datang,
+------------------------------------------------------------------------------------ 
+ini adalah lib base server. Base library untuk server berbasis GWT
+mohon di perhatikan isu-isu berikut
+1. LOV default di asumsikan anda bisa mempergunakan class anda sendiri, class ini sudah menyertakan lookup class, kalau misalnya di perlukan, 
+register class : id.co.sigma.common.server.dao.system.impl.DefaultDirectTableLookupProviderDaoImpl sebagai spring bean dengan name : common-lov.directTableProvider
+penggunaan nya sbb : 
+	<bean id="common-lov.directTableProvider" class="id.co.sigma.common.server.dao.system.impl.DefaultDirectTableLookupProviderDaoImpl">
+    	<description>ini untuk lookup detail</description>
+    </bean>
+2.
+
+
+------------------------------------------------------------------------------------

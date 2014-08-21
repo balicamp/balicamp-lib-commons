@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+<bean 
+		name="sigma-core::upload-engine::columndef-factory" 
+		class="id.co.sigma.commonlib.importengine.factory.impl.UploadColumnDefinitionFactoryImpl" >
+		<description>Column defition factory, ini menyediakan column berdasarkan data definition</description>
+	</bean>
+	
+	<bean name="uploadFileDefinitionService"
+		class="id.co.sigma.commonlib.importengine.service.impl.UploadFileDefinitionServiceImpl">
+		<description>Ini adalah proxy beans, ini memerlukan column definition provicer - di implementasikan oleh user library, karena beda app beda table-, dan factory column definition factory
+		</description>
+	</bean>
+	
+	
+	<bean name="mandatoryValidationFailMessageI18NKey" class="java.lang.String" factory-method="valueOf">
+		<constructor-arg value="mandatory.key"/>
+	</bean>
+	
+	<bean name="invalidDateTypeMessageI18NKey" class="java.lang.String" factory-method="valueOf">
+		<constructor-arg  value="invalidtype.key"/>
+	</bean>
+	
+	<bean name="dataOutOfMapperDataMessageI18NKey" class="java.lang.String" factory-method="valueOf">
+		<constructor-arg  value="dataMapper.key"/>
+	</bean>
+	
+	<bean name="invalidNumberMessageI18NKey" class="java.lang.String" factory-method="valueOf">
+		<constructor-arg  value="invalidNumber.key"/>
+	</bean>
+	
+	
+	<bean class="id.co.sigma.commonlib.importengine.factory.DummyMappingColumnDefinitionProvider"/>
+</beans>

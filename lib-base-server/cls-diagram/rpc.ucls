@@ -1,0 +1,28 @@
+<class-diagram version="1.0.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="id.co.sigma.common.server.rpc.BaseSelfRegisteredRPCService" 
+    project="lib-bc-base-server" 
+    file="/lib-bc-base-server/src/main/java/id/co/sigma/common/server/rpc/BaseSelfRegisteredRPCService.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="691" y="198"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="id.co.sigma.common.server.rpc.SigmaRPCServiceUrlMapper" 
+    project="lib-bc-base-server" 
+    file="/lib-bc-base-server/src/main/java/id/co/sigma/common/server/rpc/SigmaRPCServiceUrlMapper.java" binary="false">    
+    <position height="-1" width="-1" x="257" y="103"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

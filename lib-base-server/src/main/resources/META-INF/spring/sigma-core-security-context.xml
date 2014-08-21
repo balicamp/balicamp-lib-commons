@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://camel.apache.org/schema/spring
+                           http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="sigma-user-detail-service" class="id.co.sigma.common.server.service.system.impl.CoreServerUserDetailServiceImpl">
+		<description>User detail service, ini loader data *diambil nya dari data yang di passed oleh security app ke applikasi ini*</description>
+	</bean>
+	
+	
+	<bean id="sigma-no-operation-pwd-encoder" class="id.co.sigma.common.server.service.system.impl.NoOperationPasswordEconder">
+		<description>encode password, practically do nothing</description>
+	</bean>
+
+	
+	
+	<bean id="security::login-related-controller" class="id.co.sigma.common.server.service.system.LoginRelatedController">
+		<description>controller untuk menerima item login</description>
+	</bean>
+	
+	
+	
+	
+</beans>

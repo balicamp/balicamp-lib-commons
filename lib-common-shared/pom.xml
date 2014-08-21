@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+        <groupId>id.co.sigma.commonlib</groupId>
+        <artifactId>balicamp-lib-commons</artifactId>
+        <version>1.6</version>
+    </parent>
+
+
+
+
+    <artifactId>lib-common-shared</artifactId>
+
+    <packaging>jar</packaging>
+    <name>Common Shared Object</name>
+
+
+
+
+
+    <build>
+
+    	<resources>
+    		<resource>
+    			<directory>src/main/java</directory>
+
+    		</resource>
+    		<resource>
+    			<directory>src/main/resources</directory>
+
+    		</resource>
+
+    	</resources>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+<!--
+			<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>gwt-maven-plugin</artifactId>
+			<version>${gwt.maven.plugin.version}</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>resources</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+		 -->
+        </plugins>
+    </build>
+
+    <dependencies>
+
+    <dependency>
+    	<artifactId>lib-common</artifactId>
+    	<groupId>id.co.sigma.commonlib</groupId>
+    	<version>${project.version}</version>
+    </dependency>
+
+
+
+
+
+    <dependency>
+    	<groupId>junit</groupId>
+    	<artifactId>junit</artifactId>
+    	<version>${lib.junit.version}</version>
+    	<scope>test</scope>
+    </dependency>
+
+
+
+
+
+
+    <dependency>
+    	<groupId>org.hibernate.javax.persistence</groupId>
+    	<artifactId>hibernate-jpa-2.0-api</artifactId>
+    	<version>1.0.1.Final</version>
+    </dependency>
+    </dependencies>
+    <description>Base Shared Object</description>
+
+
+
+
+</project>

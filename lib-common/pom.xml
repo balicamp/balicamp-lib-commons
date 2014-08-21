@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+        <groupId>id.co.sigma.commonlib</groupId>
+        <artifactId>balicamp-lib-commons</artifactId>
+        <version>1.6</version>
+    </parent>
+
+
+
+
+    <artifactId>lib-common</artifactId>
+
+    <packaging>jar</packaging>
+    <name>Common-Base Object</name>
+
+
+
+
+
+    <build>
+
+    	<resources>
+    		<resource>
+    			<directory>src/main/java</directory>
+
+    		</resource>
+    		<resource>
+    			<directory>src/main/resources</directory>
+
+    		</resource>
+
+    	</resources>
+        <defaultGoal>install</defaultGoal>
+		<plugins>
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>${maven.compiler.plugin.version}</version>
+			<configuration>
+				<encoding>UTF-8</encoding>
+				<source>${maven.compiler.source}</source>
+				<target>${maven.compiler.target}</target>
+			</configuration>
+		</plugin>
+		<!--
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>gwt-maven-plugin</artifactId>
+			<version>${gwt.maven.plugin.version}</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>resources</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+	 -->
+
+	</plugins>
+    </build>
+
+    <dependencies>
+
+     <dependency>
+    	<groupId>com.google.gwt</groupId>
+    	<artifactId>gwt-servlet</artifactId>
+    	<version>${gwt.version}</version>
+    </dependency>
+
+
+
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${lib.junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.0.0.GA</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.0.0.GA</version>
+      <classifier>sources</classifier>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+		<groupId>org.hibernate.javax.persistence</groupId>
+		<artifactId>hibernate-jpa-2.1-api</artifactId>
+		<version>1.0.0.Final</version>
+	</dependency>
+    </dependencies>
+    <description>Base Form Definition</description>
+
+
+</project>

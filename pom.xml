@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>id.co.sigma.commonlib</groupId>
+  <artifactId>balicamp-lib-commons</artifactId>
+  <version>1.6</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <gwt.version>2.6.1</gwt.version>
+        <gwt.maven.plugin.version>2.6.1</gwt.maven.plugin.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.security.version>3.2.4.RELEASE</spring.security.version>
+        <maven.compiler.source>1.7</maven.compiler.source> 
+		<maven.compiler.target>1.7</maven.compiler.target> 
+        <spring.batch.version>3.0.1.RELEASE</spring.batch.version>
+        <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version> 
+		<mybatis.version>3.2.7</mybatis.version>
+		<spring.mybatis.version>1.2.2</spring.mybatis.version>
+		<poi.version>3.10-FINAL</poi.version>
+		<gson.version>2.2.4</gson.version>	
+		<lib.junit.version>4.11</lib.junit.version>
+		<hibernate.core.version>4.3.6.Final</hibernate.core.version>
+		<log4j.version>1.2.17</log4j.version>
+		<aspectj.version>1.8.1</aspectj.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<zk.version>7.0.2</zk.version>
+		<hibernate.persistence.version>1.0.1.Final</hibernate.persistence.version>
+		<commons.io.version>2.4</commons.io.version>
+		<commons.lang.version>2.4</commons.lang.version>
+		<commons.logging.version>1.1.1</commons.logging.version>
+    </properties>
+  <modules>
+  	<module>lib-common</module>
+	<module>lib-common-shared</module>
+	<module>lib-base-server</module>
+	<module>sandbox-shared</module>
+	<!--
+	<module>lib-journal-engine</module> 
+	
+	<module>lib-batch-engine</module> 
+-->
+  </modules>
+</project>

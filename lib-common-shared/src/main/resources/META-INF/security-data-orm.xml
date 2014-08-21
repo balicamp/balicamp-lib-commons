@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+	<!--Begin. Query untuk menyusun menu yg didapat dari user -->
+	<named-query name="SECURITY-GET-USERID">
+		<query>	
+			SELECT a FROM Signon a WHERE a.uuid=:UUID and a.applicationId=:APPLICATION_ID		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+		
+	<named-query name="SECURITY-GET-GROUPASSIGNMENT">
+		<query>	
+			SELECT a FROM UserGroupAssignment a WHERE a.userId=:USER_ID		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>	
+	
+	<named-query name="SECURITY-GET-FUNCTIONASSIGNMENT">
+		<query>	
+			SELECT a 
+			FROM 
+				ApplicationMenuAssignment a 
+			WHERE 
+				a.groupId IN :LIST_GROUP_ID	
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	
+	<named-query name="SECURITY-GET-FUNCTIONMEU">
+		<query>	
+			SELECT a 
+			FROM 
+				ApplicationMenu a 
+				left outer join a.pageDefinition pg
+			WHERE 
+				a.status=:STATUS AND a.id IN :LIST_FUNCTION_ID 
+			ORDER BY a.treeLevelPosition asc , a.siblingOrder asc  , a.id ASC	
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	<!--End. Query untuk menyusun menu yg didapat dari user -->
+	
+	<!--Begin. Query untuk login ke application-->
+	<named-query name="SECURITY-LOGIN-GET-USERID">
+		<query>	
+			SELECT a FROM User a WHERE a.userCode=:USERNAME		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	
+	<named-query name="SECURITY-LOGIN-CHECK-SIGNON">
+		<query>	
+			SELECT a FROM Signon a WHERE a.userId=:USER_ID		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	
+	<named-query name="SECURITY-LOGIN-GET-APPLICATION">
+		<query>	
+			SELECT a FROM Application a WHERE a.id=:APPLICATION_ID		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	<named-query name="SECURITY-LOGIN-CHECK-PASSWORD">
+		<query>	
+			SELECT a FROM UserPassword a WHERE a.userId=:USER_ID ORDER BY a.id DESC		
+		</query>
+		<lock-mode>READ</lock-mode>
+	</named-query>
+	<!--End. Query untuk login ke application-->
+</entity-mappings>

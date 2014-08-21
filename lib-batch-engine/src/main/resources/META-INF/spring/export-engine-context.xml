@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	
+	<description>Definsi batch untuk metode export</description>
+ 	
+ 	
+ 	
+ 	
+ 	
+
+	<bean name="exportSourceDataReader"
+		class="id.co.sigma.commonlib.exportengine.io.TableToTextFileItemReader"
+		scope="step">
+		<description>
+		bean untuk membaca source export data
+		
+		
+		</description>
+		<property name="dataSource" ref="batchWorkingDataSource"/>
+		<property name="configurationId" value="#{jobParameters['configurationId']}"/>
+		<property name="selectStatementParameterGroupKey"  value="#{jobParameters['QUERY_PARAM_GROUP_KEY']}"/>
+		
+		
+	</bean>
+	<bean name="exportObjectArrToStringProcessor"
+		class="id.co.sigma.commonlib.exportengine.io.TableToTextFileProcessor"
+		scope="step">
+		<description>ini worker utnuk mentransforasikan dari Object[] to String[]
+		</description>
+		
+		<property name="configurationId" value="#{jobParameters['configurationId']}"/>
+		
+		
+	</bean>
+	
+	
+	
+	
+	<batch:job id="table_to_textfile_job"
+		job-repository="batchEngineJobRepo">
+		<batch:step id="table_to_file_exp_step" >
+			<batch:tasklet
+				transaction-manager="batchWorkingDataTrxManager" >
+				<batch:chunk 
+					processor="exportObjectArrToStringProcessor"
+					reader="exportSourceDataReader" 
+					writer="delimitedFiletargetWriter"
+					commit-interval="50" >
+				</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+	<bean name="exportTesterWriter"
+		class="id.co.sigma.commonlib.exportengine.io.ConsoleWriter">
+	</bean>
+	<bean name="delimitedFiletargetWriter"
+		class="id.co.sigma.commonlib.exportengine.io.TableToTextFileDelimitedFileWriter" 
+		scope="step">
+		<description>Beans untuk menulis ke dalam delimited flat file</description>
+		<property name="configurationId" value="#{jobParameters['configurationId']}"/>
+		<property name="selectStatementParameterGroupKey"  value="#{jobParameters['QUERY_PARAM_GROUP_KEY']}"/>
+	</bean>
+</beans>

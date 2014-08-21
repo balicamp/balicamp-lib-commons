@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd">
+	
+	
+	<description>Konfigurasi batch proses untuk journal engine</description>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+	
+	
+	<!-- =======================================  READER SECTION =======================================  -->
+	<bean 
+		name="journal_src_data_reader"
+		class="id.co.sigma.commonlib.journal.engine.io.reader.JournalSourceDataReader" 
+		scope="step"
+		lazy-init="true">
+		<description>Bean pembaca data sumber jurnal.JDBC sourced reader dengan select statement di feed dari konfigurasi</description>
+		<property name="dataSource" ref="batchWorkingDataSource"/>
+		<property name="journalConfigurationId"  value="#{jobParameters['JOURNAL_CNF_ID']}" />
+		<property name="selectStatementParameterGroupKey"  value="#{jobParameters['QUERY_PARAM_GROUP_KEY']}" />
+	</bean>
+
+
+	
+	<!-- ======================================= END OF  READER SECTION =======================================  -->
+	
+	
+	<!-- ======================================= 
+						PROCESSOR
+		======================================= 
+	 -->
+
+	<bean name="simpleJournalProcessor"
+		class="id.co.sigma.commonlib.journal.engine.io.JournalDataProcessor"
+		scope="step" lazy-init="true">
+	 	<description>Worker untuk memproses data pembacaan database menjadi journal
+	 	</description>
+	 	<property name="journalConfigurationId" value="#{jobParameters['JOURNAL_CNF_ID']}"/>
+	 	<property name="batchGroupId" value="#{jobParameters['batchGroupId']}"/>
+	 </bean>
+
+
+	<!-- ===================================== writer section ============================================  -->
+	
+	<bean
+		name="testConsoleJournalWriter" 
+		class="id.co.sigma.commonlib.journal.engine.io.writer.SysoutWriter"
+		scope="step"
+		lazy-init="true">
+		<description>Class writer test, menulis ke console</description>
+	</bean>
+	
+	<bean name="journal_head_and_detil_writer"
+		class="id.co.sigma.commonlib.journal.engine.io.writer.JournalHeaderItemWriter"
+		lazy-init="true" scope="step">
+		<description>bean untuk menulis journal header + details</description>
+		<property name="dataSource" ref="batchWorkingDataSource"/>
+		<property name="journalConfigurationId"
+			value="#{jobParameters['JOURNAL_CNF_ID']}">
+		</property>
+	</bean>
+
+
+	<!--  ==================================== Journal Batch Definition ======================================== -->
+	
+	<batch:job id="run_journaling_rule_batch"  
+		job-repository="batchEngineJobRepo">
+		<batch:step id="journaling_step" >
+			<batch:tasklet 
+				transaction-manager="batchWorkingDataTrxManager">
+				<batch:chunk commit-interval="50"
+					reader="journal_src_data_reader" 
+					processor="simpleJournalProcessor"
+					writer="journal_head_and_detil_writer">
+					
+				</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+	
+	</batch:job>
+	
+	
+	
+	 
+	
+</beans>

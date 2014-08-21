@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	
+	<description>Batch definition untuk house keeping</description>
+ 	
+	<bean id="house-keeper-reader" name="house-keeper-reader"
+		class="id.co.sigma.commonlib.housekeeper.io.HouseKeepArchiveReader"
+		scope="step">
+		<description>Reader, ini membaca dari table dengan statment sql yang di minta</description>
+		<property name="recieveJDBCMetadataFields">
+			<list>
+				<ref bean="house-keeper-processor"/>
+				<ref bean="house-keeper-writer"/>
+			</list>
+		</property>
+		<property name="dataSource" ref="batchWorkingDataSource"/>
+	</bean>
+	<bean id="house-keeper-processor" name="house-keeper-processor"
+		class="id.co.sigma.commonlib.housekeeper.io.HouseKeeperArchiveProcessor"
+		scope="step">
+	<description>Processor, ini mengkonversi dari array of object menjadi json object</description>
+	</bean>
+	
+	
+	 
+
+
+
+	<bean id="house-keeper-writer" name="house-keeper-writer"
+		class="id.co.sigma.commonlib.housekeeper.io.HouseKeeperArchiveWriter"
+		scope="step">
+		<property name="dataSource" ref="batchWorkingDataSource"></property>
+		<property name="houseKeeperProcessor"
+			ref="house-keeper-processor">
+		</property>
+	</bean>
+	
+	
+	
+	<batch:job id="extract-insert-into-data"
+		job-repository="batchEngineJobRepo" >
+		<batch:listeners>
+			<batch:listener ref="house-keeping-job-listener"/>
+		
+		</batch:listeners>
+		<batch:step id="extract-insert-into-step" 
+			next="end-of-generate-sql-inser-decider">
+			<batch:tasklet
+				transaction-manager="batchWorkingDataTrxManager">
+			<batch:chunk processor="house-keeper-processor"
+				reader="house-keeper-reader" writer="house-keeper-writer"
+				commit-interval="50">
+			</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+		
+		
+		
+		<batch:decision
+			decider="end-of-generate-sql-inser-decider-bean"
+			id="end-of-generate-sql-inser-decider">
+			<batch:next on="repeat-array" to="extract-insert-into-step" />
+			<batch:next on="*"
+				to="make-archived-metadata" />
+		</batch:decision>
+		
+		<batch:step id="make-archived-metadata"
+			next="zip-insert-intp-sql-to-one-zipfile-step">
+			<batch:tasklet
+				transaction-manager="batchWorkingDataTrxManager">
+			<batch:chunk reader="archive-metadata-of-archive-reader"
+				writer="archive-metadata-of-archive" commit-interval="100000">
+			</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="zip-insert-intp-sql-to-one-zipfile-step">
+			<batch:tasklet transaction-manager="batchWorkingDataTrxManager">
+			<batch:chunk commit-interval="10000"
+				reader="house-keeped-table-name-reader"
+				writer="house-keeper-tar-gz-writer"
+				processor="house-keeper-tablename-to-file-adapter">
+			</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+
+
+	<bean id="end-of-generate-sql-inser-decider-bean"
+		name="end-of-generate-sql-inser-decinder-bean"
+		class="id.co.sigma.commonlib.base.SimpleArrayOfJobSequenceDecider" 
+		>
+		<description>decision sederhana, me mark array of job sudah abis , atau masih harus ngulang</description>
+	</bean>
+	<bean id="house-keeped-table-name-reader"
+		name="house-keeped-table-name-reader"
+		class="id.co.sigma.commonlib.housekeeper.io.TableNameJobParamaterArrayReader" 
+		scope="step">
+	<description>provider table yang di house keeping apa saja. ini untuk memuat file</description>
+	</bean>
+	<bean id="house-keeper-tar-gz-writer"
+		name="house-keeper-tar-gz-writer"
+		class="id.co.sigma.commonlib.housekeeper.io.ArchiverWriter" scope="step">
+		<property name="outputFilePath"
+			value="#{jobParameters['outputAbsPath']}">
+		</property>
+		<property name="targetFolderAbsolutePath"  value="#{jobParameters['outputDirectory']}" />
+	</bean>
+	<bean id="house-keeper-service" name="house-keeper-service"
+		class="id.co.sigma.commonlib.housekeeper.HouseKeeperJobLauncherHelper">
+	<description>Bean untuk service house keeping, pintu untuk proses launch house keeping</description>
+	</bean>
+	
+	<bean class="id.co.sigma.commonlib.housekeeper.io.ArchiveProcessor"
+		id="house-keeper-tablename-to-file-adapter"
+		name="house-keeper-tablename-to-file-adapter" scope="step">
+
+	
+	</bean>
+	<bean id="archive-metadata-of-archive-reader"
+		name="archive-metadata-of-archive-reader"
+		class="id.co.sigma.commonlib.housekeeper.io.ArchiveMetadataJobParamaterReader" scope="step">
+	<description>ini menyediakan nama table, apa saja yang di hapus. table di kembalikan berkebalikan dalam proses extract + backup</description>
+	</bean>
+	<bean id="archive-metadata-of-archive"
+		name="archive-metadata-of-archive"
+		class="id.co.sigma.commonlib.housekeeper.io.ArchiveMetadataJobParamaterWriter" scope="step">
+		<description>writer untuk menulis ke file json. metadata dari daftar table yang di archive</description>
+		<property name="targetFolderAbsolutePath" value="#{jobParameters['outputDirectory']}" />
+	</bean>
+	
+	<bean class="id.co.sigma.commonlib.housekeeper.io.HouseKeepingJobListener"  name="house-keeping-job-listener">
+		<description>Bean listener house keeping, ini untuk wire ke next proc
+		
+		</description>
+	
+	</bean>
+</beans>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="sandbox-data">
+	
+		
+		
+		
+		<!--  core System  -->
+		<class>id.co.sigma.common.server.data.system.CommonSequenceTable</class>
+		<class>id.co.sigma.common.data.app.SystemSimpleParameter</class>
+		<class>id.co.sigma.common.security.domain.lov.LookupHeader</class>
+		<class>id.co.sigma.common.security.domain.lov.LookupDetail</class>
+		<class>id.co.sigma.common.security.domain.lov.LookupDetailPK</class>
+		<!-- LOV, i18n -->
+		<class>id.co.sigma.common.data.entity.FormConfigurationSummary</class>
+		<class>id.co.sigma.common.data.entity.FormConfigurationSummaryPK</class>
+		<class>id.co.sigma.common.data.entity.FormElementConfiguration</class>
+		<class>id.co.sigma.common.data.entity.FormElementConfigurationPK</class>
+		<class>id.co.sigma.common.data.entity.FormLabel</class>
+		<class>id.co.sigma.common.data.entity.FormLabelPK</class>
+		<class>id.co.sigma.common.data.entity.I18Code</class>
+		<class>id.co.sigma.common.data.entity.I18NTextGroup</class>
+		<class>id.co.sigma.common.data.entity.I18Text</class>
+		<class>id.co.sigma.common.data.entity.I18TextPK</class>
+		
+
+		
+		<!-- ==================== BASE Object ================================ -->
+
+		<class>id.co.sigma.common.server.data.lookup.Common1LevelLOVHeader</class>
+		<class>id.co.sigma.common.server.data.lookup.Common1LevelLOVHeaderPK</class>
+		<class>id.co.sigma.common.server.data.lookup.Common1LevelLOVDetail</class>
+		<class>id.co.sigma.common.server.data.lookup.Common1LevelLOVDetailPK</class>
+		
+		<class>id.co.sigma.common.data.app.CommonDualControlContainerTable</class>
+		<class>id.co.sigma.common.data.app.CommonDualControlBulkDataContainer</class>
+		<class>id.co.sigma.common.data.app.SimplifiedDualControlContainerTable</class>
+		<class>id.co.sigma.common.data.app.DualControlDefinition</class>
+		<class>id.co.sigma.common.data.app.HeaderDataOnlyCommonDualControlContainerTable</class>
+		
+		<class>id.co.sigma.common.data.approval.CommonApprovalHeader</class>
+		<class>id.co.sigma.common.data.approval.CommonApprovalDefinition</class>
+			<!-- security-data -->				
+		<class>id.co.sigma.common.security.domain.audit.BaseAuditedObject</class>
+		<class>id.co.sigma.common.security.domain.audit.BaseCreatedObject</class>
+		<class>id.co.sigma.common.data.app.SimpleDualControlData</class>
+		
+		<class>id.co.sigma.common.security.domain.Application</class>
+		<class>id.co.sigma.common.security.domain.ApplicationUserKey</class>
+		<class>id.co.sigma.common.security.domain.ApplicationUser</class>
+		<class>id.co.sigma.common.security.domain.Branch</class>
+		<class>id.co.sigma.common.security.domain.BranchAssignment</class>				
+		<class>id.co.sigma.common.security.domain.ApplicationMenu</class>
+		<class>id.co.sigma.common.security.domain.ApplicationMenuAssignment</class>
+		<class>id.co.sigma.common.security.domain.PageDefinition</class>
+		<class>id.co.sigma.common.security.domain.User</class>		
+		<class>id.co.sigma.common.security.domain.UserGroup</class>
+		<class>id.co.sigma.common.security.domain.UserGroupAssignment</class>		
+		<class>id.co.sigma.common.security.domain.Signon</class>
+		<class>id.co.sigma.common.security.domain.UserPassword</class>
+		<class>id.co.sigma.common.security.domain.PasswordPolicy</class>
+		
+		
+		
+		
+		<!--  sandbox -->
+		<class>id.co.sigma.sandbox.shared.domain.Person</class>
+		<class>id.co.sigma.sandbox.shared.domain.Department</class>		
+
+		
+		
+		
+	</persistence-unit>
+</persistence>

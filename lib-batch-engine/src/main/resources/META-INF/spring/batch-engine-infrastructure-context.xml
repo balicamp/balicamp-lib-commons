@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd">
+
+
+	
+	<description> transaction manager, job repository, kalau misalnya ini ikut dengan container, 
+	maka anda cukup mengaliaskan bean-bean dengan id berikut dengan spesifikasi : 
+	1. journalEngineJobRepo - org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean
+	2. batchWorkingDataTrxManager - org.springframework.jdbc.datasource.DataSourceTransactionManager atau class yang equivalen
+	
+	
+	</description>
+ 	
+ 	<bean 
+		name="batchWorkingDataTrxManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<description>Ini adalah bean untuk transaction manager</description>
+		<constructor-arg index="0" 
+		    ref="batchWorkingDataSource"/>
+		
+	</bean>
+	
+ 	
+ 	
+ 	<bean 
+ 		name="batchEngineJobRepo"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<description>
+		ini equivalen dengan batch:job-repository. ini yang bertanggung jawab atas def dari jon. 
+		kalau misalnya ini ikut dengan proses utama, maka ini bisa di aliaskan 
+		
+		</description>
+		<property name="transactionManager" ref="batchWorkingDataTrxManager"/>
+	</bean>
+
+	
+	
+	
+	
+	
+	
+	<bean 
+		name="batchEngineJobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="batchEngineJobRepo"/>
+	</bean>
+	
+	<bean name="batchEngineJobLauncherAsync"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<description>Job launcher. ini mempergunakan model async. jadinya job di luncurkan thread terpisah</description>
+		<property name="jobRepository" ref="batchEngineJobRepo"/>
+		<property name="taskExecutor" ref="batch-job-executor"></property>
+	</bean>
+
+	<bean
+		name="batch_engine_reader_param_holder" 
+		class="id.co.sigma.commonlib.util.impl.QueryParameterHolderImpl">
+		<description>Bean untuk menampung sql parameter, ini untuk di pass ke dalam query</description>
+	
+	</bean>
+	
+	<task:executor pool-size="20" id="batch-job-executor" />
+</beans>

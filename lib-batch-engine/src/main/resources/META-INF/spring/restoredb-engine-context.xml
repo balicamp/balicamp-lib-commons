@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	
+	<description>Restore Engine</description>
+ 	
+	<bean id="restore-engine-reader" name="restore-engine-reader"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreReader"
+		scope="step">
+		<description>Reader bean. membaca dari json file</description>
+	</bean>
+	
+	
+	<bean id="restore-engine-writer" name="restore-engine-writer"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreWriter"
+		scope="step">
+	<description>worker untuk menulis ke ke dalam kembali ke dlaam database data restore</description>
+	<property name="dataSource" ref="batchWorkingDataSource"/>
+	</bean>
+	<bean id="restore-engine-decider" name="restore-engine-decider"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreDecider">
+	</bean>
+	<bean id="restore-engine-listener" name="restore-engine-listener"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreJobListener">
+	<description>1. unzip file
+2. baca metadata dalam file
+3. masukan metadata ke dalam job execution</description>
+	</bean>
+	<batch:job id="restore-archiveddb-job"
+		job-repository="batchEngineJobRepo">
+		<batch:step id="restore-archived-db-step"
+			next="restore-arcived-db-decider">
+			<batch:tasklet
+				transaction-manager="batchWorkingDataTrxManager">
+			<batch:chunk 
+				reader="restore-engine-reader"
+				commit-interval="50" 
+				writer="restore-engine-writer">
+			</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+		<batch:decision decider="restore-engine-decider"
+			id="restore-arcived-db-decider">
+			<batch:next on="repeat" to="restore-archived-db-step" />
+			<batch:next on="*" to="batch-engine-summary-writer-step" />
+		</batch:decision>
+		<batch:listeners >
+			<batch:listener ref="restore-engine-listener"/>
+		</batch:listeners>
+		<batch:step id="batch-engine-summary-writer-step">
+			<batch:tasklet transaction-manager="batchWorkingDataTrxManager">
+				<batch:chunk reader="batch-engine-summary-reader"
+					writer="restore-engine-summary-writer" commit-interval="1" />
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+	<bean id="restore-db-job-launcher" name="restore-db-job-launcher"
+		class="id.co.sigma.commonlib.housekeeper.RestoreEngineJobLauncherHelper">
+	<description>bean helper launch job</description>
+	</bean>
+	
+	
+	<bean class="id.co.sigma.commonlib.housekeeper.restore.impl.ZipDataExtractorImpl">
+		<description>worker untuk : 
+		1. extract zip file
+		2. kirim parametr ke job execution</description>
+	
+	</bean>
+	<bean id="restore-engine-summary-writer"
+		name="restore-engine-summary-writer"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreSummaryWriter"
+		scope="step">
+		<description>Writer summary. hasil dari batch restore proc nya bagaimana</description>
+	</bean>
+	<bean id="batch-engine-summary-reader"
+		name="batch-engine-summary-reader"
+		class="id.co.sigma.commonlib.housekeeper.restore.RestoreSummaryReader">
+	</bean>
+</beans>

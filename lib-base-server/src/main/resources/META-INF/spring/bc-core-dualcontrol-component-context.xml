@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:oxm="http://www.springframework.org/schema/oxm"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://www.springframework.org/schema/oxm
+                           http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+		
+	
+         <bean class="id.co.sigma.common.server.spreadsheet.impl.SpreadsheetFileUtilManagerImpl">
+	  		<description>bean untuk mendaftarkan excel util</description>
+	  	</bean>
+	  	
+	  	
+	  	<bean name="bulk.excel.date.format" class="java.lang.String">
+	  		<description>Format tgl dalam excel. ini untuk membaca field bertipe date</description>
+	  		<constructor-arg index="0" value="${bulk.excel.date.format}" />
+	  	</bean>
+  		<bean class="id.co.sigma.common.server.service.approval.impl.SimpleApprovalServiceImpl">
+  			<description>service untuk simple approval service</description>
+  		</bean>
+  		
+  		<bean class="id.co.sigma.common.server.lov.CommonApprovalDefinitionLOVProvider">
+  			<description>bean untuk lov object type dari common approval definition</description>
+  		</bean>
+  	
+  		<bean
+  			name="dual-control-data-main-service" 
+  			class="id.co.sigma.common.server.service.system.impl.DualControlDataServiceImpl">
+  		
+  		
+  		</bean>
+  		
+  		
+  		<bean class="id.co.sigma.common.server.dao.system.impl.DualControlRelatedDaoImpl" 
+  			name="dual-control-related-dao">
+  			<description>Dao untuk handle masalah terkait dengan dual control</description>
+  		</bean>
+</beans>

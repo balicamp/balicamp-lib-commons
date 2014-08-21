@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	
+	<description>Definsi batch untuk metode export</description>
+ 	
+ 	
+ 	<bean class="id.co.sigma.commonlib.exportengine.io.ParamPassedExportFileReader" 
+ 		name="export-engine-parameterized-reader" 
+ 		scope="step">
+ 		
+ 		<description>reader dengan parameter. ini membaca source data untuk di export menjadi text file(csv)</description>
+ 			<property name="dataSource" ref="batchWorkingDataSource"/>
+ 	</bean>
+ 	<bean class="id.co.sigma.commonlib.exportengine.io.ParamPassedExportFileProcessor"
+ 		name="export-engine-parameterized-proc"
+ 		scope="step">
+ 		<description>processor parameterized export to file engine</description>
+ 		<property name="converterProvider" ref="export-engine-parameterized-reader"/>
+ 	</bean>
+ 	
+ 	<bean class="id.co.sigma.commonlib.exportengine.io.ParamPassedExportFileWriter" 
+ 		name="export-engine-parameterized-writer"
+ 		scope="step">
+ 		<description>writer ke file</description>
+ 	</bean>
+ 	
+ 	<bean class="id.co.sigma.commonlib.exportengine.impl.ExportJobLauncherImpl" name="table-to-file-passed-over-job-param-launcger">
+ 		<description>Bean launcher job export to file. model ini semua parameter export di pass lewat job parameter</description>
+ 		
+ 	
+ 	</bean>
+ 	
+ 	<batch:job 
+ 		id="table_to_textfile_job_job_param_passed"
+ 		job-repository="batchEngineJobRepo"> 
+	 	<batch:step 
+	 		id="table_to_file_exp_step_param_passed">
+	 		<batch:tasklet
+	 			transaction-manager="batchWorkingDataTrxManager">
+	 		<batch:chunk processor="export-engine-parameterized-proc"
+	 			reader="export-engine-parameterized-reader"
+	 			writer="export-engine-parameterized-writer" commit-interval="50">
+	 		</batch:chunk>
+	 		</batch:tasklet>
+	 	</batch:step>
+	 	<batch:listeners>
+	 		<batch:listener ref="export-engine-job-listener"></batch:listener>
+	 	</batch:listeners>
+ 	</batch:job>
+ 	<bean name="export-engine-job-listener"
+ 		class="id.co.sigma.commonlib.base.JobListenerPropagator">
+ 		
+ 	</bean>
+</beans>

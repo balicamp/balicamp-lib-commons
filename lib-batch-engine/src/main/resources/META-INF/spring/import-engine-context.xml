@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	
+	<description>Example job to get you started. It provides a skeleton for a typical batch application.</description>
+ 	
+ 	
+ 	
+ 	
+ 	
+	
+
+
+
+ 	<batch:job id="sigma_read_and_writestaging1"
+ 		job-repository="batchEngineJobRepo">
+		<batch:step id="read_write_staging1_step"
+			>
+			<batch:tasklet transaction-manager="batchWorkingDataTrxManager" >
+				<batch:chunk commit-interval="30" 
+					reader="commonSeparatedFileReader" 
+					processor="simpleFlatFileProcessor" 
+					writer="uploadDataWriter" />
+			</batch:tasklet>
+		</batch:step>
+
+		
+ 	</batch:job>
+
+	
+ 	
+
+ 	<bean class="id.co.sigma.commonlib.importengine.io.ItemWriterTester" name="wrappedResultWritterTester">
+	
+	
+	</bean>
+	
+	
+	
+
+	<bean name="uploadDataWriter"
+		class="id.co.sigma.commonlib.importengine.io.UploadDataJDBCBatchWriter"
+		scope="step">
+		
+		<property name="assertUpdates" value="true"/>
+		<property name="fileConfigurationId" value="#{jobParameters['fileConfigurationId']}"></property>
+		<property name="selectStatementParameterGroupKey" value="#{jobParameters['QUERY_PARAM_GROUP_KEY']}"/>
+		<property name="dataSource" ref="batchWorkingDataSource"/>
+		
+		
+	</bean>
+
+
+	
+	<bean name="simpleFlatFileProcessor"
+		class="id.co.sigma.commonlib.importengine.io.SimpleFlatFileDataProcessor"
+		scope="step">
+
+		<property name="fileConfigurationId" value="#{jobParameters['fileConfigurationId']}"></property>
+	</bean>
+
+	<bean name="commonSeparatedFileReader"
+		class="org.springframework.batch.item.file.FlatFileItemReader"  scope="step"
+		lazy-init="true">
+		<description>common bean untuk membaca separated file, 
+ntah coma, ; | etc
+		</description>
+		<property name="lineMapper"
+			ref="flatFileToArrayOfStringMapper">
+		</property>
+		<property name="linesToSkip" value="#{jobParameters['lineToSkip']}"/>
+		<property name="resource" value="file:///#{jobParameters['absoluteFilePath']}"></property>
+		
+		<!-- 
+		
+		file://#{jobParameters['absoluteFilePath']} -->
+	</bean>
+
+	<bean name="flatFileToArrayOfStringFieldSetMapper" 
+		class="id.co.sigma.commonlib.importengine.io.SimpleFlatFileDataMapper" >
+		<description>ini bean untuk mapping flat file ke array of string.
+		tidak ada konversi sama sekali. ini dari field set</description>
+	</bean>
+	
+	
+	
+	<bean name="flatFileToArrayOfStringTokenizer"
+		class="id.co.sigma.commonlib.importengine.io.FlatFileToArrayOfStringTokenizer"  scope="step">
+		<description>tokenizer dari string.
+		class ini di override agar parameter berikut : 
+		1. delimiter = delimiter untuk file, char--> | , etc
+		2. names = nama column dalam flat file
+		sebatas untuk simplifikasi
+		</description>
+		<property name="fileConfigurationId" value="#{jobParameters['fileConfigurationId']}"/>
+	</bean>
+	<bean name="flatFileToArrayOfStringMapper"
+		class="org.springframework.batch.item.file.mapping.DefaultLineMapper"  scope="step">
+		<description>ini di pergunakan oleh reader untuk memmapper data. 
+		</description>
+		<property name="lineTokenizer"
+			ref="flatFileToArrayOfStringTokenizer">
+		</property>
+		<property name="fieldSetMapper"
+			ref="flatFileToArrayOfStringFieldSetMapper">
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
