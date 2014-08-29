@@ -28,7 +28,7 @@ public interface IGeneralPurposeService extends IBaseService{
 	/**
 	 * update object
 	 */
-	@Transactional
+	@Transactional(readOnly=false )
 	public void update(Serializable object)throws Exception;
 
 }
