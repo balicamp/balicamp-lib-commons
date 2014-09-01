@@ -1,6 +1,6 @@
 package id.co.sigma.common.security.exception;
 
-import id.co.sigma.common.util.I18Utilities;
+
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
@@ -103,8 +103,10 @@ public class PasswordPolicyException extends Exception/*BaseIsSerializableExcept
 		String printedDetailMessage = "Detail Message : \n";
 		int number = 0;
 		for (int index = 0; index < detailMessages.size(); index++) {
-			if (detailMessages.get(index) != null)
-				printedDetailMessage += (++number) + ". "+ I18Utilities.getInstance().getInternalitionalizeText(i18nKeyDetailMessages.get(index), detailMessages.get(index) + passValues.get(index)) + "\n";
+			if (detailMessages.get(index) != null){
+				printedDetailMessage += i18nKeyDetailMessages.get(index) ; 
+				//printedDetailMessage += (++number) + ". "+ I18Utilities.getInstance().getInternalitionalizeText(i18nKeyDetailMessages.get(index), detailMessages.get(index) + passValues.get(index)) + "\n";
+			}
 		}
 		return printedDetailMessage;
 	}

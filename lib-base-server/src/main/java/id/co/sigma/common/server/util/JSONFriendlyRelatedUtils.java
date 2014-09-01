@@ -207,17 +207,6 @@ public class JSONFriendlyRelatedUtils {
 	
 	
 	
-	public static void main (String[] args){
-		
-		
-		
-		
-		JSONFriendlyRelatedUtils u = new JSONFriendlyRelatedUtils(); 
-		
-		System.out.println(  u.generateMethodRaw("id.co.sigma.common.data.approval.CommonApprovalHeader"));
-		/*
-		System.out.println(String[].class.getName());
-		*/
-	}
+	
 
 }

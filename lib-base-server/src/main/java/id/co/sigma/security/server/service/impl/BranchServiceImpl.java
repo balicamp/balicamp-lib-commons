@@ -51,7 +51,7 @@ public class BranchServiceImpl implements IBranchService{
 			dto.setBranchName(branch.getBranchName());
 			dto.setBranchAddress(branch.getBranchAddress());
 			dto.setBranchDescription(branch.getDescription());
-			dto.setBranchStatus(branch.getStatus());
+			dto.setBranchStatus(branch.getDataStatusCode());
 			actualDataDTO.add(dto);
 		}
 		
@@ -76,7 +76,7 @@ public class BranchServiceImpl implements IBranchService{
 			temp.setBranchName(data.getBranchName());
 			temp.setBranchParendId(data.getBranchParendId());
 			temp.setDescription(data.getDescription());
-			temp.setStatus(data.getStatus());
+			temp.setDataStatusCode(data.getDataStatusCode());
 			temp.setModifiedOn(new Date());			
 			branchDao.update(temp);
 		}

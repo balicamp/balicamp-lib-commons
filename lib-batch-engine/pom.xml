@@ -10,7 +10,7 @@
 	<parent>
         <groupId>id.co.sigma.commonlib</groupId>
         <artifactId>balicamp-lib-commons</artifactId>
-        <version>1.6</version>
+        <version>1.6.1</version>
     </parent>
 	<properties>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>

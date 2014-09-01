@@ -41,10 +41,10 @@ public class DataPopulator implements InitializingBean{
 			@Override
 			public Integer doInTransaction(TransactionStatus arg0) {
 				try {
-					//populatePerson();
-					//populateLOV();
-					//populateDepartement();
-					//populateUser();
+					populatePerson();
+					populateLOV();
+					populateDepartement();
+					populateUser();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

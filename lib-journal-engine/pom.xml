@@ -9,7 +9,7 @@
 	<parent>
         <groupId>id.co.sigma.commonlib</groupId>
         <artifactId>balicamp-lib-commons</artifactId>
-        <version>1.6</version>
+        <version>1.6.1</version>
     </parent>
 
 
@@ -54,23 +54,13 @@
     </build>
 
     <dependencies>
+		<dependency>
+			<groupId>id.co.sigma.commonlib</groupId>
+			<artifactId>lib-base-server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
-
-
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${lib.junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-
-    <dependency>
-		<groupId>org.hibernate.javax.persistence</groupId>
-		<artifactId>hibernate-jpa-2.1-api</artifactId>
-		<version>1.0.0.Final</version>
-	</dependency>
+   
     </dependencies>
     <description>Simple journal engine. untuk transaksi akuntansi sederhana</description>
 

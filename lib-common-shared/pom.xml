@@ -9,7 +9,7 @@
 	<parent>
         <groupId>id.co.sigma.commonlib</groupId>
         <artifactId>balicamp-lib-commons</artifactId>
-        <version>1.6</version>
+        <version>1.6.1</version>
     </parent>
 
 
@@ -67,11 +67,6 @@
 
     <dependencies>
 
-    <dependency>
-    	<artifactId>lib-common</artifactId>
-    	<groupId>id.co.sigma.commonlib</groupId>
-    	<version>${project.version}</version>
-    </dependency>
 
 
 

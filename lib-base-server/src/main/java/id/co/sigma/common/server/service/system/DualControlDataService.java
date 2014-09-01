@@ -27,7 +27,17 @@ import org.springframework.transaction.annotation.Transactional;
  **/
 public interface DualControlDataService {
 	
-	
+	/**
+	 * worker unuk memasukan data ke dalam approval master
+	 * @param dualControlledData  data yang perlu approval
+	 * @param approvalRequestRemark catatan dalam proses approval request
+	 * @param operation operasi : create , update , delete
+	 **/
+	@Transactional(readOnly=false ,propagation=Propagation.REQUIRED)
+	public CommonDualControlContainerTable submitDataForApproval(
+			DualControlEnabledData<?,?> dualControlledData,
+			String approvalRequestRemark , 
+			DualControlEnabledOperation operation) throws Exception ;
 	
 	/**
 	 * worker untuk memproses data untuk proses approval

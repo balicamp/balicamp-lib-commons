@@ -90,7 +90,7 @@ public class UserGroupDaoImpl extends BaseGenericDao implements IUserGroupDao{
 		if(resultFind != null){
 			resultFind.setGroupCode(data.getGroupCode());
 			resultFind.setGroupName(data.getGroupName());
-			resultFind.setStatus(data.getStatus());
+			resultFind.setActiveFlag(data.getActiveFlag());
 			resultFind.setSuperGroup(data.getSuperGroup());			
 			update(resultFind);
 		}

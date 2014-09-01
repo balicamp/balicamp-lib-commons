@@ -45,7 +45,7 @@ public abstract class GenericCustomLOVProvider<KEY, DATA> extends BaseSelfRegist
 	public List<CommonLOV> getLookupValues(String localizationCode) {
 		try {
 			@SuppressWarnings("rawtypes")
-			List swap  =  dao.list(getLOVSourceClass(), getLOVSorter());
+			List swap  =  invokeSelectData(localizationCode); 
 		
 			@SuppressWarnings("unchecked")
 			List<DATA> allData = (List<DATA>)swap; 
@@ -73,6 +73,17 @@ public abstract class GenericCustomLOVProvider<KEY, DATA> extends BaseSelfRegist
 		}
 	}
 	
+	
+	
+	
+	/**
+	 * worker untuk melakukan select ke database
+	 */
+	protected  List<DATA> invokeSelectData (String localizationCode ) {
+		return dao.list(getLOVSourceClass(), getLOVSorter());
+		
+	} 
+ 	
 	
 	
 	/**

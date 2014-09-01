@@ -6,7 +6,7 @@
 package id.co.sigma.common.security.domain;
 
 
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
-import id.co.sigma.common.util.json.IJSONFriendlyObject;
+import id.co.sigma.common.data.app.SimpleDualControlData;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 /**
@@ -27,7 +26,7 @@ import id.co.sigma.common.util.json.ParsedJSONContainer;
  */
 @Entity
 @Table(name="sec_branch")
-public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Branch>{
+public class Branch extends SimpleDualControlData<Branch>{
 
 	private static final long serialVersionUID = 1430766844084002850L;
 	
@@ -63,12 +62,7 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 	**/
 	@Column(name="branch_address", length=128)
 	private String branchAddress;
-	/**
-	* status<br/>
-	* column :data_status
-	**/
-	@Column(name="data_status", length=1)
-	private String status;
+	
 	/**
 	* deskripsi<br/>
 	* column :DESCRIPTION
@@ -161,20 +155,7 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 	public String getBranchAddress(){
 	    return this.branchAddress;
 	}
-	/**
-	* status<br/>
-	* column :STATUS
-	**/
-	public void setStatus(String status){
-	  this.status=status;
-	}
-	/**
-	* status<br/>
-	* column :STATUS
-	**/
-	public String getStatus(){
-	    return this.status;
-	}
+	
 	/**
 	* deskripsi<br/>
 	* column :DESCRIPTION
@@ -205,7 +186,7 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		
 		return result;
 	}
 	
@@ -248,11 +229,7 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
+		
 		return true;
 	}
 	
@@ -260,7 +237,7 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 	public String toString() {
 		return "Branch [id=" + id + ", branchParendId=" + branchParendId
 				+ ", branchCode=" + branchCode + ", branchName=" + branchName
-				+ ", branchAddress=" + branchAddress + ", status=" + status
+				+ ", branchAddress=" + branchAddress 
 				+ ", description=" + description + "]";
 	}
 	
@@ -270,32 +247,75 @@ public class Branch extends BaseAuditedObject implements IJSONFriendlyObject<Bra
 		jsonContainer.put("branchCode",getBranchCode());
 		jsonContainer.put("branchName",getBranchName());
 		jsonContainer.put("branchParendId",getBranchParendId());
-		jsonContainer.put("createdBy",getCreatedBy());
-		jsonContainer.put("createdOn",getCreatedOn());
-		jsonContainer.put("creatorIPAddress",getCreatorIPAddress());
 		jsonContainer.put("description",getDescription());
 		jsonContainer.put("id",getId());
-		jsonContainer.put("modifiedBy",getModifiedBy());
-		jsonContainer.put("modifiedByIPAddress",getModifiedByIPAddress());
-		jsonContainer.put("modifiedOn",getModifiedOn());
-		jsonContainer.put("status",getStatus());
+		
 	}
+	
+	
+	
+	public static final String[] MODIFABLE_FIELDS = {
+		"branchAddress" , "branchCode", "branchName" , "branchParendId"  , "description" , "status"
+	}; 
+
 	@Override
-	public Branch instantiateFromJSON(ParsedJSONContainer jsonContainer) {
-		Branch retval = new Branch();
+	public String[] retrieveModifableFields() {
+		return MODIFABLE_FIELDS;
+	}
+
+	@Override
+	public void setActiveFlag(String activeFlag) {
+		setDataStatusCode(activeFlag);
+		
+	}
+
+	@Override
+	public String getActiveFlag() {
+		return getDataStatusCode();
+	}
+
+	@Override
+	public Long getPrimaryKey() {
+		return id;
+	}
+
+	@Override
+	public Class<Long> getPrimaryKeyClassType() {
+		return Long.class;
+	}
+
+	@Override
+	public String getKey1AsString() {
+		return null;
+	}
+
+	@Override
+	public String getKey2AsString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isEraseDataOnApproveErase() {
+		return true;
+	}
+
+	@Override
+	public String getPrimaryKeyJPAName() {
+		return "id";
+	}
+
+	@Override
+	protected void extractDataFromJSON(Branch targetObject,
+			ParsedJSONContainer jsonContainer) {
+		Branch retval =targetObject;
 		retval.setBranchAddress( (String)jsonContainer.get("branchAddress" ,  String.class.getName()));
 		retval.setBranchCode( (String)jsonContainer.get("branchCode" ,  String.class.getName()));
 		retval.setBranchName( (String)jsonContainer.get("branchName" ,  String.class.getName()));
 		retval.setBranchParendId( (Long)jsonContainer.get("branchParendId" ,  Long.class.getName()));
-		retval.setCreatedBy( (String)jsonContainer.get("createdBy" ,  String.class.getName()));
-		retval.setCreatedOn( (Date)jsonContainer.get("createdOn" ,  Date.class.getName()));
-		retval.setCreatorIPAddress( (String)jsonContainer.get("creatorIPAddress" ,  String.class.getName()));
 		retval.setDescription( (String)jsonContainer.get("description" ,  String.class.getName()));
 		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
-		retval.setModifiedBy( (String)jsonContainer.get("modifiedBy" ,  String.class.getName()));
-		retval.setModifiedByIPAddress( (String)jsonContainer.get("modifiedByIPAddress" ,  String.class.getName()));
-		retval.setModifiedOn( (Date)jsonContainer.get("modifiedOn" ,  Date.class.getName()));
-		retval.setStatus( (String)jsonContainer.get("status" ,  String.class.getName()));
-		return retval; 
+		
+		
 	}
 }

@@ -21,6 +21,7 @@ import id.co.sigma.common.exception.InvalidExcelFileException;
 import id.co.sigma.common.server.dao.IGeneralPurposeDao;
 import id.co.sigma.common.server.dao.util.ServerSideParsedJSONArrayContainer;
 import id.co.sigma.common.server.dao.util.ServerSideParsedJSONContainer;
+import id.co.sigma.common.server.dao.util.ServerSideWrappedJSONParser;
 import id.co.sigma.common.server.service.AbstractService;
 import id.co.sigma.common.server.service.BaseCustomTargetDataLoader;
 import id.co.sigma.common.server.service.ICustomBulkDataAdditionalPropertyBinder;
@@ -163,6 +164,27 @@ public class DualControlDataServiceImpl extends AbstractService
 			ICustomBulkDualControlValidator<DATA> validator) {
 		indexedBulkValidators.put(validator.getHandledClass().getName(), validator) ; 
 	}
+	
+	@Override
+	public CommonDualControlContainerTable submitDataForApproval(
+			DualControlEnabledData<?, ?> dualControlledData,
+			String approvalRequestRemark, DualControlEnabledOperation operation)
+			throws Exception {
+		CommonDualControlContainerTable wrapper = new CommonDualControlContainerTable() ; 
+		wrapper.setApprovalRemark(approvalRequestRemark);
+		wrapper.setCreatedTime(new Date());
+		wrapper.setCreatorUserId(getCurrentUserName());
+		wrapper.setKey1(dualControlledData.getKey1AsString());
+		wrapper.setKey2(wrapper.getKey2());
+		wrapper.setOperationCode(operation.toString());
+		wrapper.setTargetObjectFQCN(dualControlledData.getClass().getName());
+		ParsedJSONContainer c =  SharedServerClientLogicManager.getInstance().getJSONParser().createBlankObject();
+		dualControlledData.translateToJSON(c);
+		wrapper.setJsonData(c.getJSONString());
+		return submitDataForApproval(wrapper , operation);
+	}
+	
+	
 	
 	@Override
 	public CommonDualControlContainerTable submitDataForApproval(
@@ -1028,6 +1050,7 @@ public class DualControlDataServiceImpl extends AbstractService
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		SharedServerClientLogicManager.getInstance().setJSONParser( ServerSideWrappedJSONParser.getInstance());
 		List<DualControlDefinition> defs =  generalPurposeDao.list(DualControlDefinition.class, null );
 		if ( defs != null && !defs.isEmpty()){
 			for ( DualControlDefinition scn : defs){
@@ -1255,4 +1278,6 @@ public class DualControlDataServiceImpl extends AbstractService
 		retval.setLatestWaitingApprovalData(getLatestWaitingApprovalData(fqcn));
 		return retval;
 	}
+
+	
 }

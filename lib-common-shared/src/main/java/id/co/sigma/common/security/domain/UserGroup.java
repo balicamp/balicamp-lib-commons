@@ -5,9 +5,10 @@
  */
 package id.co.sigma.common.security.domain;
 
-import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
-import id.co.sigma.common.util.json.IJSONFriendlyObject;
+import id.co.sigma.common.data.app.SimpleDualControlData;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
+
+
 
 
 import java.util.Date;
@@ -30,7 +31,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_group")
-public class UserGroup extends BaseAuditedObject implements IJSONFriendlyObject<UserGroup>{
+public class UserGroup extends SimpleDualControlData<UserGroup>{
 
 	private static final long serialVersionUID = 8417245322597100469L;
 	
@@ -40,14 +41,14 @@ public class UserGroup extends BaseAuditedObject implements IJSONFriendlyObject<
 	**/
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="group_id" , nullable=false )
+	@Column(name="pk" , nullable=false )
 	private Long id;
 	/**
 	* id applikasi<br/>
 	* column :APPLICATION_ID
 	**/
 	@Column(name="app_id" , nullable=false)
-	private Long applicationId;
+	private Long applicationId = 1L; 
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="app_id", insertable=false, updatable=false)
@@ -75,8 +76,8 @@ public class UserGroup extends BaseAuditedObject implements IJSONFriendlyObject<
 	* status<br/>
 	* column :data_status
 	**/
-	@Column(name="data_status",length=1)
-	private String status;
+	@Column(name="active_flag",length=1)
+	private String activeFlag ="A";
 
 	/**
 	* group id<br/>
@@ -162,103 +163,14 @@ public class UserGroup extends BaseAuditedObject implements IJSONFriendlyObject<
 	public String getSuperGroup(){
 	    return this.superGroup;
 	}
-	/**
-	* status<br/>
-	* column :STATUS
-	**/
-	public void setStatus(String status){
-	  this.status=status;
-	}
-	/**
-	* status<br/>
-	* column :STATUS
-	**/
-	public String getStatus(){
-	    return this.status;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((application == null) ? 0 : application.hashCode());
-		result = prime * result
-				+ ((applicationId == null) ? 0 : applicationId.hashCode());
-		result = prime * result
-				+ ((groupCode == null) ? 0 : groupCode.hashCode());
-		result = prime * result
-				+ ((groupName == null) ? 0 : groupName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result
-				+ ((superGroup == null) ? 0 : superGroup.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserGroup other = (UserGroup) obj;
-		if (application == null) {
-			if (other.application != null)
-				return false;
-		} else if (!application.equals(other.application))
-			return false;
-		if (applicationId == null) {
-			if (other.applicationId != null)
-				return false;
-		} else if (!applicationId.equals(other.applicationId))
-			return false;
-		if (groupCode == null) {
-			if (other.groupCode != null)
-				return false;
-		} else if (!groupCode.equals(other.groupCode))
-			return false;
-		if (groupName == null) {
-			if (other.groupName != null)
-				return false;
-		} else if (!groupName.equals(other.groupName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (superGroup == null) {
-			if (other.superGroup != null)
-				return false;
-		} else if (!superGroup.equals(other.superGroup))
-			return false;
-		return true;
-	}
-	@Override
-	public String toString() {
-		return "UserGroup [id=" + id + ", applicationId=" + applicationId
-				+ ", application=" + application + ", groupCode=" + groupCode
-				+ ", groupName=" + groupName + ", superGroup=" + superGroup
-				+ ", status=" + status + "]";
-	}
+	
 	
 	@Override
 	public void translateToJSON(ParsedJSONContainer jsonContainer) {
 		  
 		 Application param1 = getApplication();   
-		 if ( param1 != null){ 
-		
- //1. Ok tampung dulu variable
-//2. null kan variable 
-// 3 taruh ke json
+		 if ( param1 != null){
 			jsonContainer.put("application", param1);
-//4. restore lagi 
 		}
 		jsonContainer.put("application",getApplication());
 		jsonContainer.put("applicationId",getApplicationId());
@@ -271,27 +183,64 @@ public class UserGroup extends BaseAuditedObject implements IJSONFriendlyObject<
 		jsonContainer.put("modifiedBy",getModifiedBy());
 		jsonContainer.put("modifiedByIPAddress",getModifiedByIPAddress());
 		jsonContainer.put("modifiedOn",getModifiedOn());
-		jsonContainer.put("status",getStatus());
+		jsonContainer.put("activeFlag",getActiveFlag());
 		jsonContainer.put("superGroup",getSuperGroup());
 	}
 	
+	
+	private static final String [] MODIFABLE_FIELDS ={
+		"applicationId", "groupCode","groupName", "superGroup"	,"activeFlag"
+	}; 
+	
+	
 	@Override
-	public UserGroup instantiateFromJSON(ParsedJSONContainer jsonContainer) {
-		UserGroup retval = new UserGroup();
-		  
-		retval.setApplication( (Application)jsonContainer.get("application" ,  Application.class.getName()));
-		retval.setApplicationId( (Long)jsonContainer.get("applicationId" ,  Long.class.getName()));
-		retval.setCreatedBy( (String)jsonContainer.get("createdBy" ,  String.class.getName()));
-		retval.setCreatedOn( (Date)jsonContainer.get("createdOn" ,  Date.class.getName()));
-		retval.setCreatorIPAddress( (String)jsonContainer.get("creatorIPAddress" ,  String.class.getName()));
+	public String[] retrieveModifableFields() {
+		return MODIFABLE_FIELDS;
+	}
+	@Override
+	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag ; 
+		
+	}
+	@Override
+	public String getActiveFlag() {
+		return activeFlag;
+	}
+	@Override
+	public Long getPrimaryKey() {
+		return id;
+	}
+	@Override
+	public Class<Long> getPrimaryKeyClassType() {
+		return Long.class;
+	}
+	@Override
+	public String getKey1AsString() {
+		return applicationId + "";
+	}
+	@Override
+	public String getKey2AsString() {
+		return groupCode;
+	}
+	@Override
+	public boolean isEraseDataOnApproveErase() {
+		return true;
+	}
+	@Override
+	public String getPrimaryKeyJPAName() {
+		return "id";
+	}
+	@Override
+	protected void extractDataFromJSON(UserGroup targetObject,
+			ParsedJSONContainer jsonContainer) {
+		UserGroup retval = targetObject;
 		retval.setGroupCode( (String)jsonContainer.get("groupCode" ,  String.class.getName()));
 		retval.setGroupName( (String)jsonContainer.get("groupName" ,  String.class.getName()));
 		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
 		retval.setModifiedBy( (String)jsonContainer.get("modifiedBy" ,  String.class.getName()));
 		retval.setModifiedByIPAddress( (String)jsonContainer.get("modifiedByIPAddress" ,  String.class.getName()));
 		retval.setModifiedOn( (Date)jsonContainer.get("modifiedOn" ,  Date.class.getName()));
-		retval.setStatus( (String)jsonContainer.get("status" ,  String.class.getName()));
+		retval.setActiveFlag(  (String)jsonContainer.get("activeFlag" ,  String.class.getName()));
 		retval.setSuperGroup( (String)jsonContainer.get("superGroup" ,  String.class.getName()));
-		return retval; 
 	}
 }

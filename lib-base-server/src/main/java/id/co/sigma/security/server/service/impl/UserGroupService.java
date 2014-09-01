@@ -55,7 +55,7 @@ public class UserGroupService implements IUserGroupService{
 			dto.setId(userGroup.getId().intValue());
 			dto.setGroupCode(userGroup.getGroupCode());
 			dto.setGroupName(userGroup.getGroupName());
-			dto.setStatus(userGroup.getStatus());
+			dto.setStatus(userGroup.getActiveFlag());
 			dto.setSuperGroup(userGroup.getSuperGroup());
 			holderData.add(dto);
 		}
@@ -98,7 +98,7 @@ public class UserGroupService implements IUserGroupService{
 		dto.setId(userGroup.getId().intValue());
 		dto.setGroupCode(userGroup.getGroupCode());
 		dto.setGroupName(userGroup.getGroupName());
-		dto.setStatus(userGroup.getStatus());
+		dto.setStatus(userGroup.getActiveFlag());
 		dto.setSuperGroup(userGroup.getSuperGroup());
 		dto.setApplicationId(userGroup.getApplicationId());
 		return dto;
