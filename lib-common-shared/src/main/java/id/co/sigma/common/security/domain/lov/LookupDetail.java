@@ -55,8 +55,7 @@ public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendly
 	@ManyToOne(targetEntity=LookupHeader.class , fetch=FetchType.LAZY  )
 	@JoinColumns( 
 				value={
-						@JoinColumn(name="LOV_ID" , updatable=false , insertable=false , referencedColumnName="LOV_ID") , 
-						@JoinColumn(name="i18_CODE" , updatable=false, insertable=false , referencedColumnName="i18_CODE")
+						@JoinColumn(name="LOV_ID" , updatable=false , insertable=false , referencedColumnName="LOV_ID") 
 				} 
 			)
 	
@@ -107,7 +106,6 @@ public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendly
 		this.detailCode = detailCode;
 		this.label = label;
 		this.sequence = sequence;
-		this.i18Key = header.getI18Key(); 
 		this.headerId = header.getId(); 
 	}
 

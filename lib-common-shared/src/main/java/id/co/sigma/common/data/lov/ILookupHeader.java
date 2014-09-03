@@ -11,13 +11,6 @@ public interface ILookupHeader {
 	public abstract boolean isCacheable();
 
 	
-	/**
-	 * internalization code
-	 **/
-	public void setI18Key(String i18Key) ;
-	/**
-	 * internalization code
-	 **/
-	public String getI18Key();
+	
 		
 }

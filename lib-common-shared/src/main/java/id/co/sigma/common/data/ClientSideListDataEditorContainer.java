@@ -22,24 +22,24 @@ public class ClientSideListDataEditorContainer<DATA> implements Serializable {
 	/**
 	 * handler pada saat data berganti
 	 **/
-	protected List<Command> handlerOnDataChange ; 
+	protected List<Command> handlerOnDataChange  = new ArrayList<Command>(); 
 	
 	/**
 	 * data yang baru di add new ke dalam data(belum di simpan ke dalam database)
 	 **/
-	protected List<DATA> newlyAppendedData ; 
+	protected List<DATA> newlyAppendedData = new ArrayList<DATA>() ; 
 	/**
 	 * data yang sudah di simpan di database, dan di modifikasi di client(kelompok ini musti issue -> update statement)
 	 **/
-	protected List<DATA> editedData ;
+	protected List<DATA> editedData  = new ArrayList<DATA>();
 	/**
 	 * semua data yang visible di client(yang baru, yang di edit, yang sama sekali tidak di modifikasi)
 	 **/
-	protected List<DATA> allStillExistData ;
+	protected List<DATA> allStillExistData = new ArrayList<DATA>();
 	/**
 	 * item yang di hapus
 	 **/
-	private List<DATA> erasedData ;
+	private List<DATA> erasedData  = new ArrayList<DATA>();
 	
 	
 	

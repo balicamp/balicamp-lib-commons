@@ -78,7 +78,7 @@ public class DataPopulator implements InitializingBean{
 	private void populateLOV() throws Exception {
 		LookupHeader head1 = new LookupHeader(); 
 		head1.setCacheable(true);
-		head1.setI18Key("id");
+		
 		head1.setId("JENIS_KELAMIN");
 		head1.setRemark("Sample1");
 		head1.setDetails(new ArrayList<LookupDetail>());
@@ -112,7 +112,7 @@ public class DataPopulator implements InitializingBean{
 		headKab.setId("KABUPATEN");
 		headKab.setCacheableFlag("N");
 		headKab.setRemark("sample Kab");
-		headKab.setI18Key("id");
+		
 		headKab.setDetails(new ArrayList<LookupDetail>());
 		
 		headKab.getDetails().add(new LookupDetail(headKab, "TBN", "Tabanan",1));

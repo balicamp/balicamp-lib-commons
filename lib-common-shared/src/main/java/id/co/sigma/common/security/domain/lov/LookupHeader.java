@@ -1,6 +1,7 @@
 package id.co.sigma.common.security.domain.lov;
 
 import static javax.persistence.LockModeType.READ;
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.lov.ILookupHeader;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
@@ -30,7 +31,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="m_lookup_header" )
 @NamedQuery(name = "sample", lockMode = READ, query = "Select A FROm  LookupHeader A")
-public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendlyObject<LookupHeader>{
+public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendlyObject<LookupHeader>, SingleKeyEntityData<String>{
 	
 	/**
 	 * 
@@ -44,12 +45,7 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 	
 	
 	
-	/**
-	 * kode internalization
-	 * column : i18_CODE. 
-	 **/
-	@Column(name="i18_CODE")
-	private String i18Key ; 
+	
 	@Column(name="LOV_REMARK")
 	private String remark ; 
 	
@@ -148,25 +144,7 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 		return getRemark();
 	}
 
-	/**
-	 * kode internalization
-	 * column : i18_CODE. 
-	 **/
-	@Override
-	public void setI18Key(String i18Key) {
-		this.i18Key=i18Key;
-		
-	}
-
-	/**
-	 * kode internalization
-	 * column : i18_CODE. 
-	 **/
-	@Override
-	public String getI18Key() {
-		return i18Key;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -174,7 +152,7 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 		result = prime * result
 				+ ((cacheableFlag == null) ? 0 : cacheableFlag.hashCode());
 		result = prime * result + ((details == null) ? 0 : details.hashCode());
-		result = prime * result + ((i18Key == null) ? 0 : i18Key.hashCode());
+		
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((remark == null) ? 0 : remark.hashCode());
 		result = prime * result + ((version == null) ? 0 : version.hashCode());
@@ -200,11 +178,7 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 				return false;
 		} else if (!details.equals(other.details))
 			return false;
-		if (i18Key == null) {
-			if (other.i18Key != null)
-				return false;
-		} else if (!i18Key.equals(other.i18Key))
-			return false;
+		
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -223,13 +197,7 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "LookupHeader [id=" + id + ", i18Key=" + i18Key + ", remark="
-				+ remark + ", version=" + version + ", cacheableFlag="
-				+ cacheableFlag + "]";
-	}
-
+	
 	
 	@Override
 	public void translateToJSON(ParsedJSONContainer jsonContainer) {
