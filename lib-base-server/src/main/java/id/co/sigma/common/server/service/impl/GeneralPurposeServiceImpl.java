@@ -33,5 +33,11 @@ public class GeneralPurposeServiceImpl extends AbstractService implements IGener
 	public void update(Serializable object) throws Exception {
 		generalPurposeDao.update(object);
 		
+	}
+
+	@Override
+	public Integer delete(Class<?> objectClass, Serializable pk,
+			String pkFieldName) {
+		return generalPurposeDao.delete(objectClass, pk, pkFieldName); 
 	} 
 }

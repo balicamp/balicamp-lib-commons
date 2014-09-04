@@ -30,5 +30,14 @@ public interface IGeneralPurposeService extends IBaseService{
 	 */
 	@Transactional(readOnly=false )
 	public void update(Serializable object)throws Exception;
+	
+	
+	/**
+	 * hapus object dengan PK + class
+	 * @param objectClass class dari object yang di hapus
+	 * @param pk primary key dari data
+	 */
+	@Transactional
+	public Integer delete (Class<?> objectClass, Serializable pk , String pkFieldName); 
 
 }
