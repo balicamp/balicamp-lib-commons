@@ -38,6 +38,6 @@ public class GeneralPurposeServiceImpl extends AbstractService implements IGener
 	@Override
 	public Integer delete(Class<?> objectClass, Serializable pk,
 			String pkFieldName) {
-		return generalPurposeDao.delete(objectClass, pk, pkFieldName); 
+		return generalPurposeDao.delete(objectClass, pk, pkFieldName);  
 	} 
 }

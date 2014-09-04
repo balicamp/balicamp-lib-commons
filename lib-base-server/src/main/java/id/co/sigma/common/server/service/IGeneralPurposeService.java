@@ -22,7 +22,7 @@ public interface IGeneralPurposeService extends IBaseService{
 	 *@param object object(entity object) yang di hapus
 	 **/
 	@Transactional(readOnly=false )
-	public void delete (Serializable object) throws Exception;
+	public void delete (Serializable object) throws Exception; 
 	
 	
 	/**
