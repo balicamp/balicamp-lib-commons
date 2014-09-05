@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
@@ -26,7 +27,7 @@ import id.co.sigma.common.util.json.ParsedJSONContainer;
  */
 @Entity
 @Table(name="sec_branch")
-public class Branch extends SimpleDualControlData<Branch>{
+public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEntityData<Long>{
 
 	private static final long serialVersionUID = 1430766844084002850L;
 	
