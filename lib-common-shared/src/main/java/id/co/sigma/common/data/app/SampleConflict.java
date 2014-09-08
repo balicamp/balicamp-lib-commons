@@ -31,9 +31,16 @@ public class SampleConflict {
 		// TODO Auto-generated method stub
 		return super.clone();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
 	
 	public void Tests(){
 		System.out.println("Hallo brow");
+		System.out.println("Arie");
 	}
 	
 	
