@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  **/
 @XmlRootElement
 @XmlType(propOrder = {"parentId","localeId","version","configurationLabel","missingLabelKeys"})
-public class AppFormConfiguration       implements IJSONFriendlyObject<AppFormConfiguration>{
+public class AppFormConfiguration implements IJSONFriendlyObject<AppFormConfiguration>{
 	
 	/**
 	 * 
