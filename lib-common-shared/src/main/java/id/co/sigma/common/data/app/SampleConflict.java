@@ -52,6 +52,8 @@ public class SampleConflict {
 		System.out.println("Eka ni brow");
 		System.out.println("Conflict dong");
 		System.out.println("Confliiiicttttt");
+		System.out.println("Conflict dong");
+		System.out.println("Confliiiicttttt");
 	}
 	public void ConflicBos(){
 		System.out.println("Test pak bos");
