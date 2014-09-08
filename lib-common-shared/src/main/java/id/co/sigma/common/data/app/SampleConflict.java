@@ -47,8 +47,12 @@ public class SampleConflict {
 	
 	public void test2(){
 		System.out.println("tes 123");
+		System.out.println("Tset Lagi");
 		System.out.println("Test134");
 		System.out.println("Conflict dong");
+	}
+	public void ConflicBos(){
+		System.out.println("Test pak bos");
 	}
 	
 	
