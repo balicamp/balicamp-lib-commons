@@ -51,7 +51,7 @@ public class SampleConflict {
 		System.out.println("Test134");
 	}
 	public void ConflicBos(){
-		
+		System.out.println("Test pak bos");
 	}
 	
 	
