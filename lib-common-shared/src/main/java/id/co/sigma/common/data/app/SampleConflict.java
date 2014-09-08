@@ -33,7 +33,7 @@ public class SampleConflict {
 	}
 	
 	public void Tests(){
-		
+		System.out.println("Hallo brow");
 	}
 	
 	
