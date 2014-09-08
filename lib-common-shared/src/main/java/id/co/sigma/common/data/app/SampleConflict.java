@@ -50,6 +50,7 @@ public class SampleConflict {
 		System.out.println("Tset Lagi");
 		System.out.println("Test134");
 		System.out.println("Conflict dong");
+		System.out.println("Confliiiicttttt");
 	}
 	public void ConflicBos(){
 		System.out.println("Test pak bos");
