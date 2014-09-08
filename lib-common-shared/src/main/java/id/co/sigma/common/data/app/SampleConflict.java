@@ -42,6 +42,11 @@ public class SampleConflict {
 		System.out.println("Hallo brow");
 		System.out.println("Eka");
 		System.out.println("Raka Sanjaya");
+		System.out.println("Goesde");
+	}
+	
+	public void test2(){
+		System.out.println("tes 123");
 	}
 	
 	
