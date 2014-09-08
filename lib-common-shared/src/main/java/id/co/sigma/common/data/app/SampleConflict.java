@@ -25,6 +25,12 @@ public class SampleConflict {
 		// TODO Auto-generated method stub
 		return super.toString();
 	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 	
 	
 }
