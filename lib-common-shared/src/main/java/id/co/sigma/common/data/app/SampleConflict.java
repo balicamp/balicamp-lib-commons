@@ -47,6 +47,7 @@ public class SampleConflict {
 	
 	public void test2(){
 		System.out.println("tes 123");
+		System.out.println("Tset Lagi");
 	}
 	
 	
