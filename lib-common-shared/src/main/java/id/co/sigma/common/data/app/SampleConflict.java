@@ -17,4 +17,14 @@ public class SampleConflict {
 	public Branch getDataBranch(){
 		return new Branch();
 	}
+
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
+	
 }
