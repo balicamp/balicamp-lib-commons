@@ -32,5 +32,9 @@ public class SampleConflict {
 		return super.clone();
 	}
 	
+	public void Tests(){
+		
+	}
+	
 	
 }
