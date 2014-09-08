@@ -8,16 +8,16 @@ package id.co.sigma.common.security.domain;
 
 
 
+import id.co.sigma.common.data.SingleKeyEntityData;
+import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.util.json.ParsedJSONContainer;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import id.co.sigma.common.data.SingleKeyEntityData;
-import id.co.sigma.common.data.app.SimpleDualControlData;
-import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 /**
  * Entitiy untuk tabel : sec_branch
