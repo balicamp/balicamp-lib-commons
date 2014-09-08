@@ -39,7 +39,7 @@ public class SampleConflict {
 	}
 	
 	public void Tests(){
-		System.out.println("Arie");
+		System.out.println("Eka");
 	}
 	
 	
