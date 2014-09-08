@@ -44,5 +44,9 @@ public class SampleConflict {
 		System.out.println("Raka");
 	}
 	
+	public void test2(){
+		System.out.println("tes 123");
+	}
+	
 	
 }
