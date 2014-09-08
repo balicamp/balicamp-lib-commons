@@ -41,13 +41,17 @@ public class SampleConflict {
 	public void Tests(){
 		System.out.println("Hallo brow");
 		System.out.println("Eka");
-		System.out.println("Raka");
+		System.out.println("Raka Sanjaya");
 		System.out.println("Goesde");
 	}
 	
 	public void test2(){
 		System.out.println("tes 123");
 		System.out.println("Tset Lagi");
+		System.out.println("Test134");
+	}
+	public void ConflicBos(){
+		
 	}
 	
 	
