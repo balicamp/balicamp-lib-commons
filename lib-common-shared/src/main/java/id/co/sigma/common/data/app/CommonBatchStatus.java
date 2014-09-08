@@ -9,7 +9,7 @@ import id.co.sigma.common.util.json.ParsedJSONContainer;
  */
 public enum CommonBatchStatus implements IJSONFriendlyObject<CommonBatchStatus>{
 	
-	
+	      
 	
 	/**
 	 * belum di eksekusi sama sekali

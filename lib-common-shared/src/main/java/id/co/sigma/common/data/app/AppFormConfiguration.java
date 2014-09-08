@@ -39,7 +39,7 @@ public class AppFormConfiguration implements IJSONFriendlyObject<AppFormConfigur
 	 **/
 	protected ConfigurationLabel[] configurationLabels; 
 	
-	
+	     
 	
 	/**
 	 * daftar key dari label yang belum di definisi. ini bisa berakibat label tidak muncul properly
