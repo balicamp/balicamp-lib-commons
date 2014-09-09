@@ -5,9 +5,10 @@
  */
 package id.co.sigma.common.security.domain;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
-
 
 import java.util.Date;
 
@@ -29,7 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_user")
-public class User extends SimpleDualControlData<User> {
+public class User extends SimpleDualControlData<User> implements SingleKeyEntityData<Long>, IJSONFriendlyObject<User> {
 
 	private static final long serialVersionUID = -6026281510605996562L;
 	
@@ -310,15 +311,15 @@ public class User extends SimpleDualControlData<User> {
 	/**
 	 * Reference object UserPassword
 	 * @return password
-	 */
-	/*public UserPassword getPassword() {
+	 *//*
+	public UserPassword getPassword() {
 		return password;
-	}*/
-	/**
+	}
+	*//**
 	 * Reference object UserPassword
 	 * @param password
-	 */
-	/*public void setPassword(UserPassword password) {
+	 *//*
+	public void setPassword(UserPassword password) {
 		this.password = password;
 	}*/
 	
@@ -373,6 +374,23 @@ public class User extends SimpleDualControlData<User> {
 	public String getDefaultBranchCode() {
 		return defaultBranchCode;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userCode=" + userCode + ", expiredDate="
+				+ expiredDate + ", birthDate=" + birthDate + ", email=" + email
+				+ ", failedLoginAttempts=" + failedLoginAttempts
+				+ ", realName=" + realName + ", status=" + status + ", locale="
+				+ locale + ", defaultApplicationId=" + defaultApplicationId
+				+ ", activeFlag=" + activeFlag + ", defaultApplication="
+				+ defaultApplication + ", chipperText=" + chipperText
+				+ ", defaultBranchCode=" + defaultBranchCode + ", superAdmin="
+				+ superAdmin + "]";
+	}
+
+
+
 	@Override
 	public String[] retrieveModifableFields() {
 		// TODO Auto-generated method stub
@@ -423,6 +441,138 @@ public class User extends SimpleDualControlData<User> {
 		return superAdmin;		
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((activeFlag == null) ? 0 : activeFlag.hashCode());
+		result = prime * result
+				+ ((birthDate == null) ? 0 : birthDate.hashCode());
+		result = prime * result
+				+ ((chipperText == null) ? 0 : chipperText.hashCode());
+		result = prime
+				* result
+				+ ((defaultApplication == null) ? 0 : defaultApplication
+						.hashCode());
+		result = prime
+				* result
+				+ ((defaultApplicationId == null) ? 0 : defaultApplicationId
+						.hashCode());
+		result = prime
+				* result
+				+ ((defaultBranchCode == null) ? 0 : defaultBranchCode
+						.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((expiredDate == null) ? 0 : expiredDate.hashCode());
+		result = prime
+				* result
+				+ ((failedLoginAttempts == null) ? 0 : failedLoginAttempts
+						.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
+		result = prime * result
+				+ ((realName == null) ? 0 : realName.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result
+				+ ((superAdmin == null) ? 0 : superAdmin.hashCode());
+		result = prime * result
+				+ ((userCode == null) ? 0 : userCode.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (activeFlag == null) {
+			if (other.activeFlag != null)
+				return false;
+		} else if (!activeFlag.equals(other.activeFlag))
+			return false;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
+		if (chipperText == null) {
+			if (other.chipperText != null)
+				return false;
+		} else if (!chipperText.equals(other.chipperText))
+			return false;
+		if (defaultApplication == null) {
+			if (other.defaultApplication != null)
+				return false;
+		} else if (!defaultApplication.equals(other.defaultApplication))
+			return false;
+		if (defaultApplicationId == null) {
+			if (other.defaultApplicationId != null)
+				return false;
+		} else if (!defaultApplicationId.equals(other.defaultApplicationId))
+			return false;
+		if (defaultBranchCode == null) {
+			if (other.defaultBranchCode != null)
+				return false;
+		} else if (!defaultBranchCode.equals(other.defaultBranchCode))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (expiredDate == null) {
+			if (other.expiredDate != null)
+				return false;
+		} else if (!expiredDate.equals(other.expiredDate))
+			return false;
+		if (failedLoginAttempts == null) {
+			if (other.failedLoginAttempts != null)
+				return false;
+		} else if (!failedLoginAttempts.equals(other.failedLoginAttempts))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (locale == null) {
+			if (other.locale != null)
+				return false;
+		} else if (!locale.equals(other.locale))
+			return false;
+		if (realName == null) {
+			if (other.realName != null)
+				return false;
+		} else if (!realName.equals(other.realName))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (superAdmin == null) {
+			if (other.superAdmin != null)
+				return false;
+		} else if (!superAdmin.equals(other.superAdmin))
+			return false;
+		if (userCode == null) {
+			if (other.userCode != null)
+				return false;
+		} else if (!userCode.equals(other.userCode))
+			return false;
+		return true;
+	}
+
+
+
 	/**
 	 * flag super admin atau bukan
 	 **/
@@ -468,4 +618,5 @@ public class User extends SimpleDualControlData<User> {
 		jsonContainerData.put("chipperText", chipperText);
 		jsonContainerData.put("defaultBranchCode", defaultBranchCode);
 	}
+
 }
