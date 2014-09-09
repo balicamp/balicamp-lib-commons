@@ -5,6 +5,7 @@
  */
 package id.co.sigma.common.security.domain;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
@@ -31,7 +32,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_group")
-public class UserGroup extends SimpleDualControlData<UserGroup>{
+public class UserGroup extends SimpleDualControlData<UserGroup> implements SingleKeyEntityData<Long>{
 
 	private static final long serialVersionUID = 8417245322597100469L;
 	
