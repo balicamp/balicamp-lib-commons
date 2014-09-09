@@ -5,6 +5,7 @@
  */
 package id.co.sigma.common.security.domain;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
@@ -30,7 +31,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_menu")
-public class ApplicationMenu extends BaseAuditedObject implements IJSONFriendlyObject<ApplicationMenu> {
+public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntityData<Long>, IJSONFriendlyObject<ApplicationMenu> {
 	
 	private static final long serialVersionUID = -264680357828308703L;
 	
@@ -457,4 +458,6 @@ public class ApplicationMenu extends BaseAuditedObject implements IJSONFriendlyO
 		retval.setTreeLevelPosition( (Integer)jsonContainer.get("treeLevelPosition" ,  Integer.class.getName()));
 		return retval; 
 	}
+
+	
 }
