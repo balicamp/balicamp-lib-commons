@@ -85,6 +85,19 @@ public interface IBaseDao {
 	
 	
 	
+	
+	
+	
+	
+	/**
+	 * delete data dengan integer parent id. tidak harus parent id. field apa pun bisa
+	 * @param classToDelete class yang perlu di hapus
+	 * @param parentId id parent
+	 * @param parentFieldName nama field parent 
+	 *  
+	 */
+	public Integer deleteByParentId ( Class<?> classToDelete , Integer parentId, String parentFieldName );
+	
 	/**
 	 * delete dengan parent ID string. ini tidak harus dengan reference ke parent. field apapun yang match akan di hapus asal kriteria terpenuho
 	 * @param classToDelete class di hapus
@@ -181,9 +194,27 @@ public interface IBaseDao {
 	
 	/**
 	 * membaca data dengan simple filter
+	 * @param tableNameAndJoinArgument nama table + join nya. misal : Mahasiswa  di join dengan dosen --> di buat nya : <code>
+	 * Mahasiswa A join fetch A.dosenWali
+	 * </code> 
+	 * @param primaryTableNameAlias nama alias untuk primary table. dalam sample tadi : <i>A</i>
+	 * @param filters filters
+	 * @param sortArguments sort argument dari data
+	 * @param pageSize ukuran page per pembacaan data
+	 * @param firstRowPosition row pertama untuk di baca
 	 **/
 	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments,  int pageSize , int firstRowPosition) throws Exception;
 	
+	
+	
+	
+	
+	
+	/**
+	 * ini untuk data di ambil semua
+	 * 
+	 */
+	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception;
 	
 	/**
 	 * ini untuk count berapa data yang nemu 
