@@ -10,6 +10,8 @@ package id.co.sigma.common.security.domain;
 
 import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
+import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 import javax.persistence.Column;
@@ -27,7 +29,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_branch")
-public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEntityData<Long>{
+public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Long>, IJSONFriendlyObject<Branch> {
 
 	private static final long serialVersionUID = 1430766844084002850L;
 	
@@ -233,14 +235,14 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 		
 		return true;
 	}
-	
+	/*
 	@Override
 	public String toString() {
 		return "Branch [id=" + id + ", branchParendId=" + branchParendId
 				+ ", branchCode=" + branchCode + ", branchName=" + branchName
 				+ ", branchAddress=" + branchAddress 
 				+ ", description=" + description + "]";
-	}
+	}*/
 	
 	@Override
 	public void translateToJSON(ParsedJSONContainer jsonContainer) {
@@ -257,9 +259,21 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 	
 	public static final String[] MODIFABLE_FIELDS = {
 		"branchAddress" , "branchCode", "branchName" , "branchParendId"  , "description" , "status"
-	}; 
+	};
 
 	@Override
+	public Branch instantiateFromJSON(ParsedJSONContainer jsonContainer) {
+		Branch retval =new Branch();
+		retval.setBranchAddress( (String)jsonContainer.get("branchAddress" ,  String.class.getName()));
+		retval.setBranchCode( (String)jsonContainer.get("branchCode" ,  String.class.getName()));
+		retval.setBranchName( (String)jsonContainer.get("branchName" ,  String.class.getName()));
+		retval.setBranchParendId( (Long)jsonContainer.get("branchParendId" ,  Long.class.getName()));
+		retval.setDescription( (String)jsonContainer.get("description" ,  String.class.getName()));
+		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
+		return retval;
+	} 
+
+	/*@Override
 	public String[] retrieveModifableFields() {
 		return MODIFABLE_FIELDS;
 	}
@@ -318,5 +332,5 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
 		
 		
-	}
+	}*/
 }
