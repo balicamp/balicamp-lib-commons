@@ -451,10 +451,10 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 				+ ((birthDate == null) ? 0 : birthDate.hashCode());
 		result = prime * result
 				+ ((chipperText == null) ? 0 : chipperText.hashCode());
-		result = prime
+		/*result = prime
 				* result
 				+ ((defaultApplication == null) ? 0 : defaultApplication
-						.hashCode());
+						.hashCode());*/
 		result = prime
 				* result
 				+ ((defaultApplicationId == null) ? 0 : defaultApplicationId
