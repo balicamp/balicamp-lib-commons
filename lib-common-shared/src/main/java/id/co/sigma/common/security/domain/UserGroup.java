@@ -5,11 +5,9 @@
  */
 package id.co.sigma.common.security.domain;
 
-import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
+import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
-
-
-
 
 import java.util.Date;
 
@@ -41,7 +39,7 @@ public class UserGroup extends SimpleDualControlData<UserGroup>{
 	**/
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="pk" , nullable=false )
+	@Column(name="group_id" , nullable=false )
 	private Long id;
 	/**
 	* id applikasi<br/>
@@ -76,7 +74,7 @@ public class UserGroup extends SimpleDualControlData<UserGroup>{
 	* status<br/>
 	* column :data_status
 	**/
-	@Column(name="active_flag",length=1)
+	@Column(name="data_status",length=1)
 	private String activeFlag ="A";
 
 	/**

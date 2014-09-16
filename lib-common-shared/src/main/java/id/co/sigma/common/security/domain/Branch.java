@@ -8,6 +8,14 @@ package id.co.sigma.common.security.domain;
 
 
 
+
+import id.co.sigma.common.data.SingleKeyEntityData;
+import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.util.json.IJSONFriendlyObject;
+import id.co.sigma.common.util.json.ParsedJSONContainer;
+
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +23,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import id.co.sigma.common.data.SingleKeyEntityData;
-import id.co.sigma.common.data.app.SimpleDualControlData;
-import id.co.sigma.common.util.json.ParsedJSONContainer;
+
 
 /**
  * Entitiy untuk tabel : sec_branch
@@ -27,7 +33,7 @@ import id.co.sigma.common.util.json.ParsedJSONContainer;
  */
 @Entity
 @Table(name="sec_branch")
-public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEntityData<Long>{
+public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEntityData<Long>, IJSONFriendlyObject<Branch> {
 
 	private static final long serialVersionUID = 1430766844084002850L;
 	
@@ -234,13 +240,6 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 		return true;
 	}
 	
-	@Override
-	public String toString() {
-		return "Branch [id=" + id + ", branchParendId=" + branchParendId
-				+ ", branchCode=" + branchCode + ", branchName=" + branchName
-				+ ", branchAddress=" + branchAddress 
-				+ ", description=" + description + "]";
-	}
 	
 	@Override
 	public void translateToJSON(ParsedJSONContainer jsonContainer) {
@@ -257,7 +256,7 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 	
 	public static final String[] MODIFABLE_FIELDS = {
 		"branchAddress" , "branchCode", "branchName" , "branchParendId"  , "description" , "status"
-	}; 
+	};
 
 	@Override
 	public String[] retrieveModifableFields() {
@@ -287,7 +286,7 @@ public class Branch extends SimpleDualControlData<Branch> implements SingleKeyEn
 
 	@Override
 	public String getKey1AsString() {
-		return null;
+		return branchCode;
 	}
 
 	@Override
