@@ -110,6 +110,40 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 	
 	
 	
+	/**
+	 * set property dari java object. object di set dengan akses ke bean. 
+	 * @param targetToSet object yang hendak diset 
+	 * @param valueToSet value yang di set ke dalam object
+	 * @param fieldToSet field yang hendak di set
+	 * @author <a href='mailto:gede.sutarsa@gmail.com'>Gede Sutarsa</a>
+	 */
+	public void setProperty (Object targetToSet , Object valueToSet  , String fieldToSet)throws Exception  {
+		if ( targetToSet== null){
+			logger.debug("object di pass null, tidak ada tindakan yang di lakukan");
+		}
+		Object actualTarget  = targetToSet ;
+		
+		String actuaLField = fieldToSet ; 
+		
+		if ( fieldToSet.contains(".")){
+			String[] pathParents =  fieldToSet.split("\\.");
+			actuaLField = pathParents[pathParents.length-1]; 
+			for ( int i = 0 ; i < fieldToSet.length()-1 ; i++){
+				actualTarget = getProperty(actualTarget, pathParents[i]); 
+				if ( actualTarget== null)
+					break ; 
+			}
+		}
+		
+		if ( actualTarget== null){
+			logger.error("gagal untuk menset object :" + targetToSet.getClass() +", path :"  + fieldToSet +".path null. unutk nested object, anda perlu memastikan parent tidak null terlebih dahulu");
+		}
+		getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod().invoke(actualTarget, new Object[]{
+				valueToSet
+		}); 
+		
+	}
+	
 	
 	/**
 	 * method ini akan men-null kan beberapa fields. tujuan nua menghindari LIE, dan mengirim path yang terlalu dalam ke client

@@ -29,7 +29,6 @@ public class DirectTableLookupProviderDaoImpl extends BaseJPADao implements Dire
 		if (! useGenericTable.isEmpty()){
 			@SuppressWarnings("unchecked")
 			List<ILookupHeader> directSrc =  getEntityManager().createNamedQuery("LOV::GET_LOV_BY-I18AND_IDS")
-						.setParameter("I18", localizationCode)
 						.setParameter("IDS", lovIds).getResultList();
 			if ( directSrc!=null)
 				merged.addAll(directSrc);
