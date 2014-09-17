@@ -5,9 +5,11 @@
  */
 package id.co.sigma.common.security.domain;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
+
 
 
 import java.util.Date;
@@ -30,7 +32,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_menu")
-public class ApplicationMenu extends BaseAuditedObject implements IJSONFriendlyObject<ApplicationMenu> {
+public class ApplicationMenu extends BaseAuditedObject implements IJSONFriendlyObject<ApplicationMenu> , SingleKeyEntityData<Long> {
 	
 	private static final long serialVersionUID = -264680357828308703L;
 	

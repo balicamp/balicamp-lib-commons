@@ -1,5 +1,6 @@
 package id.co.sigma.common.data.app;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
@@ -16,7 +17,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="m_system_parameter")
-public class SystemSimpleParameter implements IJSONFriendlyObject<SystemSimpleParameter>{
+public class SystemSimpleParameter implements IJSONFriendlyObject<SystemSimpleParameter> , SingleKeyEntityData<String>{
 
 	/**
 	 * 
