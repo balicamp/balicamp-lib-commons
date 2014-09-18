@@ -9,7 +9,6 @@ package id.co.sigma.common.security.domain;
 
 
 import id.co.sigma.common.data.SingleKeyEntityData;
-import id.co.sigma.common.data.app.SimpleDualControlData;
 import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
