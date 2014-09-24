@@ -7,8 +7,9 @@ package id.co.sigma.common.security.domain;
 
 import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
-import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
+
+
 
 import java.util.Date;
 
@@ -30,7 +31,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_user")
-public class User extends SimpleDualControlData<User> implements SingleKeyEntityData<Long>, IJSONFriendlyObject<User> {
+public class User extends SimpleDualControlData<User> implements SingleKeyEntityData<Long> {
 
 	private static final long serialVersionUID = -6026281510605996562L;
 	
@@ -311,15 +312,15 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	/**
 	 * Reference object UserPassword
 	 * @return password
-	 *//*
-	public UserPassword getPassword() {
+	 */
+	/*public UserPassword getPassword() {
 		return password;
-	}
-	*//**
+	}*/
+	/**
 	 * Reference object UserPassword
 	 * @param password
-	 *//*
-	public void setPassword(UserPassword password) {
+	 */
+	/*public void setPassword(UserPassword password) {
 		this.password = password;
 	}*/
 	
@@ -374,23 +375,6 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	public String getDefaultBranchCode() {
 		return defaultBranchCode;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userCode=" + userCode + ", expiredDate="
-				+ expiredDate + ", birthDate=" + birthDate + ", email=" + email
-				+ ", failedLoginAttempts=" + failedLoginAttempts
-				+ ", realName=" + realName + ", status=" + status + ", locale="
-				+ locale + ", defaultApplicationId=" + defaultApplicationId
-				+ ", activeFlag=" + activeFlag + ", defaultApplication="
-				+ defaultApplication + ", chipperText=" + chipperText
-				+ ", defaultBranchCode=" + defaultBranchCode + ", superAdmin="
-				+ superAdmin + "]";
-	}
-
-
-
 	@Override
 	public String[] retrieveModifableFields() {
 		// TODO Auto-generated method stub
@@ -441,6 +425,7 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 		return superAdmin;		
 	}
 	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -618,5 +603,4 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 		jsonContainerData.put("chipperText", chipperText);
 		jsonContainerData.put("defaultBranchCode", defaultBranchCode);
 	}
-
 }
