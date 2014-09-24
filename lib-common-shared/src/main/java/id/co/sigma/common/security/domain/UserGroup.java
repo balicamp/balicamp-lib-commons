@@ -7,8 +7,6 @@ package id.co.sigma.common.security.domain;
 
 import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.app.SimpleDualControlData;
-import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
-import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 import java.util.Date;
@@ -76,7 +74,7 @@ public class UserGroup extends SimpleDualControlData<UserGroup> implements Singl
 	* status<br/>
 	* column :data_status
 	**/
-	@Column(name="data_status",length=1)
+	@Column(name="data_status",length=1, insertable=false, updatable=false)
 	private String activeFlag ="A";
 
 	/**
