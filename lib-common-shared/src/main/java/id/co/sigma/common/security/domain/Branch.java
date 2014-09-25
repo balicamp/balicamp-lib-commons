@@ -28,7 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_branch")
-public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Long>, IJSONFriendlyObject<Branch> {
+public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Long>, IJSONFriendlyObject<Branch> {
 
 	private static final long serialVersionUID = 1430766844084002850L;
 	

@@ -31,8 +31,7 @@ import javax.persistence.Table;
 	"		a "+
 	"	FROM "+
 	"		LookupHeader a "+
-	"	where "+
-	"		a.i18Key=:I18"+
+	"	where 1=1"+
 	"		and a.id in :IDS	")
 public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendlyObject<LookupDetail>{
 	

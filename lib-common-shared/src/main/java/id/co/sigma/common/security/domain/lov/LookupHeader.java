@@ -73,8 +73,8 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 				targetEntity=LookupDetail.class , 
 				cascade={CascadeType.ALL} )
 	@OrderBy(value="sequence asc")
-	@JoinColumns(value={@JoinColumn(name="LOV_ID" , updatable=false , referencedColumnName="LOV_ID") , 
-			@JoinColumn(name="i18_CODE" , updatable=false , referencedColumnName="i18_CODE")})
+	@JoinColumns(
+			value={@JoinColumn(name="LOV_ID" , updatable=false , referencedColumnName="LOV_ID") })
 	private List<LookupDetail> details ;
 
 	public String getId() {

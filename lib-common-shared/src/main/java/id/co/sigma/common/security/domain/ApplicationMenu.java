@@ -10,6 +10,7 @@ import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
+
 import java.util.Date;
 
 import javax.persistence.Column;

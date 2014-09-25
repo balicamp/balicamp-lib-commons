@@ -210,6 +210,19 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	
 	
 	@Override
+	public Integer deleteByParentId(Class<?> classToDelete, Integer parentId,
+			String parentFieldName) {
+		String delSmt ="delete from " + classToDelete.getName() + " where " + parentFieldName + "= :PARENT_ID "; 
+		return getEntityManager()
+					.createQuery(delSmt)
+					.setParameter("PARENT_ID", parentId)
+					.executeUpdate(); 
+	
+	}
+	
+	
+	
+	@Override
 	public Integer deleteByParentId(Class<?> classToDelete, Long parentId,
 			String parentFieldName) {
 		String delSmt ="delete from " + classToDelete.getName() + " where " + parentFieldName + "= :PARENT_ID "; 
@@ -554,6 +567,18 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	}
 	
 	
+	
+	@Override
+	public <DATA> List<DATA> list(String tableNameAndJoinArgument,
+			String primaryTableNameAlias, SimpleQueryFilter[] filters,
+			SimpleSortArgument[] sortArguments) throws Exception {
+		String countSmt = "SELECT  "+primaryTableNameAlias+"  from " + tableNameAndJoinArgument + "  where 1=1  " + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters) ;
+		@SuppressWarnings("unchecked")
+		List<DATA> retval =  q.getResultList();
+		return retval ;
+	}
 	
 	
 	

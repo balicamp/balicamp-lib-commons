@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="m_system_parameter")
-public class SystemSimpleParameter  implements IJSONFriendlyObject<SystemSimpleParameter> , SingleKeyEntityData<String>{
+public class SystemSimpleParameter implements IJSONFriendlyObject<SystemSimpleParameter> , SingleKeyEntityData<String>{
 
 	/**
 	 * 

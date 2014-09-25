@@ -21,6 +21,8 @@ import java.util.List;
 
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -120,6 +122,14 @@ public  abstract class BaseHibernateDao extends SharedPartBaseDao implements IBa
 	@Override
 	public Integer deleteByParentId(Class<?> classToDelete,
 			BigInteger parentId, String parentFieldName) {
+		String delSmt = "delete from " + classToDelete.getName() + " where " + parentFieldName + "=:PK";
+		Session sess =  getCurrentSession();
+		return sess.createQuery(delSmt).setParameter("PK", parentId).executeUpdate();
+	}
+	
+	@Override
+	public Integer deleteByParentId(Class<?> classToDelete, Integer parentId,
+			String parentFieldName) {
 		String delSmt = "delete from " + classToDelete.getName() + " where " + parentFieldName + "=:PK";
 		Session sess =  getCurrentSession();
 		return sess.createQuery(delSmt).setParameter("PK", parentId).executeUpdate();
@@ -250,6 +260,18 @@ public  abstract class BaseHibernateDao extends SharedPartBaseDao implements IBa
 		List<DATA> retval =  q.list();
 		return retval ; 
 		
+	}
+	
+	
+	@Override
+	public <DATA> List<DATA> list(String tableNameAndJoinArgument,
+			String primaryTableNameAlias, SimpleQueryFilter[] filters,
+			SimpleSortArgument[] sortArguments) throws Exception {
+		String countSmt = "SELECT  "+primaryTableNameAlias+"  from " + tableNameAndJoinArgument + "  where 1=1  " + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getCurrentSession().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters);
+		List<DATA> retval =  q.list();
+		return retval  ; 
 	}
 
 	/**
