@@ -239,4 +239,68 @@ public class Application extends BaseAuditedObject implements IJSONFriendlyObjec
 		retval.setStatus( (String)jsonContainer.get("status" ,  String.class.getName()));
 		return retval; 
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((applicationCode == null) ? 0 : applicationCode.hashCode());
+		result = prime * result
+				+ ((applicationName == null) ? 0 : applicationName.hashCode());
+		result = prime * result
+				+ ((applicationUrl == null) ? 0 : applicationUrl.hashCode());
+		result = prime
+				* result
+				+ ((autentificationLoginUrl == null) ? 0
+						: autentificationLoginUrl.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Application other = (Application) obj;
+		if (applicationCode == null) {
+			if (other.applicationCode != null)
+				return false;
+		} else if (!applicationCode.equals(other.applicationCode))
+			return false;
+		if (applicationName == null) {
+			if (other.applicationName != null)
+				return false;
+		} else if (!applicationName.equals(other.applicationName))
+			return false;
+		if (applicationUrl == null) {
+			if (other.applicationUrl != null)
+				return false;
+		} else if (!applicationUrl.equals(other.applicationUrl))
+			return false;
+		if (autentificationLoginUrl == null) {
+			if (other.autentificationLoginUrl != null)
+				return false;
+		} else if (!autentificationLoginUrl
+				.equals(other.autentificationLoginUrl))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
+	}
+	
+	
 }

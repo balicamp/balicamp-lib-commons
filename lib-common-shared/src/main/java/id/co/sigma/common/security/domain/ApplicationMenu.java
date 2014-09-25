@@ -10,7 +10,6 @@ import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -287,6 +286,7 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 		this.status = status;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -390,7 +390,6 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 		return true;
 	}
 
-	
 	@Override	
 	public String toString() {
 		return "Function [id=" + id + ", functionIdParent=" + functionIdParent
