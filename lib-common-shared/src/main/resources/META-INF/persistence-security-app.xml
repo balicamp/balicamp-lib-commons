@@ -22,6 +22,7 @@
 		<class>id.co.sigma.common.security.domain.UserPassword</class>
 		<class>id.co.sigma.common.security.domain.Signon</class>
 		<class>id.co.sigma.common.security.domain.Role</class>
+		<class>id.co.sigma.common.security.domain.UserRole</class>
 		
 		<!-- LOV -->
 		<class>id.co.sigma.common.security.domain.lov.LookupDetail</class>

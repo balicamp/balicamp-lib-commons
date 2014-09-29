@@ -6,7 +6,8 @@
 package id.co.sigma.common.security.domain;
 
 import id.co.sigma.common.data.SingleKeyEntityData;
-import id.co.sigma.common.data.app.SimpleDualControlData;
+import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
+import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 import java.util.Date;
@@ -29,7 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="sec_group")
-public class UserGroup extends SimpleDualControlData<UserGroup> implements SingleKeyEntityData<Long>{
+public class UserGroup extends BaseAuditedObject implements SingleKeyEntityData<Long>, IJSONFriendlyObject<UserGroup>{
 
 	private static final long serialVersionUID = 8417245322597100469L;
 	
@@ -74,9 +75,17 @@ public class UserGroup extends SimpleDualControlData<UserGroup> implements Singl
 	* status<br/>
 	* column :data_status
 	**/
-	@Column(name="data_status",length=1, insertable=false, updatable=false)
+	@Column(name="data_status",length=1)
 	private String activeFlag ="A";
 
+	public String getActiveFlag() {
+		return activeFlag;
+	}
+	
+	public void setActiveFlag(String activeFlag) {
+		this.activeFlag = activeFlag;
+	}
+	
 	/**
 	* group id<br/>
 	* column :GROUP_ID
@@ -188,10 +197,24 @@ public class UserGroup extends SimpleDualControlData<UserGroup> implements Singl
 	
 	private static final String [] MODIFABLE_FIELDS ={
 		"applicationId", "groupCode","groupName", "superGroup"	,"activeFlag"
-	}; 
-	
-	
+	};
+
 	@Override
+	public UserGroup instantiateFromJSON(ParsedJSONContainer jsonContainer) {
+		UserGroup retval = new UserGroup();
+		retval.setGroupCode( (String)jsonContainer.get("groupCode" ,  String.class.getName()));
+		retval.setGroupName( (String)jsonContainer.get("groupName" ,  String.class.getName()));
+		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
+		retval.setModifiedBy( (String)jsonContainer.get("modifiedBy" ,  String.class.getName()));
+		retval.setModifiedByIPAddress( (String)jsonContainer.get("modifiedByIPAddress" ,  String.class.getName()));
+		retval.setModifiedOn( (Date)jsonContainer.get("modifiedOn" ,  Date.class.getName()));
+		retval.setSuperGroup( (String)jsonContainer.get("superGroup" ,  String.class.getName()));
+		retval.setSuperGroup( (String)jsonContainer.get("activeFlag" ,  String.class.getName()));
+		return retval;
+	} 
+	
+	
+	/*@Override
 	public String[] retrieveModifableFields() {
 		return MODIFABLE_FIELDS;
 	}
@@ -240,5 +263,5 @@ public class UserGroup extends SimpleDualControlData<UserGroup> implements Singl
 		retval.setModifiedOn( (Date)jsonContainer.get("modifiedOn" ,  Date.class.getName()));
 		retval.setActiveFlag(  (String)jsonContainer.get("activeFlag" ,  String.class.getName()));
 		retval.setSuperGroup( (String)jsonContainer.get("superGroup" ,  String.class.getName()));
-	}
+	}*/
 }

@@ -156,7 +156,7 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	 * @param object object yang di insert
 	 **/
 	public void insert(Serializable object)throws Exception{
-		entityManager.persist(object);		
+		entityManager.merge(object);		
 		/**
 		 * 
 		 */
@@ -168,8 +168,9 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	 * @param object object yang di insert
 	 **/
 	public void insertAndFlush(Serializable object)throws Exception{
-		entityManager.persist(object);
+		entityManager.merge(object);
 		entityManager.flush(); 
+		System.out.println("xxx");
 	}
 	
 	/**

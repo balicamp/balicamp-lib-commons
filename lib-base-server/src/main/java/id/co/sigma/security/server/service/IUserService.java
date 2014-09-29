@@ -3,8 +3,12 @@ package id.co.sigma.security.server.service;
 import id.co.sigma.common.data.PagedResultHolder;
 import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.security.domain.User;
+import id.co.sigma.common.security.domain.UserGroupAssignment;
+import id.co.sigma.common.security.domain.UserRole;
 import id.co.sigma.common.security.dto.UserDTO;
 import id.co.sigma.common.security.exception.PasswordPolicyException;
+
+import java.util.List;
 
 
 /**
@@ -14,6 +18,24 @@ import id.co.sigma.common.security.exception.PasswordPolicyException;
  * @version $Id
  */
 public interface IUserService {
+	
+	public List<UserRole> getUserRoleByUserId(Long userId) throws Exception;
+	
+	/**
+	 * 
+	 * @param data
+	 * @throws Exception
+	 */
+	public void deleteUser(User data) throws Exception;
+	
+	/**
+	 * 
+	 * @param dataUser
+	 * @param dataGroup
+	 * @param dataUserRole
+	 * @throws Exception
+	 */
+	public void insertDataUser(User dataUser, List<UserGroupAssignment> dataGroup, List<UserRole> dataUserRole) throws Exception;
 	
 	/**
 	 * Get all user
