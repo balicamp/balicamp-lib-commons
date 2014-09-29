@@ -47,5 +47,13 @@ public class UserRoleDaoImpl extends BaseJPADao implements IUserRoleDao {
 			return null;
 		}
 	}
+
+	@Override
+	public void deleteUserRoleByUserId(Long userId) {
+		Query qry = getEntityManager().createQuery("DELETE FROM UserRole a WHERE a.userId=:USER_ID");
+		qry.setParameter("USER_ID", userId);
+		qry.executeUpdate();
+		
+	}
 	
 }

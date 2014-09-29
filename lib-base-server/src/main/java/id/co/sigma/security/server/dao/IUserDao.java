@@ -8,6 +8,7 @@ import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.server.dao.IBaseDao;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -36,6 +37,8 @@ public interface IUserDao extends IBaseDao{
 	 */
 	public Integer countUserByParameter(User parameter) throws Exception;
 	
+	
+	public Serializable insertAndFlushWhitReturn(Serializable object) throws Exception;
 	/**
 	 * Get application user berdasarkan application Id
 	 * @param applicationId

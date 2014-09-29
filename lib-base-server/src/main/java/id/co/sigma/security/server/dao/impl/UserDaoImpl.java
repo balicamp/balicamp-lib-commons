@@ -9,6 +9,7 @@ import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.server.dao.base.BaseJPADao;
 import id.co.sigma.security.server.dao.IUserDao;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -270,5 +271,13 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 		Query query = getEntityManager().createQuery(hql);
 		query.setParameter("defaultBranchCode", branchCode);
 		return (Long) query.getSingleResult();
+	}
+
+	@Override
+	public Serializable insertAndFlushWhitReturn(Serializable object)
+			throws Exception {
+		Serializable data = getEntityManager().merge(object);
+		getEntityManager().flush();
+		return data;
 	}
 }

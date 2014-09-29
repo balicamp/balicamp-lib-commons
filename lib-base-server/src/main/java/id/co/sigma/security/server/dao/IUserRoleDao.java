@@ -14,4 +14,6 @@ public interface IUserRoleDao {
 	
 	public List<UserRole> getUserRoleListByUserId(Long userId) throws Exception;
 
+	public void deleteUserRoleByUserId(Long userId);
+
 }
