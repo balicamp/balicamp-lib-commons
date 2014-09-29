@@ -277,7 +277,7 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 	public Serializable insertAndFlushWhitReturn(Serializable object)
 			throws Exception {
 		Serializable data = getEntityManager().merge(object);
-		getEntityManager().flush();
+		/*getEntityManager().flush();*/
 		return data;
 	}
 }
