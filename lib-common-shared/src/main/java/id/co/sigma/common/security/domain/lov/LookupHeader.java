@@ -44,8 +44,22 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 	private String id ;
 	
 	
+	/**
+	 * kode internalization
+	 * column : i18_CODE. 
+	 **/
+	@Column(name="i18_CODE", updatable=false )
+	private String i18Key ; 
 	
 	
+	public String getI18Key() {
+		return i18Key;
+	}
+
+	public void setI18Key(String i18Key) {
+		this.i18Key = i18Key;
+	}
+
 	@Column(name="LOV_REMARK")
 	private String remark ; 
 	
@@ -74,7 +88,10 @@ public class LookupHeader implements Serializable , ILookupHeader, IJSONFriendly
 				cascade={CascadeType.ALL} )
 	@OrderBy(value="sequence asc")
 	@JoinColumns(
-			value={@JoinColumn(name="LOV_ID" , updatable=false , referencedColumnName="LOV_ID") })
+			value={
+					@JoinColumn(name="LOV_ID" , updatable=false , referencedColumnName="LOV_ID"),
+					@JoinColumn(name="i18_CODE" , updatable=false , referencedColumnName="i18_CODE")
+			})
 	private List<LookupDetail> details ;
 
 	public String getId() {
