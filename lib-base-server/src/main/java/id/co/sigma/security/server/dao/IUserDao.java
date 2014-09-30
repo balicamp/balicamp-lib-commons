@@ -37,8 +37,15 @@ public interface IUserDao extends IBaseDao{
 	 */
 	public Integer countUserByParameter(User parameter) throws Exception;
 	
-	
+	/**
+	 * insert ke table user 
+	 * @param object
+	 * @return untuk mendapatkan Id data user yg baru di insert
+	 * @throws Exception
+	 */
 	public Serializable insertAndFlushWhitReturn(Serializable object) throws Exception;
+	
+	public void deleteUserRole(Long userId)throws Exception;
 	/**
 	 * Get application user berdasarkan application Id
 	 * @param applicationId
