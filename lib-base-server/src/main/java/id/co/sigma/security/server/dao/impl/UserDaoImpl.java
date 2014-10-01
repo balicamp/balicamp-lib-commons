@@ -280,4 +280,13 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 		/*getEntityManager().flush();*/
 		return data;
 	}
+
+	@Override
+	public void deleteUserRole(Long userId) throws Exception {
+		String sql = "Delete From UserRole u Where 1=1 And u.userId=:USER_ID";
+		Query qry = getEntityManager().createQuery(sql);
+		qry.setParameter("USER_ID", userId);
+		qry.executeUpdate();
+		
+	}
 }
