@@ -13,9 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * POJO untuk tabel sec_user_delegate
@@ -29,6 +31,15 @@ public class UserDelegation extends BaseCreatedObject implements SingleKeyEntity
 	private static final long serialVersionUID = -444707034539729931L;
 
 	//static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserDelegation.class.getName());
+	
+	@PostLoad
+	public void setStatusAlias(){
+		if("Y".equalsIgnoreCase(dataStatus)){
+			setDataStatusAlias("Active");
+		}else{
+			setDataStatusAlias("Inactive");
+		}
+	}
 	
 	@Id
 	@Column(name="id", nullable=false, updatable=false)
@@ -51,6 +62,9 @@ public class UserDelegation extends BaseCreatedObject implements SingleKeyEntity
 	
 	@Column(name="data_status")
 	private String dataStatus;
+	
+	@Transient
+	private String dataStatusAlias;
 	
 	@Column(name="start_date")
 	@Temporal(TemporalType.DATE)
@@ -109,6 +123,14 @@ public class UserDelegation extends BaseCreatedObject implements SingleKeyEntity
 
 	public void setDataStatus(String dataStatus) {
 		this.dataStatus = dataStatus;
+	}
+	
+	public String getDataStatusAlias() {
+		return dataStatusAlias;
+	}
+	
+	public void setDataStatusAlias(String dataStatusAlias) {
+		this.dataStatusAlias = dataStatusAlias;
 	}
 
 	public Date getStartDate() {
