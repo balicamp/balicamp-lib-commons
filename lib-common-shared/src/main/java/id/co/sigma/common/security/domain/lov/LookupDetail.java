@@ -1,5 +1,6 @@
 package id.co.sigma.common.security.domain.lov;
 
+import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.data.lov.ILookupDetail;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
 import id.co.sigma.common.util.json.ParsedJSONContainer;
@@ -33,7 +34,7 @@ import javax.persistence.Table;
 	"		LookupHeader a "+
 	"	where 1=1"+
 	"		and a.id in :IDS	")
-public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendlyObject<LookupDetail>{
+public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendlyObject<LookupDetail>, SingleKeyEntityData<LookupDetailPK>{
 	
 	/**
 	 * 
@@ -106,6 +107,16 @@ public class LookupDetail implements Serializable , ILookupDetail, IJSONFriendly
 		this.label = label;
 		this.sequence = sequence;
 		this.headerId = header.getId(); 
+	}
+
+	@Override
+	public LookupDetailPK getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(LookupDetailPK id) {
+		this.id = id;
 	}
 
 
