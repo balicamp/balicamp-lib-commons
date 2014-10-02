@@ -24,6 +24,14 @@ public class UserDelegationGroup implements Serializable, SingleKeyEntityData<Lo
 
 	//static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserDelegationGroup.class.getName());
 	
+	public UserDelegationGroup(){
+		
+	}
+	
+	public UserDelegationGroup(UserGroupAssignment groupAssignment){
+		setGroupId(groupAssignment.getGroupId());
+	}
+	
 	@Id
 	@Column(name="id", nullable=false, updatable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)

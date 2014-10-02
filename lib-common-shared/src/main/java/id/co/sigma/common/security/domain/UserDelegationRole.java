@@ -24,6 +24,14 @@ public class UserDelegationRole implements Serializable, SingleKeyEntityData<Lon
 	
 	//static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserDelegationRole.class.getName());
 	
+	public UserDelegationRole(){
+		
+	}
+	
+	public UserDelegationRole(UserRole userRole){
+		setRoleId(userRole.getRoleId());
+	}
+	
 	@Id
 	@Column(name="id", nullable=false, updatable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
