@@ -40,7 +40,7 @@ public class UserDelegationServiceImpl implements IUserDelegationService{
 	@Override
 	public List<UserDelegationRole> getRoles(Long delegationId) {
 		try {
-			return null;
+			return userDelegationDao.getRoles(delegationId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -50,7 +50,7 @@ public class UserDelegationServiceImpl implements IUserDelegationService{
 	@Override
 	public List<UserDelegationGroup> getGroups(Long delegationId) {
 		try {
-			return null;
+			return userDelegationDao.getGroups(delegationId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

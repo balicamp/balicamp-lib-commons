@@ -34,7 +34,7 @@ public class UserDelegation extends BaseCreatedObject implements SingleKeyEntity
 	
 	@PostLoad
 	public void setStatusAlias(){
-		if("Y".equalsIgnoreCase(dataStatus)){
+		if("A".equalsIgnoreCase(dataStatus)){
 			setDataStatusAlias("Active");
 		}else{
 			setDataStatusAlias("Inactive");
