@@ -39,5 +39,8 @@ public interface IGeneralPurposeService extends IBaseService{
 	 */
 	@Transactional
 	public Integer delete (Class<?> objectClass, Serializable pk , String pkFieldName); 
+	
+	@Transactional(readOnly=false)
+	public Serializable merge(Serializable object);
 
 }

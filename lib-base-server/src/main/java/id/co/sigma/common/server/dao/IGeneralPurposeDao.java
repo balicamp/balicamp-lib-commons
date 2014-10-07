@@ -40,5 +40,13 @@ public interface IGeneralPurposeDao extends IBaseDao{
 	 */
 	public int delete ( Class<?> clzz ,String primaryKeyFieldName ,  String[] primaryKeys );
 	
+	
+	/**
+	 * merge object
+	 * @param object
+	 * @return
+	 */
+	public Serializable merge(Serializable object);
+	
 
 }

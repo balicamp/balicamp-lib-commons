@@ -93,5 +93,10 @@ public class GeneralPurposeDaoImpl extends BaseJPADao implements IGeneralPurpose
 		return q.executeUpdate();
 	}
 
+	@Override
+	public Serializable merge(Serializable object) {
+		return getEntityManager().merge(object);
+	}
+
 	
 }
