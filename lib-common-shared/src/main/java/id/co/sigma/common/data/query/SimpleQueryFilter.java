@@ -291,9 +291,14 @@ public class SimpleQueryFilter  implements IsSerializable , IJSONFriendlyObject<
 		if (dateFrom == null || dateTo == null) {
 			this.filter = null;
 		} else {
-			CrossDateTimeParser parserTgl =  SharedServerClientLogicManager.getInstance().getDateTimeParser(); 
-			this.filter = parserTgl.format(dateFrom, DATE_ONLY_STRING_SERIALIZATION_PATTERN) + "dateseparator" + 
-					parserTgl.format(dateTo, DATE_ONLY_STRING_SERIALIZATION_PATTERN);
+			CrossDateTimeParser parserTgl =  SharedServerClientLogicManager.getInstance().getDateTimeParser();
+			if(parserTgl!=null){
+				String parsedDateFrom = parserTgl.format(dateFrom, DATE_ONLY_STRING_SERIALIZATION_PATTERN);
+				String parsedDateTo = parserTgl.format(dateTo, DATE_ONLY_STRING_SERIALIZATION_PATTERN);
+				this.filter = parsedDateFrom + "dateseparator" + parsedDateTo;
+			}else{
+				this.filter=null;
+			}
 		}
 	}
 
