@@ -60,6 +60,7 @@ public class UserDelegationDaoImpl extends BaseJPADao implements IUserDelegation
 			for(UserDelegationGroup group : groups){
 				UserDelegationGroup newGroup = new UserDelegationGroup();
 				BeanUtils.copyProperties(group, newGroup);
+				newGroup.setUserDelegateId(data.getId());
 				getEntityManager().merge(newGroup);
 			}
 		}
