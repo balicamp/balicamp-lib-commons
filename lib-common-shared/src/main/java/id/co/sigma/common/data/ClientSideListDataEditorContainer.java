@@ -86,6 +86,9 @@ public class ClientSideListDataEditorContainer<DATA> implements Serializable {
 			return ; 
 		if ( allStillExistData.contains(data))
 			return ; 
+		if(this.erasedData.contains(data)) {
+			this.erasedData.remove(data);
+		}
 		this.newlyAppendedData.add(data); 
 		allStillExistData.add(data); 
 		if ( fireChangeEvent)
@@ -107,6 +110,11 @@ public class ClientSideListDataEditorContainer<DATA> implements Serializable {
 		for (DATA datum : datas) {
 			if (datum == null || allStillExistData.contains(datum))
 				continue;
+			
+			if(this.erasedData.contains(datum)) {
+				this.erasedData.remove(datum);
+			}
+			
 			this.newlyAppendedData.add(datum);
 			allStillExistData.add(datum);
 		}
