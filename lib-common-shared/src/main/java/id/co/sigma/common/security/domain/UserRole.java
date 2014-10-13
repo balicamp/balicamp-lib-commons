@@ -25,6 +25,9 @@ import javax.persistence.UniqueConstraint;
 		"user_id"
 })})
 public class UserRole extends BaseCreatedObject implements IJSONFriendlyObject<UserRole> {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
@@ -85,8 +88,13 @@ public class UserRole extends BaseCreatedObject implements IJSONFriendlyObject<U
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-
-	
+ 
+	public String getRoleName() {
+		if(this.role != null){
+			return this.role.getRoleDesc();
+		}
+		return null;
+	}
 
 	@Override
 	public String toString() {

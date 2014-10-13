@@ -20,7 +20,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Entiti untuk tabel : sec_group
@@ -77,6 +79,9 @@ public class UserGroup extends BaseAuditedObject implements SingleKeyEntityData<
 	**/
 	@Column(name="data_status",length=1)
 	private String activeFlag ="A";
+	
+	@Transient
+	private String activeFlagAlias;
 
 	public String getActiveFlag() {
 		return activeFlag;
@@ -84,6 +89,23 @@ public class UserGroup extends BaseAuditedObject implements SingleKeyEntityData<
 	
 	public void setActiveFlag(String activeFlag) {
 		this.activeFlag = activeFlag;
+	}
+	
+	public String getActiveFlagAlias() {
+		return activeFlagAlias;
+	}
+	
+	public void setActiveFlagAlias(String activeFlagAlias) {
+		this.activeFlagAlias = activeFlagAlias;
+	}
+	
+	@PostLoad
+	public void setActiveFlagAliasAfterLoad(){
+		if("A".equalsIgnoreCase(getActiveFlag())){
+			setActiveFlagAlias("Active");
+		}else{
+			setActiveFlagAlias("Inactive");
+		}
 	}
 	
 	/**
