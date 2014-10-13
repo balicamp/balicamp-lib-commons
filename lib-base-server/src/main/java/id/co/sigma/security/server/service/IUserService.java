@@ -72,7 +72,7 @@ public interface IUserService {
 	 * @param user data user yang di insert
 	 * @throws Exception
 	 */
-	public void insert(User data) throws Exception, PasswordPolicyException;
+	public User insert(User data) throws Exception, PasswordPolicyException;
 	
 	/**
 	 * update data user
