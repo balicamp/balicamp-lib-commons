@@ -135,5 +135,13 @@ public class UserDelegationGroup implements Serializable, SingleKeyEntityData<Lo
 		return "UserDelegationGroup [id=" + id + ", userDelegateId="
 				+ userDelegateId + ", groupId=" + groupId + "]";
 	}
+
+	public UserGroup getUserGroup() {
+		return userGroup;
+	}
+
+	public void setUserGroup(UserGroup userGroup) {
+		this.userGroup = userGroup;
+	}
 	
 }
