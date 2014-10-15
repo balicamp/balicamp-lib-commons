@@ -109,6 +109,13 @@ public class UserGroupAssignment extends BaseCreatedObject implements IJSONFrien
 	public void setUserGroup(UserGroup userGroup) {
 		this.userGroup = userGroup;
 	}
+	
+	public String getGroupName(){
+		if(this.userGroup!=null){
+			return this.userGroup.getGroupName();
+		}
+		return null;
+	}
 
 	/**
 	 * user id<br>

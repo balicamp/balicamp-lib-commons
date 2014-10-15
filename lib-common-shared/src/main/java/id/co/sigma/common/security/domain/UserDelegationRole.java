@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -43,6 +46,10 @@ public class UserDelegationRole implements Serializable, SingleKeyEntityData<Lon
 	@Column(name="role_id")
 	private Long roleId;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="role_id", insertable=false, updatable=false, nullable=true)
+	private Role role;
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -69,6 +76,13 @@ public class UserDelegationRole implements Serializable, SingleKeyEntityData<Lon
 		this.roleId = roleId;
 	}
 
+	public String getRoleName() {
+		if(this.role != null) {
+			return this.role.getRoleDesc();
+		}
+		return null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -120,6 +134,14 @@ public class UserDelegationRole implements Serializable, SingleKeyEntityData<Lon
 	public String toString() {
 		return "UserDelegationRole [id=" + id + ", userDelegateId="
 				+ userDelegateId + ", roleId=" + roleId + "]";
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
 }

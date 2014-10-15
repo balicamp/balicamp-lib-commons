@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -43,6 +46,10 @@ public class UserDelegationGroup implements Serializable, SingleKeyEntityData<Lo
 	@Column(name="group_id")
 	private Long groupId;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="group_id", insertable=false, updatable=false, nullable=true)
+	private UserGroup userGroup;
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -67,6 +74,13 @@ public class UserDelegationGroup implements Serializable, SingleKeyEntityData<Lo
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+	
+	public String getGroupName(){
+		if(this.userGroup!=null){
+			return this.userGroup.getGroupName();
+		}
+		return null;
 	}
 
 	@Override
