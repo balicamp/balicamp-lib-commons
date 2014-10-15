@@ -236,6 +236,7 @@ public class ClientSideListDataEditorContainer<DATA> implements Serializable {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public void setAllStillExistData(List<? extends DATA> param) {
 		this.allStillExistData=(List<DATA>) param;
 	}
