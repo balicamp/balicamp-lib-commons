@@ -3,6 +3,7 @@ package id.co.sigma.security.server.dao.impl;
 import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.security.domain.Application;
 import id.co.sigma.common.security.domain.ApplicationUser;
+import id.co.sigma.common.security.domain.Role;
 import id.co.sigma.common.security.domain.User;
 import id.co.sigma.common.security.domain.UserGroupAssignment;
 import id.co.sigma.common.security.domain.UserPassword;
@@ -11,6 +12,7 @@ import id.co.sigma.security.server.dao.IUserDao;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -111,6 +113,38 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 		qry.setParameter("USER_ID", userIds);
 		result = qry.getResultList();
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public String[] getUserRoles(Long id) {
+		List<Role> userRoles = null;
+		List<Role> delegateRoles = null;
+		
+		Query qry = getEntityManager().createQuery("from Role r where r.id in (select ur.roleId from UserRole ur where ur.userId=:USER_ID)");
+		qry.setParameter("USER_ID", id);
+		userRoles = qry.getResultList();
+		
+		Query qryDelegate = getEntityManager().createQuery("from Role r where r.id in (select udr.roleId from UserDelegationRole udr where udr.userDelegateId in ("
+				+ "select ud.id from UserDelegation ud where ud.destUserId=:USER_ID))");
+		qryDelegate.setParameter("USER_ID", id);
+		delegateRoles = qryDelegate.getResultList();
+		
+		List<String> roles = new ArrayList<String>();
+		if(userRoles != null) {
+			for(Role role : userRoles) {
+				roles.add(role.getRoleCode());
+			}
+		}
+		
+		if(delegateRoles != null) {
+			for(Role role : delegateRoles) {
+				roles.add(role.getRoleCode());
+			}
+		}
+		
+		if(roles == null || roles.isEmpty()) return null;
+		return roles.toArray(new String[roles.size()]);
 	}
 	
 	/**

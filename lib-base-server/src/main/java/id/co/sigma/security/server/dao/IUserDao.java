@@ -8,6 +8,7 @@ import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.server.dao.IBaseDao;
 
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -123,4 +124,11 @@ public interface IUserDao extends IBaseDao{
 	 * @return Jumlah user yg terdaftar dalam suatu kode cabang.
 	 */
 	public Long selectUserCountByBranchCode(String branchCode);
+	
+	/**
+	 * Get user roles code
+	 * @param id
+	 * @return
+	 */
+	public String[] getUserRoles(Long id);
 }
