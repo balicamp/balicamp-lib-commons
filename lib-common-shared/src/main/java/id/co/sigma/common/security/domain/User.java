@@ -603,4 +603,11 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 		jsonContainerData.put("chipperText", chipperText);
 		jsonContainerData.put("defaultBranchCode", defaultBranchCode);
 	}
+
+
+
+	@Override
+	public String toString() {
+		return realName;
+	}
 }
