@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import id.co.sigma.common.data.ICreateAuditedData;
+import id.co.sigma.common.data.IModifyAuditedData;
 import id.co.sigma.common.server.dao.IGeneralPurposeDao;
 import id.co.sigma.common.server.service.IGeneralPurposeService;
 import id.co.sigma.common.server.service.AbstractService;
@@ -20,6 +22,9 @@ public class GeneralPurposeServiceImpl extends AbstractService implements IGener
 
 	@Override
 	public void insert(Serializable object) throws Exception {
+		if ( object instanceof ICreateAuditedData) {
+			touchCreateTimestamp((ICreateAuditedData)object ) ;
+		}
 		generalPurposeDao.insert(object);
 		
 	}
@@ -32,6 +37,9 @@ public class GeneralPurposeServiceImpl extends AbstractService implements IGener
 
 	@Override
 	public void update(Serializable object) throws Exception {
+		if ( object instanceof IModifyAuditedData) {
+			touchModifyTimestamp( (IModifyAuditedData)object ) ;
+		}
 		generalPurposeDao.update(object);
 		
 	}
@@ -45,6 +53,9 @@ public class GeneralPurposeServiceImpl extends AbstractService implements IGener
 	@Override
 	@Transactional(readOnly = false)
 	public Serializable merge(Serializable object) {
+		if ( object instanceof ICreateAuditedData) {
+			touchCreateTimestamp((ICreateAuditedData)object ) ;
+		}
 		return generalPurposeDao.merge(object);
 	} 
 }
