@@ -56,6 +56,9 @@ public interface ICommonSystemService extends IReloadableService{
 	 */
 	public String generateRefNumber ( String key, String prefix ,int lengthOfSequence  ,String defaultRemarkForSequence  ) ; 
 	
+	
+	public String generateRefNumber(String key, String prefix,
+			int lengthOfSequence, String defaultRemarkForSequence, boolean sequenceOnTail) ; 
 	/**
 	 * membaca parameter dengan key dari parameter
 	 */

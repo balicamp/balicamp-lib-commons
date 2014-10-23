@@ -228,6 +228,23 @@ public class CommonSystemServiceImpl extends AbstractService implements ICommonS
 		Long seq = getSequence(key, defaultRemarkForSequence); 
 		return ( prefix!= null ? prefix : "" ) +  this.generate0LeadedNumber(seq, lengthOfSequence); 
 	}
+	
+	
+	
+	@Override
+	public String generateRefNumber(String key, String prefix,
+			int lengthOfSequence, String defaultRemarkForSequence, boolean sequenceOnTail) {
+		Long seq = getSequence(key, defaultRemarkForSequence); 
+		if ( sequenceOnTail)
+			return ( prefix!= null ? prefix : "" ) +  this.generate0LeadedNumber(seq, lengthOfSequence);
+		else
+			return  this.generate0LeadedNumber(seq, lengthOfSequence) +  ( prefix!= null ? prefix : "" ) ;
+	}
+
+	
+	
+	
+	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
