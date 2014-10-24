@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -137,6 +138,15 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	@Column(name="default_branch_code", length=16)
 	private String defaultBranchCode ; 
 	
+	
+	@ManyToOne(targetEntity=Branch.class , fetch=FetchType.LAZY  )
+	@JoinColumns( 
+				value={
+						@JoinColumn(name="default_branch_code" , updatable=false , insertable=false , referencedColumnName="branch_code") 
+				} 
+			)
+	private Branch branch;
+	
 	public User(){}
 	
 	
@@ -153,6 +163,18 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 		this.createdBy ="APP"; 
 		this.creatorIPAddress="127.0.0.1"; 
 		
+	}
+
+
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
 	}
 
 
