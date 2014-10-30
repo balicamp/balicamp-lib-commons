@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean name="propertyPlaceHolder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" ><value>classpath:finance-rpt-test-mysql.properties</value></property>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+	<bean name="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${finance.lib.jdbc.driver}"></property>
+		<property name="url" value="${finance.lib.jdbc.url}"></property>
+		<property name="username" value="${finance.lib.jdbc.user}"></property>
+		<property name="password" value="${finance.lib.jdbc.password}"></property>
+		<property name="maxActive" value="100"></property>
+		<property name="maxWait" value="1000"></property>
+		<property name="poolPreparedStatements" value="true"></property>
+	</bean>
+	
+	<!--  
+	<jdbc:initialize-database data-source="dataSource">
+	  	<jdbc:script location="classpath:create-table-report.sql"/>
+	  	<jdbc:script location="classpath:insert-main-account.sql"/>
+  		<jdbc:script location="classpath:insert-table-report.sql"/>
+  		
+	</jdbc:initialize-database>
+  -->
+
+	
+
+</beans>
