@@ -1,18 +1,19 @@
 package id.co.sigma.common.server.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-
-
-
 import id.co.sigma.common.util.IBeanObjectDefinitionProvider;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 
 /**
  * bean utils dengan tambahan method
@@ -137,6 +138,32 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 		
 		if ( actualTarget== null){
 			logger.error("gagal untuk menset object :" + targetToSet.getClass() +", path :"  + fieldToSet +".path null. unutk nested object, anda perlu memastikan parent tidak null terlebih dahulu");
+		}
+		Method writeMethod = getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod();
+		Class<?>[] params = writeMethod.getParameterTypes();
+		try {
+			if(params != null && params.length == 1) {
+				Class<?> type = params[0];
+				if(type.getName().equals(BigInteger.class.getName()) && !(valueToSet instanceof BigInteger)) {
+					valueToSet = new BigInteger(valueToSet.toString());
+				} else if(type.getName().equals(BigDecimal.class.getName()) && !(valueToSet instanceof BigDecimal)) {
+					valueToSet = new BigDecimal(valueToSet.toString());
+				} else if(type.getName().equals(Long.class.getName()) && !(valueToSet instanceof Long)) {
+					valueToSet = Long.valueOf(valueToSet.toString());
+				} else if(type.getName().equals(Float.class.getName()) && !(valueToSet instanceof Float)) {
+					valueToSet = Float.valueOf(valueToSet.toString());
+				} else if(type.getName().equals(Integer.class.getName()) && !(valueToSet instanceof Integer)) {
+					valueToSet = Integer.valueOf(valueToSet.toString());
+				} else if(type.getName().equals(Double.class.getName()) && !(valueToSet instanceof Double)) {
+					valueToSet = Double.valueOf(valueToSet.toString());
+				} else if(type.getName().equals(Short.class.getName()) && !(valueToSet instanceof Short)) {
+					valueToSet = Short.valueOf(valueToSet.toString());
+				} else if(type.getName().equals(Boolean.class.getName()) && !(valueToSet instanceof Boolean)) {
+					valueToSet = Boolean.valueOf(valueToSet.toString());
+				}
+			}
+		} catch(Exception e){
+			logger.warn(e.getMessage());
 		}
 		getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod().invoke(actualTarget, new Object[]{
 				valueToSet
