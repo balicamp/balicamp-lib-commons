@@ -15,9 +15,12 @@ import id.co.sigma.common.util.json.ParsedJSONContainer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -45,7 +48,12 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 	* column :parent_branch_id
 	**/
 	@Column(name="parent_branch_id")
-	private Long branchParendId;
+	private Long branchParentId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_branch_id", insertable = false, updatable = false)
+    private Branch branchParent;
+	
 	/**
 	* kode cabang<br/>
 	* column :BRANCH_CODE
@@ -71,6 +79,16 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 	**/
 	@Column(name="description", length=200)
 	private String description;
+
+	
+	
+	public Branch getBranchParent() {
+		return branchParent;
+	}
+
+	public void setBranchParent(Branch branchParent) {
+		this.branchParent = branchParent;
+	}
 
 	/**
 	 * Default Constructor
@@ -105,15 +123,15 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 	* reference ke parent<br/>
 	* column :BRANCH_ID_PARENT
 	**/
-	public void setBranchParendId(Long branchParendId){
-	  this.branchParendId=branchParendId;
+	public void setbranchParentId(Long branchParentId){
+	  this.branchParentId=branchParentId;
 	}
 	/**
 	* reference ke parent<br/>
 	* column :BRANCH_ID_PARENT
 	**/
-	public Long getBranchParendId(){
-	    return this.branchParendId;
+	public Long getbranchParentId(){
+	    return this.branchParentId;
 	}
 	/**
 	* kode cabang<br/>
@@ -184,7 +202,7 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 		result = prime * result
 				+ ((branchName == null) ? 0 : branchName.hashCode());
 		result = prime * result
-				+ ((branchParendId == null) ? 0 : branchParendId.hashCode());
+				+ ((branchParentId == null) ? 0 : branchParentId.hashCode());
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -216,10 +234,10 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 				return false;
 		} else if (!branchName.equals(other.branchName))
 			return false;
-		if (branchParendId == null) {
-			if (other.branchParendId != null)
+		if (branchParentId == null) {
+			if (other.branchParentId != null)
 				return false;
-		} else if (!branchParendId.equals(other.branchParendId))
+		} else if (!branchParentId.equals(other.branchParentId))
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -237,7 +255,7 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 	/*
 	@Override
 	public String toString() {
-		return "Branch [id=" + id + ", branchParendId=" + branchParendId
+		return "Branch [id=" + id + ", branchParentId=" + branchParentId
 				+ ", branchCode=" + branchCode + ", branchName=" + branchName
 				+ ", branchAddress=" + branchAddress 
 				+ ", description=" + description + "]";
@@ -248,7 +266,8 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 		jsonContainer.put("branchAddress",getBranchAddress());
 		jsonContainer.put("branchCode",getBranchCode());
 		jsonContainer.put("branchName",getBranchName());
-		jsonContainer.put("branchParendId",getBranchParendId());
+		jsonContainer.put("branchParentId",getbranchParentId());
+		jsonContainer.put("branchParent",getbranchParentId());
 		jsonContainer.put("description",getDescription());
 		jsonContainer.put("id",getId());
 		
@@ -257,7 +276,7 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 	
 	
 	public static final String[] MODIFABLE_FIELDS = {
-		"branchAddress" , "branchCode", "branchName" , "branchParendId"  , "description" , "status"
+		"branchAddress" , "branchCode", "branchName" , "branchParentId"  , "description" , "status"
 	};
 
 	@Override
@@ -266,7 +285,7 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 		retval.setBranchAddress( (String)jsonContainer.get("branchAddress" ,  String.class.getName()));
 		retval.setBranchCode( (String)jsonContainer.get("branchCode" ,  String.class.getName()));
 		retval.setBranchName( (String)jsonContainer.get("branchName" ,  String.class.getName()));
-		retval.setBranchParendId( (Long)jsonContainer.get("branchParendId" ,  Long.class.getName()));
+		retval.setbranchParentId( (Long)jsonContainer.get("branchParentId" ,  Long.class.getName()));
 		retval.setDescription( (String)jsonContainer.get("description" ,  String.class.getName()));
 		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
 		return retval;
@@ -326,7 +345,7 @@ public class Branch extends BaseAuditedObject  implements SingleKeyEntityData<Lo
 		retval.setBranchAddress( (String)jsonContainer.get("branchAddress" ,  String.class.getName()));
 		retval.setBranchCode( (String)jsonContainer.get("branchCode" ,  String.class.getName()));
 		retval.setBranchName( (String)jsonContainer.get("branchName" ,  String.class.getName()));
-		retval.setBranchParendId( (Long)jsonContainer.get("branchParendId" ,  Long.class.getName()));
+		retval.setbranchParentId( (Long)jsonContainer.get("branchParentId" ,  Long.class.getName()));
 		retval.setDescription( (String)jsonContainer.get("description" ,  String.class.getName()));
 		retval.setId( (Long)jsonContainer.get("id" ,  Long.class.getName()));
 		

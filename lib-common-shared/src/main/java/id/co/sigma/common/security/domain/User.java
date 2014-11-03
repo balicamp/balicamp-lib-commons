@@ -136,7 +136,7 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	 * column : default_branch_code
 	 */
 	@Column(name="default_branch_code", length=16)
-	private String defaultBranchCode ; 
+	private String defaultBranchCode; 
 	
 	
 	@ManyToOne(targetEntity=Branch.class , fetch=FetchType.LAZY  )
