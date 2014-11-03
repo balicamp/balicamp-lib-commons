@@ -9,7 +9,6 @@ import id.co.sigma.common.security.dto.BranchDTO;
 import id.co.sigma.security.server.dao.impl.BranchDaoImpl;
 import id.co.sigma.security.server.service.IBranchService;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,8 +44,8 @@ public class BranchServiceImpl implements IBranchService{
 		for (Branch branch : actualData) {
 			BranchDTO dto = new BranchDTO();
 			dto.setId(branch.getId());
-			dto.setIdParent(branch.getBranchParendId());		
-			dto.setBranchParentCode(getBranchCode(branch.getBranchParendId()));
+			dto.setIdParent(branch.getbranchParentId());		
+			dto.setBranchParentCode(getBranchCode(branch.getbranchParentId()));
 			dto.setBranchCode(branch.getBranchCode());
 			dto.setBranchName(branch.getBranchName());
 			dto.setBranchAddress(branch.getBranchAddress());
@@ -74,7 +73,7 @@ public class BranchServiceImpl implements IBranchService{
 			temp.setBranchAddress(data.getBranchAddress());
 			temp.setBranchCode(data.getBranchCode());
 			temp.setBranchName(data.getBranchName());
-			temp.setBranchParendId(data.getBranchParendId());
+			temp.setbranchParentId(data.getbranchParentId());
 			temp.setDescription(data.getDescription());
 //			temp.setDataStatusCode(data.getDataStatusCode());
 			temp.setModifiedOn(new Date());			

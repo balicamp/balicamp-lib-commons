@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BranchDaoImpl extends BaseGenericDao implements IBranchDao{
 
-	private final String BRANCH_PARENT_CODE = "branchParendId";
+	private final String BRANCH_PARENT_CODE = "branchParentId";
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -80,7 +80,7 @@ public class BranchDaoImpl extends BaseGenericDao implements IBranchDao{
 	 * @return String
 	 */
 	private String generateCustomWhere(){
-		return " AND a.branchParendId=(SELECT b.id FROM Branch b WHERE b.branchCode=:PARAM)";
+		return " AND a.branchParentId=(SELECT b.id FROM Branch b WHERE b.branchCode=:PARAM)";
 	}
 
 	@SuppressWarnings("unchecked")

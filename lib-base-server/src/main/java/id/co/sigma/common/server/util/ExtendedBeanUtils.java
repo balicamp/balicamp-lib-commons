@@ -139,7 +139,15 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 		if ( actualTarget== null){
 			logger.error("gagal untuk menset object :" + targetToSet.getClass() +", path :"  + fieldToSet +".path null. unutk nested object, anda perlu memastikan parent tidak null terlebih dahulu");
 		}
-		Method writeMethod = getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod();
+		Method writeMethod = null ; 
+		
+		try {
+			writeMethod =  getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod();
+		} catch (Exception e) {
+			logger.error("gagal membaca property desc untuk class : " +targetToSet.getClass().getName() + ", property :" + fieldToSet +",error : " + e.getMessage() , e  ); 
+			throw e  ; 
+		}
+		
 		Class<?>[] params = writeMethod.getParameterTypes();
 		try {
 			if(params != null && params.length == 1) {
