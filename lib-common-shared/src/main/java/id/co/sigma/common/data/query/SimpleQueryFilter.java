@@ -216,7 +216,7 @@ public class SimpleQueryFilter  implements IsSerializable , IJSONFriendlyObject<
 		if ( filter==null)
 			this.filter=null;
 		else{
-			this.filterTypeClass= filter.getClass().getName();
+			this.filterTypeClass = this.filterTypeClass == null ? filter.getClass().getName() : this.filterTypeClass;
 			if ( filter instanceof Date){
 				this.setFilter(( Date)filter);
 			}
