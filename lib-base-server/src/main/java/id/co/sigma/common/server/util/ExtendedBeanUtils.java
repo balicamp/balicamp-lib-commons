@@ -168,6 +168,27 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 					valueToSet = Short.valueOf(valueToSet.toString());
 				} else if(type.getName().equals(Boolean.class.getName()) && !(valueToSet instanceof Boolean)) {
 					valueToSet = Boolean.valueOf(valueToSet.toString());
+				} else if(type.isEnum()) {
+					if(valueToSet instanceof String) {
+						try {
+							int ordinal = Integer.valueOf((String)valueToSet);
+							valueToSet = type.getEnumConstants()[ordinal];
+						} catch (Exception e) {
+							Object val = null;
+							for(Object econs : type.getEnumConstants()) {
+								if((valueToSet != null) && econs.toString().equals(valueToSet.toString())) {
+									val = econs;
+									break;
+								}
+							}
+							valueToSet = val;
+						}
+					} else if(valueToSet instanceof Number) {
+						int ordinal = ((Number)valueToSet).intValue();
+						valueToSet = type.getEnumConstants()[ordinal];
+					} else {
+						valueToSet = null;
+					}
 				}
 			}
 		} catch(Exception e){
