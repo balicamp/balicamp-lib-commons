@@ -132,7 +132,11 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 		 }
 		 
 		 this.targetSheet.iterator().next();
-		 Row header = this.targetSheet.iterator().next();
+		 Iterator<Row> iterator =  this.targetSheet.iterator(); 
+		 Row header=null;
+		 for( int i=0;i<this.startingRowNumber-1;i++){
+		     header = iterator.next();
+		 }
 		 
 		 Iterator<Cell> cells = header.cellIterator();
 		 
@@ -160,13 +164,13 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 			  
 			 int i= 0 ;
 			 
-			 Iterator<Row> itrs =  this.targetSheet.iterator(); 
-			 while ( itrs.hasNext()){
-				 Row row =  itrs.next();
+			// Iterator<Row> itrs =  this.targetSheet.iterator(); 
+			 while ( iterator.hasNext()){
+				 Row row =  iterator.next();
 				 try{
 					 
-					 if ( i<startingRowNumber-1)
-						 continue ;
+					 /*if ( i<startingRowNumber-1)
+						 continue ;*/
 					 DATA sample = instantiateSampleObject() ; 
 					
 					 
