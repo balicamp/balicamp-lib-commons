@@ -115,7 +115,6 @@ public class CommonLOV implements Serializable , ILookupDetail , IJSONFriendlyOb
 	public void setLabel(String label) {
 		this.label = label;
 	} 
-
 	
 	/**
 	 * id parent LOV
@@ -129,14 +128,21 @@ public class CommonLOV implements Serializable , ILookupDetail , IJSONFriendlyOb
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
+	
+	public String getValue() {
+		return this.dataValue;
+	}
+	
 	@Override
 	public void translateToJSON(ParsedJSONContainer jsonContainerData) {
 		jsonContainerData.put("additionalData1", getAdditionalData1()); 
 		jsonContainerData.put("additionalData2", getAdditionalData2()); 
-		jsonContainerData.put("dataValue", getDataValue()); 
+		jsonContainerData.put("dataValue", getDataValue());
+		jsonContainerData.put("value", getValue());
 		jsonContainerData.put("label", getLabel());
 		jsonContainerData.put("parentId", getParentId());
 	}
+	
 	@Override
 	public CommonLOV instantiateFromJSON(ParsedJSONContainer jsonContainer) {
 		CommonLOV retval = new CommonLOV(); 
@@ -148,6 +154,7 @@ public class CommonLOV implements Serializable , ILookupDetail , IJSONFriendlyOb
 		retval.setParentId(jsonContainer.getAsString("parentId"));
 		return retval;
 	}
+	
 	@Override
 	public String toString() {
 		return "CommonLOV [parentId=" + parentId + ", dataValue=" + dataValue
