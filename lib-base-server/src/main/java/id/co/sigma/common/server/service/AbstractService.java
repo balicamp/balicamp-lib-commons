@@ -42,7 +42,7 @@ public abstract class AbstractService implements IBaseService{
 	private static final Logger logger = LoggerFactory.getLogger(AbstractService.class);
 	
 	@Autowired
-	private IGeneralPurposeDao  generalPurposeDao ;
+	protected IGeneralPurposeDao  generalPurposeDao ;
 	
 	/**
 	 * init proccess
