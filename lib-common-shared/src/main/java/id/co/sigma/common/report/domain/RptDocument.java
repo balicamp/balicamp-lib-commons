@@ -31,6 +31,7 @@ public class RptDocument implements Serializable, SingleKeyEntityData<Integer> {
 
 	//bi-directional many-to-one association to RptDocParam
 	@OneToMany(fetch=FetchType.LAZY, targetEntity=RptDocParam.class, cascade={CascadeType.ALL})
+	@OrderBy("paramSec")
 	@JoinColumn(name="rpt_doc_id", insertable=false, updatable=false)
 	private List<RptDocParam> rptDocParams;
 
