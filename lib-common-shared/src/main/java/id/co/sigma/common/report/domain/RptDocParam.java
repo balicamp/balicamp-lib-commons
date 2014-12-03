@@ -48,6 +48,30 @@ public class RptDocParam implements Serializable, SingleKeyEntityData<RptDocPara
 	@Column(name="rpt_doc_id", insertable=false, updatable=false)
 	private Integer rptDocId;
 
+	@Column(name="min_value")
+	private String minValue;
+	
+	@Column(name="max_value")
+	private String maxValue;
+	
+	@Column(name="lov_class")
+	private String lovClass;
+	
+	@Column(name="static_data")
+	private String staticData;
+	
+	@Column(name="lov_separator")
+	private String separator;
+	
+	@Column(name="lov_parent_id")
+	private String lovParentId;
+	
+	@Column(name="lov_filters")
+	private String lovFilters;
+	
+	@Column(name="param_sec")
+	private Integer paramSec;
+	
 	//bi-directional many-to-one association to RptDocument
 	@ManyToOne(fetch=FetchType.LAZY, targetEntity=RptDocument.class)
 	@JoinColumn(name="rpt_doc_id", insertable=false, updatable=false, referencedColumnName="id")
@@ -142,6 +166,135 @@ public class RptDocParam implements Serializable, SingleKeyEntityData<RptDocPara
 	public void setRptDocId(Integer rptDocId) {
 		this.rptDocId = rptDocId;
 	}
+
+	/**
+	 * @return the minValue
+	 */
+	public String getMinValue() {
+		return minValue;
+	}
+
+
+	/**
+	 * @param minValue the minValue to set
+	 */
+	public void setMinValue(String minValue) {
+		this.minValue = minValue;
+	}
+
+
+	/**
+	 * @return the maxValue
+	 */
+	public String getMaxValue() {
+		return maxValue;
+	}
+
+
+	/**
+	 * @param maxValue the maxValue to set
+	 */
+	public void setMaxValue(String maxValue) {
+		this.maxValue = maxValue;
+	}
+
+
+	/**
+	 * @return the lovClass
+	 */
+	public String getLovClass() {
+		return lovClass;
+	}
+
+
+	/**
+	 * @param lovClass the lovClass to set
+	 */
+	public void setLovClass(String lovClass) {
+		this.lovClass = lovClass;
+	}
+
+
+	/**
+	 * JSON String
+	 * @return the staticData
+	 */
+	public String getStaticData() {
+		return staticData;
+	}
+
+
+	/**
+	 * JSON String
+	 * @param staticData the staticData to set
+	 */
+	public void setStaticData(String staticData) {
+		this.staticData = staticData;
+	}
+
+
+	/**
+	 * @return the separator
+	 */
+	public String getSeparator() {
+		return separator;
+	}
+
+
+	/**
+	 * @param separator the separator to set
+	 */
+	public void setSeparator(String separator) {
+		this.separator = separator;
+	}
+
+
+	/**
+	 * @return the lovParentId
+	 */
+	public String getLovParentId() {
+		return lovParentId;
+	}
+
+
+	/**
+	 * @param lovParentId the lovParentId to set
+	 */
+	public void setLovParentId(String lovParentId) {
+		this.lovParentId = lovParentId;
+	}
+
+
+	/**
+	 * @return the lovFilters
+	 */
+	public String getLovFilters() {
+		return lovFilters;
+	}
+
+
+	/**
+	 * @param lovFilters the lovFilters to set
+	 */
+	public void setLovFilters(String lovFilters) {
+		this.lovFilters = lovFilters;
+	}
+
+	/**
+	 * @return the paramSec
+	 */
+	public Integer getParamSec() {
+		return paramSec;
+	}
+
+
+	/**
+	 * @param paramSec the paramSec to set
+	 */
+	public void setParamSec(Integer paramSec) {
+		this.paramSec = paramSec;
+	}
+
 
 	public RptDocument getRptDocument() {
 		return this.rptDocument;
