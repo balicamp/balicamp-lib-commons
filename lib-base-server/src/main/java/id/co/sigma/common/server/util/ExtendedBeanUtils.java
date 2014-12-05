@@ -168,7 +168,7 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 					valueToSet = Short.valueOf(valueToSet.toString());
 				} else if((type.getName().equals(Boolean.class.getName()) || type.getName().equals(boolean.class.getName())) && !(valueToSet instanceof Boolean)) {
 					String sbool = valueToSet.toString();
-					valueToSet = Boolean.valueOf(("0".equals(sbool) || "".equals(sbool)) ? "false" : sbool);					
+					valueToSet = Boolean.valueOf(("0".equals(sbool) || "".equals(sbool)) ? "false" : "true");					
 				} else if(type.isEnum()) {
 					if(valueToSet instanceof String) {
 						try {
