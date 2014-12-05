@@ -5,6 +5,7 @@ import id.co.sigma.common.security.domain.Application;
 import id.co.sigma.common.security.domain.ApplicationUser;
 import id.co.sigma.common.security.domain.Role;
 import id.co.sigma.common.security.domain.User;
+import id.co.sigma.common.security.domain.UserGroup;
 import id.co.sigma.common.security.domain.UserGroupAssignment;
 import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.server.dao.base.BaseJPADao;
@@ -321,6 +322,26 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 		Query qry = getEntityManager().createQuery(sql);
 		qry.setParameter("USER_ID", userId);
 		qry.executeUpdate();
+		
+	}
+
+	/**
+	 * query untuk membaca data user berdasarkan id dari user. user mendapatkan group apa saja
+	 */
+	static final String GET_ALL_GROUP_HQL =  "select a from  "+UserGroupAssignment.class.getName()+" a inner join fetch a.userGroup    WHERE a.userId = :USER_ID order by a.userGroup.groupCode "; 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserGroup> getUserGroup(Long userId) {
+		List<UserGroupAssignment> assgs =  getEntityManager().createQuery(GET_ALL_GROUP_HQL).setParameter("USER_ID", userId).getResultList()  ;
+		
+		ArrayList<UserGroup> retval = new ArrayList<>(); 
+		if ( assgs!= null) {
+			for ( UserGroupAssignment scn : assgs) {
+				retval.add(scn.getUserGroup()); 
+			}
+		}
+		return retval ; 
+		
 		
 	}
 }

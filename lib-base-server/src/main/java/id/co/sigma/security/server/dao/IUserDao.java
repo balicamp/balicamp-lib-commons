@@ -3,9 +3,11 @@ package id.co.sigma.security.server.dao;
 import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.security.domain.ApplicationUser;
 import id.co.sigma.common.security.domain.User;
+import id.co.sigma.common.security.domain.UserGroup;
 import id.co.sigma.common.security.domain.UserGroupAssignment;
 import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.server.dao.IBaseDao;
+
 
 
 
@@ -131,4 +133,11 @@ public interface IUserDao extends IBaseDao{
 	 * @return
 	 */
 	public String[] getUserRoles(Long id);
+	
+	
+	/**
+	 * membaca data group(sebenar nya group menu) user berdasarkan id dari user
+	 *
+	 */
+	public List<UserGroup> getUserGroup( Long userId ) ; 
 }
