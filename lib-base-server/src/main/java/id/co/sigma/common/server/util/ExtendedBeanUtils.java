@@ -156,18 +156,19 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 					valueToSet = new BigInteger(valueToSet.toString());
 				} else if(type.getName().equals(BigDecimal.class.getName()) && !(valueToSet instanceof BigDecimal)) {
 					valueToSet = new BigDecimal(valueToSet.toString());
-				} else if(type.getName().equals(Long.class.getName()) && !(valueToSet instanceof Long)) {
+				} else if((type.getName().equals(Long.class.getName()) || type.getName().equals(long.class.getName()))&& !(valueToSet instanceof Long)) {
 					valueToSet = Long.valueOf(valueToSet.toString());
-				} else if(type.getName().equals(Float.class.getName()) && !(valueToSet instanceof Float)) {
+				} else if((type.getName().equals(Float.class.getName()) || type.getName().equals(float.class.getName())) && !(valueToSet instanceof Float)) {
 					valueToSet = Float.valueOf(valueToSet.toString());
-				} else if(type.getName().equals(Integer.class.getName()) && !(valueToSet instanceof Integer)) {
+				} else if((type.getName().equals(Integer.class.getName()) || type.getName().equals(int.class.getName())) && !(valueToSet instanceof Integer)) {
 					valueToSet = Integer.valueOf(valueToSet.toString());
-				} else if(type.getName().equals(Double.class.getName()) && !(valueToSet instanceof Double)) {
+				} else if((type.getName().equals(Double.class.getName()) || type.getName().equals(double.class.getName())) && !(valueToSet instanceof Double)) {
 					valueToSet = Double.valueOf(valueToSet.toString());
-				} else if(type.getName().equals(Short.class.getName()) && !(valueToSet instanceof Short)) {
+				} else if((type.getName().equals(Short.class.getName()) || type.getName().equals(short.class.getName())) && !(valueToSet instanceof Short)) {
 					valueToSet = Short.valueOf(valueToSet.toString());
-				} else if(type.getName().equals(Boolean.class.getName()) && !(valueToSet instanceof Boolean)) {
-					valueToSet = Boolean.valueOf(valueToSet.toString());
+				} else if((type.getName().equals(Boolean.class.getName()) || type.getName().equals(boolean.class.getName())) && !(valueToSet instanceof Boolean)) {
+					String sbool = valueToSet.toString();
+					valueToSet = Boolean.valueOf(("0".equals(sbool) || "".equals(sbool)) ? "false" : sbool);					
 				} else if(type.isEnum()) {
 					if(valueToSet instanceof String) {
 						try {
