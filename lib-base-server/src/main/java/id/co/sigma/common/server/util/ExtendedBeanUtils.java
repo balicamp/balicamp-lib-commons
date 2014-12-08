@@ -144,7 +144,7 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 		try {
 			writeMethod =  getPropertyDescriptor(actualTarget.getClass(), actuaLField).getWriteMethod();
 		} catch (Exception e) {
-			logger.error("gagal membaca property desc untuk class : " +targetToSet.getClass().getName() + ", property :" + fieldToSet +",error : " + e.getMessage() , e  ); 
+			logger.error("gagal membaca property desc untuk class : " +targetToSet.getClass().getName() + ", property :" + fieldToSet +",error : " + e.getMessage() /*, e  */); 
 			throw e  ; 
 		}
 		
