@@ -1,20 +1,6 @@
 package id.co.sigma.security.server.service.impl;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.google.gson.Gson;
-
 import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.data.query.SimpleQueryFilterOperator;
 import id.co.sigma.common.security.domain.ApplicationMenu;
@@ -29,6 +15,19 @@ import id.co.sigma.common.server.service.AbstractService;
 import id.co.sigma.security.server.dao.IFunctionDao;
 import id.co.sigma.security.server.dao.impl.UserMenuDaoImpl;
 import id.co.sigma.security.server.service.IUserMenuService;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.gson.Gson;
 
 /**
  * Service menu
@@ -152,13 +151,17 @@ public class UserMenuService extends AbstractService implements IUserMenuService
 		if(resultGroupAssignment != null){
 			List<Long> listGroupId = new ArrayList<Long>();
 			for (UserGroupAssignment groupAssignment : resultGroupAssignment) {
-				listGroupId.add(groupAssignment.getGroupId());
+				if("A".equals(groupAssignment.getUserGroup().getActiveFlag())){
+					listGroupId.add(groupAssignment.getGroupId());
+				}
 			}//end for
 			
 			if(delegateGroups != null) {
 				for(UserDelegationGroup delegateGroup : delegateGroups) {
-					if(!listGroupId.contains(delegateGroup.getGroupId())) {
-						listGroupId.add(delegateGroup.getGroupId());
+					if("A".equals(delegateGroup.getUserGroup().getActiveFlag())) {
+						if(!listGroupId.contains(delegateGroup.getGroupId())) {
+							listGroupId.add(delegateGroup.getGroupId());
+						}
 					}
 				}
 			}
