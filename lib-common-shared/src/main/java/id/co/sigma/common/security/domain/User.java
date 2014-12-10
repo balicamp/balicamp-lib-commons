@@ -108,7 +108,8 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	@Column(name="active_status" , length=1)
 	private String activeFlag;
 	
-	
+	@Column(name="emp_no")
+	private String employeeNumber;
 		
 	/**
 	 * add by dode
@@ -126,11 +127,14 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	@Column(name="chipper_text", length=64)
 	private String chipperText;
 	
-	
-	
-	
-	
-	
+
+	public String getEmployeeNumber() {
+	    return employeeNumber;
+	}
+
+	public void setEmployeeNumber(String employeeNumber) {
+	    this.employeeNumber = employeeNumber;
+	}
 	/**
 	 * kode cabang default user, dia berada di mana <br/>
 	 * column : default_branch_code
