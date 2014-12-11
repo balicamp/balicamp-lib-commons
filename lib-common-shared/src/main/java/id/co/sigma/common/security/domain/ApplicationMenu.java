@@ -292,8 +292,7 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result
-				+ ((application == null) ? 0 : application.hashCode());
+		
 		result = prime * result
 				+ ((applicationId == null) ? 0 : applicationId.hashCode());
 		result = prime * result
@@ -306,8 +305,7 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((menuTreeCode == null) ? 0 : menuTreeCode.hashCode());
-		result = prime * result
-				+ ((pageDefinition == null) ? 0 : pageDefinition.hashCode());
+		
 		result = prime * result + ((pageId == null) ? 0 : pageId.hashCode());
 		result = prime * result
 				+ ((siblingOrder == null) ? 0 : siblingOrder.hashCode());
@@ -328,11 +326,7 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 		if (getClass() != obj.getClass())
 			return false;
 		ApplicationMenu other = (ApplicationMenu) obj;
-		if (application == null) {
-			if (other.application != null)
-				return false;
-		} else if (!application.equals(other.application))
-			return false;
+		
 		if (applicationId == null) {
 			if (other.applicationId != null)
 				return false;
@@ -395,10 +389,9 @@ public class ApplicationMenu extends BaseAuditedObject implements SingleKeyEntit
 	public String toString() {
 		return "Function [id=" + id + ", functionIdParent=" + functionIdParent
 				+ ", siblingOrder=" + siblingOrder + ", applicationId="
-				+ applicationId + ", application=" + application
+				+ applicationId 
 				+ ", functionCode=" + functionCode + ", functionLabel="
-				+ functionLabel + ", pageId=" + pageId + ", pageDefinition="
-				+ pageDefinition + ", treeLevelPosition=" + treeLevelPosition
+				+ functionLabel + ", pageId=" + pageId + " treeLevelPosition=" + treeLevelPosition
 				+ ", menuTreeCode=" + menuTreeCode + ", status=" + status + "]";
 	}
 	
