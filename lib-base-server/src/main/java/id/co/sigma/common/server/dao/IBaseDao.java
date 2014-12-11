@@ -209,12 +209,35 @@ public interface IBaseDao {
 	
 	
 	
+	/**
+	 * setipe dengan {@link #list(String, String, String, SimpleQueryFilter[], SimpleSortArgument[])}
+	 */
+	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias ,String predefinedWhere  , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments,  int pageSize , int firstRowPosition) throws Exception;
+	
+	
+	
+	
 	
 	/**
 	 * ini untuk data di ambil semua
 	 * 
 	 */
 	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception;
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * versi ini menyertakan where yang dedicated
+	 * @param tableNameAndJoinArgument from dan where dalam join table
+	 * @param primaryTableNameAlias nama alias dari primary table
+	 * @param predefinedWhere predefined where. akan di tambahkan setelah where 1=1
+	 * @param filters filters
+	 */
+	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias , String predefinedWhere  , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception;
 	
 	/**
 	 * ini untuk count berapa data yang nemu 
@@ -228,6 +251,16 @@ public interface IBaseDao {
 	 * @param primaryTableAliasName sederhana nya kasi saja a
 	 **/
 	public Long count(String tableAndJoinStatment  , String primaryTableAliasName , SimpleQueryFilter[] filters);
+	
+	
+	
+	
+	/**
+	 * count dengan where yang predefined. ini untuk akomodir item yang tidak bisa di solve dengan named param
+	 */
+	public Long count(String tableAndJoinStatment  , String primaryTableAliasName , String primaryTableAliasPK ,String predefinedWhere  , SimpleQueryFilter[] filters);
+	
+	
 	
 	/**
 	 * get data by primary key 

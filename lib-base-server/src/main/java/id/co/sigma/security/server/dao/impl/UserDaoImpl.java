@@ -18,7 +18,6 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Repository;
 
 /**
  * User dao implementation
@@ -26,7 +25,6 @@ import org.springframework.stereotype.Repository;
  * @since Dec 10, 2012, 1:47:10 PM
  * @version $Id
  */
-@Repository
 public class UserDaoImpl extends BaseJPADao implements IUserDao{
 
 	private final String paramPrefix = "PARAM_";

@@ -1,5 +1,7 @@
 package id.co.sigma.common.server.controllers;
 
+import id.co.sigma.common.server.dao.IGeneralPurposeDao;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public abstract class BaseController {
 	
 	@Autowired
 	private  HttpServletRequest request; 
+	
+	
+	@Autowired
+	protected IGeneralPurposeDao generalPurposeDao ; 
 	
 	
 	/**

@@ -363,7 +363,21 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 	
 	
 	/**
-	 * membaca property dari bean object
+	 * 
+	 * versi smart. bisa membaca kalau misalnya ada .(dot) maka akan memakai{@link #readComplexProperty(Object, String)} 
+	 */
+	public Object getPropertyBlind (Object beanObject , String propertyName ) {
+		if ( propertyName.contains(".")){
+			return readComplexProperty(beanObject, propertyName); 
+		}else {
+			return getProperty(beanObject, propertyName); 
+		}
+			
+	}
+	
+	
+	/**
+	 * membaca property dari bean object. versi ini cuma bisa membaca 1 level
 	 */
 	public Object getProperty (Object beanObject , String propertyName ) {
 		if ( beanObject== null)

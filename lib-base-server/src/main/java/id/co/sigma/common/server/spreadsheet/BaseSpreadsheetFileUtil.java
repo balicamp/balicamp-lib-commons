@@ -39,6 +39,15 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 	protected static final Logger LOGGER = LoggerFactory.getLogger(BaseSpreadsheetFileUtil.class); 
 	
 	
+	
+	
+	
+	/**
+	 * validasi apakah file di upload memililiki header column yang sama dengan template.default = <i>false</i>
+	 * set true kalau validasi adalah mandatory 
+	 */
+	private boolean validateUplaodedHeaderColumnLabel = false ; 
+	
 	protected HSSFSheet targetSheet ; 
 	
 	
@@ -141,20 +150,23 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 		 Iterator<Cell> cells = header.cellIterator();
 		 
 		 int index = 0;
-		 while(cells.hasNext()) {
+		 if ( validateUplaodedHeaderColumnLabel){
+			 while(cells.hasNext()) {
+				 
+				 Cell cell = cells.next();
+				 String colHeader = cell.getStringCellValue();
+				 
+				 BaseSpreadSheetColumnDefinition<DATA, ?> cols = defs[index];
+				 
+				 if ( !cols.getColumnHeader().equals(colHeader) && validateUplaodedHeaderColumnLabel) {
+					 throw new DataValidationException("Ada posisi kolom yang salah pada file excel yang diupload.\n"
+					 		+ "Mohon bandingkan dengan excel file yang didownload.");
+				 }
+				 
+				 index++;
+			 }	
+		 }
 			 
-			 Cell cell = cells.next();
-			 String colHeader = cell.getStringCellValue();
-			 
-			 BaseSpreadSheetColumnDefinition<DATA, ?> cols = defs[index];
-			 
-			 if ( !cols.getColumnHeader().equals(colHeader)) {
-				 throw new DataValidationException("Ada posisi kolom yang salah pada file excel yang diupload.\n"
-				 		+ "Mohon bandingkan dengan excel file yang didownload.");
-			 }
-			 
-			 index++;
-		 }		 
 		 
 		 ArrayList<DATA> retval = new ArrayList<DATA>();
 		 if ( defs != null ){
@@ -176,6 +188,9 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 					 
 					 ArrayList<InvalidSpreadSheetCellFormatException> listException = new ArrayList<
 							 InvalidSpreadSheetCellFormatException>();
+					 
+					 
+					 int defIndex = 0 ; 
 					 for (BaseSpreadSheetColumnDefinition def : defs ){
 						 
 						 Cell cellToRead =  row.getCell(def.getColumnIndex() , Row.RETURN_BLANK_AS_NULL); 
@@ -193,10 +208,13 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 							invalidCellException.setBusinessColumnName(def.getColumnHeader());
 							
 							listException.add(invalidCellException);
+							LOGGER.error("gagal membaca pada index : " + defIndex + ", logical column index =  " + def.getColumnIndex() + ", cell column name (def): " + def.getColumnHeader() );
 							
 						} catch (Exception e) {
 							throw e;
 						}
+						 
+						 defIndex++ ; 
 						 
 					 }
 					 
@@ -313,10 +331,16 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 				 Cell cell =  row.createCell(scn.getColumnIndex());
 				 cell.setCellValue(scn.getColumnHeader());
 			 }
-			 
+			 int dataIndex = -1  ; 
 			 for ( DATA data :   dataToWrite){
+				 dataIndex ++ ; 
+				 
+				 
+				 
 				 row =  targetSheet.createRow(++i);
 				 for (  BaseSpreadSheetColumnDefinition<DATA, ?> scn : defs){
+					 scn.setCurrentRowIndex(dataIndex);
+					 scn.setActualCellRowIndex(row.getRowNum());
 					 Object obj =  scn.getValue(data);
 					 if ( obj== null){
 						 continue ;
@@ -379,6 +403,25 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 	 */
 	protected boolean checkIsEmptyUploadedData (DATA scannedData)  {
 		return false ; 
+	}
+
+
+	/**
+	 * validasi apakah file di upload memililiki header column yang sama dengan template.default = <i>false</i>
+	 * set true kalau validasi adalah mandatory 
+	 */
+	public boolean isValidateUplaodedHeaderColumnLabel() {
+		return validateUplaodedHeaderColumnLabel;
+	}
+
+
+	/**
+	 * validasi apakah file di upload memililiki header column yang sama dengan template.default = <i>false</i>
+	 * set true kalau validasi adalah mandatory 
+	 */
+	public void setValidateUplaodedHeaderColumnLabel(
+			boolean validateUplaodedHeaderColumnLabel) {
+		this.validateUplaodedHeaderColumnLabel = validateUplaodedHeaderColumnLabel;
 	}
 	
 

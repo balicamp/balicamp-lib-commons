@@ -287,6 +287,7 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 		for ( Serializable scn :objects ){
 			entityManager.merge(scn);	
 		}
+		entityManager.flush();
 		
 	}
 	
@@ -568,7 +569,33 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	}
 	
 	
+	@Override
+	public <DATA> List<DATA> list(String tableNameAndJoinArgument,
+			String primaryTableNameAlias, String predefinedWhere,
+			SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments)
+			throws Exception {
+		String countSmt = "SELECT  "+primaryTableNameAlias+"  from " + tableNameAndJoinArgument + "  where 1=1  AND (" +  predefinedWhere+  ")" + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters); 
+		List<DATA> retval =  q.getResultList();
+		return retval ; 
+	}
 	
+	
+	@Override
+	public <DATA> List<DATA> list(String tableNameAndJoinArgument,
+			String primaryTableNameAlias, String predefinedWhere,
+			SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments,
+			int pageSize, int firstRowPosition) throws Exception {
+		if ( predefinedWhere== null || predefinedWhere.isEmpty())
+			predefinedWhere =" 1=1 " ; 
+		String countSmt = "SELECT  "+primaryTableNameAlias+"  from " + tableNameAndJoinArgument + "  where 1=1  AND (" + predefinedWhere +") " + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters) ;
+		@SuppressWarnings("unchecked")
+		List<DATA> retval =  q.getResultList();
+		return retval ;
+	}
 	@Override
 	public <DATA> List<DATA> list(String tableNameAndJoinArgument,
 			String primaryTableNameAlias, SimpleQueryFilter[] filters,
@@ -602,6 +629,20 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 	public Long count(String tableAndJoinStatment,
 			String primaryTableAliasName, SimpleQueryFilter[] filters) {
 		String countSmt = "SELECT count(*)  from " + tableAndJoinStatment + " where 1=1  " + buildWhereStatement(primaryTableAliasName, filters); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters);
+		try {
+			return (Long) q.getSingleResult();
+		} catch (Exception e) {
+			return 0L;
+		}
+	}
+	
+	@Override
+	public Long count(String tableAndJoinStatment,
+			String primaryTableAliasName, String primaryTableAliasPK, String predefinedWhere,
+			SimpleQueryFilter[] filters) {
+		String countSmt = "SELECT count("+primaryTableAliasName +"."+ primaryTableAliasPK +")  from " + tableAndJoinStatment + " where 1=1  AND ( " + predefinedWhere + ") "  + buildWhereStatement(primaryTableAliasName, filters);
 		Query q =  getEntityManager().createQuery(countSmt) ;
 		q = this.putQueryArguments(q, filters);
 		try {

@@ -14,6 +14,24 @@ import org.apache.poi.ss.usermodel.CellStyle;
  * @since Oct 7, 2013 6:00:59 PM
  */
 public abstract class BaseSpreadSheetColumnDefinition<DATA, CELLTYPE> {
+	
+	
+	
+	
+	/**
+	 * index data yang di render pada saat ini . ini di-inject oleh writer
+	 */
+	private Integer currentRowIndex ; 
+	
+	
+	
+	/**
+	 * data akan di render pada index berapa pada spreadsheet
+	 */
+	private Integer actualCellRowIndex ; 
+	
+	
+	
 
 	public abstract CELLTYPE getValue (DATA data ) ; 
 
@@ -61,6 +79,32 @@ public abstract class BaseSpreadSheetColumnDefinition<DATA, CELLTYPE> {
 		}
 		
 		return value;
+	}
+	
+	/**
+	 * index data yang di render pada saat ini . ini di-inject oleh writer
+	 */
+	public void setCurrentRowIndex(Integer currentRowIndex) {
+		this.currentRowIndex = currentRowIndex;
+	}
+	/**
+	 * index data yang di render pada saat ini . ini di-inject oleh writer
+	 */
+	public Integer getCurrentRowIndex() {
+		return currentRowIndex;
+	}
+	
+	/**
+	 * data akan di render pada index berapa pada spreadsheet
+	 */
+	public Integer getActualCellRowIndex() {
+		return actualCellRowIndex;
+	}
+	/**
+	 * data akan di render pada index berapa pada spreadsheet
+	 */
+	public void setActualCellRowIndex(Integer actualCellRowIndex) {
+		this.actualCellRowIndex = actualCellRowIndex;
 	}
 
 }

@@ -1,11 +1,17 @@
 package id.co.sigma.security.server.dao;
 
+import id.co.sigma.common.security.domain.ApplicationMenu;
 import id.co.sigma.common.security.domain.ApplicationMenuAssignment;
+import id.co.sigma.common.security.domain.UserGroup;
 import id.co.sigma.common.security.domain.UserGroupAssignment;
 import id.co.sigma.common.server.dao.IBaseDao;
 
 
+
+
 import java.util.List;
+
+
 
 /**
  * Interface untuk function assignment
@@ -45,6 +51,15 @@ public interface IFunctionAssignmentDao extends IBaseDao {
 	 * @param groupId Id dari group yang hendak di baca
 	 */
 	public List<ApplicationMenuAssignment> getFunctionAssigmentByGroupId ( Long groupId  ) ; 
+	
+	
+	
+	
+	/**
+	 * membaca menu berdasarkan kde group
+	 * @param groups grous yang perlu di baca
+	 */
+	public List<ApplicationMenu> getMenuByGroups (List<UserGroup> groups ) ; 
 	
 	/**
 	 * add by dode

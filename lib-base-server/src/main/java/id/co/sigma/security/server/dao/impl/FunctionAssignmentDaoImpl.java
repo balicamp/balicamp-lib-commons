@@ -1,7 +1,9 @@
 package id.co.sigma.security.server.dao.impl;
 
+import id.co.sigma.common.security.domain.ApplicationMenu;
 import id.co.sigma.common.security.domain.ApplicationMenuAssignment;
-import id.co.sigma.security.server.dao.BaseGenericDao;
+import id.co.sigma.common.security.domain.UserGroup;
+import id.co.sigma.common.server.dao.base.BaseJPADao;
 import id.co.sigma.security.server.dao.IFunctionAssignmentDao;
 
 import java.util.ArrayList;
@@ -17,8 +19,8 @@ import org.springframework.stereotype.Repository;
  * @since Dec 13, 2012, 3:47:29 PM
  * @version $Id
  */
-@Repository
-public class FunctionAssignmentDaoImpl extends BaseGenericDao implements IFunctionAssignmentDao{
+
+public class FunctionAssignmentDaoImpl extends BaseJPADao implements IFunctionAssignmentDao{
 
 	@Override
 	public void deleteFunctionByGroupId(Long groupId) throws Exception {
@@ -114,6 +116,28 @@ public class FunctionAssignmentDaoImpl extends BaseGenericDao implements IFuncti
 		Query query = getEntityManager().createQuery(hql);
 		query.setParameter("GROUP_ID", groupId);
 		return query.getResultList();
+	}
+
+
+	@Override
+	public List<ApplicationMenu> getMenuByGroups(List<UserGroup> groups) {
+		if ( groups== null || groups.isEmpty())
+			return null ;
+		String hqlSmtGetAllFunctionIds = "select a.functionId FROM " + ApplicationMenuAssignment.class.getName()+" a   where 1=1 and a.groupId in ( " + genarateInStatement("GRP", groups.size()) +")   "; 
+		ArrayList<Long> ids = new ArrayList<>(); 
+		for ( UserGroup scn : groups) {
+			ids.add(scn.getId()) ; 
+		}
+		Query qMenuId =  getEntityManager().createQuery(hqlSmtGetAllFunctionIds) ;
+		qMenuId =  fillInParams(qMenuId, "GRP", ids);
+		List<Long> menuIds =  qMenuId.getResultList();
+		if ( menuIds== null || menuIds.isEmpty())
+			return null ;
+		String hqlMenu = "SELECT a from "  + ApplicationMenu.class.getName() +" a where a.id in ( " + genarateInStatement("GRP", menuIds.size()) +") order by a.menuTreeCode asc  " ; 
+		Query qMenus =  getEntityManager().createQuery(hqlMenu) ;
+		qMenus =  fillInParams(qMenus, "GRP", menuIds);
+		return  qMenus.getResultList();  
+		
 	}
 
 	
