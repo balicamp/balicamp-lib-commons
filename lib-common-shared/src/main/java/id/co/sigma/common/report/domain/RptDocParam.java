@@ -72,6 +72,12 @@ public class RptDocParam implements Serializable, SingleKeyEntityData<RptDocPara
 	@Column(name="param_sec")
 	private Integer paramSec;
 	
+	@Column(name="required")	
+	private Integer required = 0;
+	
+	@Column(name="invalid_err_msg")
+	private String invalidErrMessage;
+	
 	//bi-directional many-to-one association to RptDocument
 	@ManyToOne(fetch=FetchType.LAZY, targetEntity=RptDocument.class)
 	@JoinColumn(name="rpt_doc_id", insertable=false, updatable=false, referencedColumnName="id")
@@ -293,6 +299,38 @@ public class RptDocParam implements Serializable, SingleKeyEntityData<RptDocPara
 	 */
 	public void setParamSec(Integer paramSec) {
 		this.paramSec = paramSec;
+	}
+
+
+	/**
+	 * @return the required
+	 */
+	public Integer getRequired() {
+		return required;
+	}
+
+
+	/**
+	 * @param required the required to set
+	 */
+	public void setRequired(Integer required) {
+		this.required = required;
+	}
+
+
+	/**
+	 * @return the invalidErrMessage
+	 */
+	public String getInvalidErrMessage() {
+		return invalidErrMessage;
+	}
+
+
+	/**
+	 * @param invalidErrMessage the invalidErrMessage to set
+	 */
+	public void setInvalidErrMessage(String invalidErrMessage) {
+		this.invalidErrMessage = invalidErrMessage;
 	}
 
 
