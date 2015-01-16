@@ -1,6 +1,7 @@
 package id.co.sigma.security.server.dao;
 
 import id.co.sigma.common.data.query.SimpleQueryFilter;
+import id.co.sigma.common.data.query.SimpleSortArgument;
 import id.co.sigma.common.security.domain.Branch;
 import id.co.sigma.common.security.domain.BranchAssignment;
 
@@ -46,4 +47,7 @@ public interface IBranchDao {
 	 * @param branchCodes list berisi daftar kode cabang yang perlu di baca
 	 */
 	public List<Branch> getBranchByCodes ( Collection<String> branchCodes ) ; 
+	
+	public List<Branch> getBranchComboboxByUserLogin(Long defaultBranch,
+			SimpleQueryFilter[] additionalFilters, SimpleSortArgument[] sorts) throws Exception; 
 }

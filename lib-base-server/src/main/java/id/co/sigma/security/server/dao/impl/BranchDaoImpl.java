@@ -1,13 +1,17 @@
 package id.co.sigma.security.server.dao.impl;
 
 import id.co.sigma.common.data.query.SimpleQueryFilter;
+import id.co.sigma.common.data.query.SimpleSortArgument;
 import id.co.sigma.common.security.domain.Branch;
 import id.co.sigma.common.security.domain.BranchAssignment;
+import id.co.sigma.common.util.BranchTreeGenerator;
 import id.co.sigma.security.server.dao.BaseGenericDao;
 import id.co.sigma.security.server.dao.IBranchDao;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -98,5 +102,33 @@ public class BranchDaoImpl extends BaseGenericDao implements IBranchDao{
 			return null ; 
 		String hqlSmt = "select a FROM " + Branch.class.getName() + " a WHERE a.branchCode in (" + genarateInStatement("ID", branchCodes.size()) + ")";
 		return fillInParams(  getEntityManager().createQuery(hqlSmt) , "ID" , branchCodes ).getResultList() ; 
+	}
+
+	@Override
+	public List<Branch> getBranchComboboxByUserLogin(Long defaultBranch,
+			SimpleQueryFilter[] additionalFilters, SimpleSortArgument[] sorts)
+			throws Exception {
+		
+		String hql = "SELECT b FROM Branch b "
+				+ " LEFT JOIN fetch b.children WHERE 1=1 AND b.id = "+defaultBranch
+				+ buildWhereStatement("b", additionalFilters)
+				+ buildOrderByStatement("b", sorts);
+
+		Query q = getEntityManager().createQuery(hql);
+		q = putQueryArguments(q, additionalFilters);
+	    List<Branch> retval = new ArrayList<>();
+	    List<Branch> resultList = q.getResultList();
+	    if(resultList!=null && resultList.size()>0){
+		    List<Branch> tree = new LinkedList<>();
+	        BranchTreeGenerator branchTree = new BranchTreeGenerator(resultList.get(0), tree);
+	        branchTree.createTree();
+	        for (int i = 0; i < tree.size(); i++) {
+	            Branch dataBranch = tree.get(i);
+	            retval.add(dataBranch);
+	        }
+	    }else{
+	    	retval = null;
+	    }
+		return retval;
 	}
 }
