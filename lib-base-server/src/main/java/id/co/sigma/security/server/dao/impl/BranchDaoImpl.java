@@ -4,10 +4,8 @@ import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.data.query.SimpleSortArgument;
 import id.co.sigma.common.security.domain.Branch;
 import id.co.sigma.common.security.domain.BranchAssignment;
-import id.co.sigma.common.util.BranchTreeGenerator;
 import id.co.sigma.security.server.dao.BaseGenericDao;
 import id.co.sigma.security.server.dao.IBranchDao;
-
 
 import java.util.ArrayList;
 import java.util.Collection;
