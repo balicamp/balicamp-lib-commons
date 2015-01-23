@@ -46,7 +46,7 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 	 * validasi apakah file di upload memililiki header column yang sama dengan template.default = <i>false</i>
 	 * set true kalau validasi adalah mandatory 
 	 */
-	private boolean validateUplaodedHeaderColumnLabel = false ; 
+	private boolean validateUplaodedHeaderColumnLabel = true ; 
 	
 	protected HSSFSheet targetSheet ; 
 	
@@ -160,7 +160,7 @@ public abstract class BaseSpreadsheetFileUtil<DATA> extends AbstractService impl
 				 
 				 if ( !cols.getColumnHeader().equals(colHeader) && validateUplaodedHeaderColumnLabel) {
 					 throw new DataValidationException("Ada posisi kolom yang salah pada file excel yang diupload.\n"
-					 		+ "Mohon bandingkan dengan excel file yang didownload.");
+					 		+ "Mohon bandingkan dengan file excel yang didownload.");
 				 }
 				 
 				 index++;
