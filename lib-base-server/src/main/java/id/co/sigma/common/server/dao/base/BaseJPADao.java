@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -271,6 +272,35 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 		}
 		if ( !justFlush)
 			getEntityManager().flush(); 
+	} 
+	
+	/**
+	 * Bulk insert menggunakan merge
+	 * @param objects
+	 * @throws Exception
+	 */
+	public <T extends Serializable> List<T> mergeInserts(List<T> objects)throws Exception {
+		List<T> results = new ArrayList<>();
+		
+		if ( objects == null || objects.isEmpty()) {
+			return results; 
+		}
+		int counter = 1; 
+		boolean justFlush = true ; 
+		for  (T scn : objects){
+			justFlush= false; 
+			scn = getEntityManager().merge(scn);
+			results.add(scn);
+			counter++; 
+			if ( counter==MAX_BATCH_INSERT_SIZE){
+				getEntityManager().flush();
+				counter=1; 
+				justFlush=true; 
+			}
+		}
+		if ( !justFlush)
+			getEntityManager().flush(); 
+		return results;
 	} 
 	
 	/**

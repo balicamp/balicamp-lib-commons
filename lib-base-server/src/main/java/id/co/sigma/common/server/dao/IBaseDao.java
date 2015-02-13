@@ -129,6 +129,12 @@ public interface IBaseDao {
 	 * bulk insert data 
 	 **/
 	public <DATA extends Serializable> void inserts(Collection<DATA> objects )throws Exception;
+	
+	/**
+	 * bulk insert data menggunakan merge
+	 **/
+	public <T extends Serializable> List<T> mergeInserts(List<T> objects )throws Exception;
+	
 	/**
 	 * update 1 data
 	 * @param object object yang 
