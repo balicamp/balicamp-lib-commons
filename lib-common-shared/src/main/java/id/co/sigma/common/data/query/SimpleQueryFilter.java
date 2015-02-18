@@ -184,6 +184,16 @@ public class SimpleQueryFilter  implements IsSerializable , IJSONFriendlyObject<
 	
 	
 
+	public SimpleQueryFilter(String field, SimpleQueryFilterOperator operator,
+			BigDecimal filter) {
+		super();
+		this.field = field;
+		this.setOperator(  operator);
+		setFilter(filter); 
+	}
+
+
+
 	public String getField() {
 		return field;
 	}
