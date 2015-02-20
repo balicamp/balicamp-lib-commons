@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -333,6 +334,16 @@ public class RptDocParam implements Serializable, SingleKeyEntityData<RptDocPara
 		this.invalidErrMessage = invalidErrMessage;
 	}
 
+	@Transient
+	public String getParamTypeShort() {
+		String[] classPathName = paramType.split("\\.");
+		if(classPathName.length > 1) {
+			if(classPathName.length - 2 >= 0) {
+				return classPathName[classPathName.length - 2];
+			}
+		}
+		return paramType;
+	}
 
 	public RptDocument getRptDocument() {
 		return this.rptDocument;
