@@ -30,6 +30,10 @@ public class UserDelegation extends BaseCreatedObject implements SingleKeyEntity
 
 	//static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserDelegation.class.getName());
 	
+	public static final String STATUS_ACTIVE = "A";
+	
+	public static final String STATUS_INACTIVE = "I";
+	
 	@Id
 	@Column(name="id", nullable=false, updatable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
