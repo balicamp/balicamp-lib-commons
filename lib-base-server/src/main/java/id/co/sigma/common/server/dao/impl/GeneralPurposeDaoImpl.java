@@ -98,5 +98,8 @@ public class GeneralPurposeDaoImpl extends BaseJPADao implements IGeneralPurpose
 		return getEntityManager().merge(object);
 	}
 
-	
+	@Override
+	public void detachObject(Serializable object) {
+		getEntityManager().detach(object);
+	}
 }

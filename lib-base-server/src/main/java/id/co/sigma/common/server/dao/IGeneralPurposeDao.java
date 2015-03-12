@@ -48,5 +48,12 @@ public interface IGeneralPurposeDao extends IBaseDao{
 	 */
 	public Serializable merge(Serializable object);
 	
+	
+	/**
+	 * detach object From PersistenceContext
+	 * @param object
+	 */
+	public void detachObject(Serializable object);
+	
 
 }
