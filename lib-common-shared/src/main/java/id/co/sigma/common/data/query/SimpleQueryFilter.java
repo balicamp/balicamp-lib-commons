@@ -218,7 +218,7 @@ public class SimpleQueryFilter  implements IsSerializable , IJSONFriendlyObject<
 	}
 
 	public final void setFilter(String filter) {
-		this.filter = filter;
+		this.filter = filter.trim();
 		this.filterTypeClass=String.class.getName();
 	}
 	
@@ -231,7 +231,7 @@ public class SimpleQueryFilter  implements IsSerializable , IJSONFriendlyObject<
 				this.setFilter(( Date)filter);
 			}
 			else {
-				this.filter=filter.toString();
+				this.filter=filter.toString().trim();
 			}
 			
 		}	
