@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *@author <a href="mailto:gede.sutarsa@gmail.com">Gede Sutarsa</a>
  */
 @Entity
-@Table(name="m_dual_control_definition")
+@Table(name="zzz_m_dual_control_definition")
 public class DualControlDefinition implements Serializable ,SingleKeyEntityData<String>, IJSONFriendlyObject<DualControlDefinition>{
 	
 	
