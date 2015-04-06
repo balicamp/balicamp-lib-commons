@@ -31,7 +31,7 @@ public class CommonSequenceTable implements Serializable{
 	 * id sequence
 	 */
 	@Id
-	@Column(name="sequence_name" , length=128, nullable=false, updatable=false )
+	@Column(name="sequence_name" , length=255, nullable=false, updatable=false )
 	private String id;
 	
 	
@@ -47,7 +47,7 @@ public class CommonSequenceTable implements Serializable{
 	 * remark dari sequence<br/>
 	 * column : seq_remark
 	 */
-	@Column(name="seq_remark", length=128 , nullable=false)
+	@Column(name="seq_remark", length=255 , nullable=false)
 	private String remark ; 
 	
 	/**
