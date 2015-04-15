@@ -202,7 +202,7 @@ public abstract class SharedPartBaseDao implements IBaseDao{
 				retval+=  " AND " +tableAliasWithDot + scn.getField() + buildWhereStatement(i++, scn.getOperator()) + "(" + scn.getFilter() + ")";
 			} else if (SimpleQueryFilterOperator.dateBetween.equals(scn.getOperator())) {
 				String[] betweenParam = scn.getFilter().split("dateseparator");
-				retval+=  " AND " + tableAliasWithDot + scn.getField() + buildWhereStatement(i++, scn.getOperator()) + "'" + betweenParam[0] + "' AND '" + betweenParam[1] +"'";
+				retval+=  " AND " + "DATE("+tableAliasWithDot + scn.getField()+")" + buildWhereStatement(i++, scn.getOperator()) + "'" + betweenParam[0] + "' AND '" + betweenParam[1] +"'";
 			} else if (SimpleQueryFilterOperator.hourIn.equals(scn.getOperator())) {
 				String templateOperator = scn.getOperator().toString();
 				templateOperator = templateOperator.replace(SimpleQueryFilterOperator.STRING_PARAM_DATE_TO_REPLACE, tableAliasWithDot + scn.getField());
