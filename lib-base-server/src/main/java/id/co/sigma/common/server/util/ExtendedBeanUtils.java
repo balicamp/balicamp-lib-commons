@@ -129,7 +129,7 @@ public class ExtendedBeanUtils extends BeanUtils implements IBeanObjectDefinitio
 		if ( fieldToSet.contains(".")){
 			String[] pathParents =  fieldToSet.split("\\.");
 			actuaLField = pathParents[pathParents.length-1]; 
-			for ( int i = 0 ; i < fieldToSet.length()-1 ; i++){
+			for ( int i = 0 ; i < pathParents.length-1 ; i++){
 				actualTarget = getProperty(actualTarget, pathParents[i]); 
 				if ( actualTarget== null)
 					break ; 
