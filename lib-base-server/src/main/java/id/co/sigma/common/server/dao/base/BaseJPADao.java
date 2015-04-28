@@ -482,10 +482,6 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 							param = "Y";
 						}else if (scn.getFilter().equalsIgnoreCase("false")){
 							param = "N";
-						}else if(scn.getFilter().equalsIgnoreCase("1")){
-							param = true;
-						}else if(scn.getFilter().equalsIgnoreCase("0")){
-							param = false;
 						}
 					} else if (Date.class.getCanonicalName().equals(scn.getFilterTypeClass())) {
 						try {
