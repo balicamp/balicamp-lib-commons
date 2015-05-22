@@ -21,6 +21,9 @@ import javax.persistence.Table;
 public class Role extends BaseCreatedObject implements IJSONFriendlyObject<Role>, SingleKeyEntityData<Long> {
 
 	
+	public static final String ROLE_ADMIN_PMS = "ADMIN_PMS";
+	public static final String ROLE_ADMIN_AMS = "ADMIN_AMS";
+	
 	/**
 	 * 
 	 */
