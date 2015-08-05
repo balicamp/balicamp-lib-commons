@@ -239,7 +239,7 @@ public abstract class AbstractService implements IBaseService{
         	}
         	Serializable s = (Serializable) swapPK ; 
         	Serializable o =generalPurposeDao.get(updatedData.getClass(), s);
-        	ExtendedBeanUtils.getInstance().copyPropertiesWithSpecifiedItemOnly(updatedData, 0, modifiedFields);
+        	ExtendedBeanUtils.getInstance().copyPropertiesWithSpecifiedItemOnly(updatedData, o, modifiedFields);
         	if ( o instanceof IModifyAuditedData){
         		touchModifyTimestamp((IModifyAuditedData)o);
         	}
