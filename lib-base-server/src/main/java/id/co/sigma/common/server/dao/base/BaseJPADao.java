@@ -1,11 +1,6 @@
 package id.co.sigma.common.server.dao.base;
 
 
-import id.co.sigma.common.data.query.SimpleQueryFilter;
-import id.co.sigma.common.data.query.SimpleSortArgument;
-import id.co.sigma.common.data.query.SimpleQueryFilterOperator;
-import id.co.sigma.common.server.dao.IBaseDao;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,6 +16,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import id.co.sigma.common.data.query.SimpleQueryFilter;
+import id.co.sigma.common.data.query.SimpleQueryFilterOperator;
+import id.co.sigma.common.data.query.SimpleSortArgument;
+import id.co.sigma.common.server.dao.IBaseDao;
 
 
 /**
@@ -610,6 +610,34 @@ public abstract class BaseJPADao extends SharedPartBaseDao implements IBaseDao{
 		q = this.putQueryArguments(q, filters); 
 		List<DATA> retval =  q.getResultList();
 		return retval ; 
+	}
+	
+	@Override
+	public <DATA> List<DATA> listDistinct(String tableNameAndJoinArgument, String primaryTableNameAlias,
+			String predefinedWhere, SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception {
+		
+		String countSmt = "SELECT DISTINCT("+primaryTableNameAlias+")  from " + tableNameAndJoinArgument + "  where 1=1  AND (" +  predefinedWhere+  ")" + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters); 
+		List<DATA> retval =  q.getResultList();
+		return retval ;
+		
+	}
+	
+	@Override
+	public <DATA> List<DATA> listDistinct(String tableNameAndJoinArgument, String primaryTableNameAlias,
+			String predefinedWhere, SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments, int pageSize,
+			int firstRowPosition) throws Exception {
+		
+		if ( predefinedWhere== null || predefinedWhere.isEmpty())
+			predefinedWhere =" 1=1 " ; 
+		String countSmt = "SELECT DISTINCT("+primaryTableNameAlias+") from " + tableNameAndJoinArgument + "  where 1=1  AND (" + predefinedWhere +") " + buildWhereStatement(primaryTableNameAlias, filters) + buildOrderByStatement(primaryTableNameAlias, sortArguments); 
+		Query q =  getEntityManager().createQuery(countSmt) ;
+		q = this.putQueryArguments(q, filters).setMaxResults(pageSize).setFirstResult(firstRowPosition) ;
+		@SuppressWarnings("unchecked")
+		List<DATA> retval =  q.getResultList();
+		return retval ;
+		
 	}
 	
 	

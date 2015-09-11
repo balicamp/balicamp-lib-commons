@@ -221,18 +221,36 @@ public interface IBaseDao {
 	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias ,String predefinedWhere  , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments,  int pageSize , int firstRowPosition) throws Exception;
 	
 	
+	/**
+	 * ini untuk mendistinct return value apabila return valuenya ada yang sama tanpa parameter limit dan start row
+	 * @param tableAndJoinStatment
+	 * @param primaryTableAliasName
+	 * @param sortArguments
+	 * @return
+	 */
+	public <DATA> List<DATA> listDistinct( String tableNameAndJoinArgument , String primaryTableNameAlias , String predefinedWhere  , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception;
 	
+	/**
+	 * ini untuk mendistinct return value apabila return valuenya ada yang sama
+	 * @param tableNameAndJoinArgument
+	 * @param primaryTableNameAlias
+	 * @param predefinedWhere
+	 * @param filters
+	 * @param sortArguments
+	 * @param pageSize
+	 * @param firstRowPosition
+	 * @return
+	 * @throws Exception
+	 */
+	public <DATA> List<DATA> listDistinct( String tableNameAndJoinArgument , String primaryTableNameAlias ,String predefinedWhere  , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments,  int pageSize , int firstRowPosition) throws Exception;
 	
+
 	
 	/**
 	 * ini untuk data di ambil semua
 	 * 
 	 */
 	public <DATA> List<DATA> list( String tableNameAndJoinArgument , String primaryTableNameAlias , SimpleQueryFilter[] filters, SimpleSortArgument[] sortArguments) throws Exception;
-	
-	
-	
-	
 	
 	
 	
