@@ -5,6 +5,7 @@
  */
 package id.co.sigma.common.security.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import id.co.sigma.common.data.SingleKeyEntityData;
 import id.co.sigma.common.security.domain.audit.BaseAuditedObject;
 import id.co.sigma.common.util.json.IJSONFriendlyObject;
@@ -20,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
     @JoinColumn(name = "parent_branch_id", insertable = false, updatable = false)
     private Branch branchParent;
 
-    @OneToMany(mappedBy = "branchParent", targetEntity = Branch.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "branchParent", targetEntity = Branch.class, fetch = FetchType.EAGER)
     private List<Branch> children;
 
     /**
@@ -84,6 +86,8 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
     private String description;
 
 
+    @XmlTransient
+    @JsonIgnore
     public Branch getBranchParent() {
         return branchParent;
     }
@@ -92,6 +96,8 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
         this.branchParent = branchParent;
     }
 
+    @XmlTransient
+    @JsonIgnore
     public List<Branch> getChildren() {
         return children;
     }
