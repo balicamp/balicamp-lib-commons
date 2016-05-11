@@ -23,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Entiti untuk tabel : sec_user
@@ -110,6 +111,13 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	
 	@Column(name="emp_no")
 	private String employeeNumber;
+	
+	/**
+	 * add by raka.sanjaya
+	 * employeeId type transient, temporary store employee id 
+	 */
+	@Transient
+	private String employeeId;
 		
 	/**
 	 * add by dode
@@ -126,7 +134,15 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	**/
 	@Column(name="chipper_text", length=64)
 	private String chipperText;
+		
 	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	public String getEmployeeNumber() {
 	    return employeeNumber;
