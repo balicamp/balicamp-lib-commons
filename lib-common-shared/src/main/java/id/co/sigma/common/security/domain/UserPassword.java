@@ -31,6 +31,7 @@ public class UserPassword extends BaseCreatedObject implements IJSONFriendlyObje
 
 	private static final long serialVersionUID = 1140422460020887761L;
 	public static final String SEC_PASSWORD_PERIOD_KEY = "PSWD:EXP:PERIOD";
+	public static final String SEC_PASSWORD_WARNING_MSG_PERIOD_KEY = "PSWD:WARNING:EXP:PERIOD";
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="pk")
