@@ -65,6 +65,13 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	private Date  birthDate;
 	
 	/**
+	* tanggal update password terakhir<br/>
+	* column :last_change_pass
+	**/
+	@Column(name="last_change_pass")
+	private Date  lastChangePassword;
+	
+	/**
 	* email<br/>
 	* column :EMAIL
 	**/
@@ -186,6 +193,14 @@ public class User extends SimpleDualControlData<User> implements SingleKeyEntity
 	}
 
 
+
+	public Date getLastChangePassword() {
+		return lastChangePassword;
+	}
+
+	public void setLastChangePassword(Date lastChangePassword) {
+		this.lastChangePassword = lastChangePassword;
+	}
 
 	public Branch getBranch() {
 		return branch;

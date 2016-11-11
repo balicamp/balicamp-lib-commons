@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 public class UserPassword extends BaseCreatedObject implements IJSONFriendlyObject<UserPassword>{
 
 	private static final long serialVersionUID = 1140422460020887761L;
-	
+	public static final String SEC_PASSWORD_PERIOD_KEY = "PSWD:EXP:PERIOD";
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="pk")
