@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -31,6 +32,9 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Signon implements Serializable,IsSerializable, IJSONFriendlyObject<Signon>{
 
 	private static final long serialVersionUID = 8765875105373866197L;
+	
+	public static final String SIGNON_STATUS_LOGIN ="Login";
+	public static final String SIGNON_STATUS_LOGOUT ="Logout";
 	
 	@Id	
 	@Column(name="pk")
@@ -68,6 +72,8 @@ public class Signon implements Serializable,IsSerializable, IJSONFriendlyObject<
 	@Column(name="description", length=256)
 	private String description;
 	
+	@Transient
+	private String loginLogout;
 	
 	/**
 	 * browser dari user
@@ -89,6 +95,14 @@ public class Signon implements Serializable,IsSerializable, IJSONFriendlyObject<
 		return userBrowser;
 	}
 	
+
+	public String getLoginLogout() {
+		return loginLogout;
+	}
+
+	public void setLoginLogout(String loginLogout) {
+		this.loginLogout = loginLogout;
+	}
 
 	/**
 	 * Signon Id. Column : SIGNON_ID
