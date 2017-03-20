@@ -72,6 +72,12 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
     @Column(name = "branch_name", length = 32)
     private String branchName;
     /**
+     * nama cabang<br/>
+     * column :BRANCH_ALIAS
+     */
+    @Column(name = "branch_alias", length = 32)
+    private String branchAlias;
+    /**
      * alamat cabang<br/>
      * column :BRANCH_ADDRESS
      */
@@ -96,7 +102,15 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
         this.branchParent = branchParent;
     }
 
-    @XmlTransient
+    public String getBranchAlias() {
+		return branchAlias;
+	}
+
+	public void setBranchAlias(String branchAlias) {
+		this.branchAlias = branchAlias;
+	}
+
+	@XmlTransient
     @JsonIgnore
     public List<Branch> getChildren() {
         return children;
@@ -307,4 +321,5 @@ public class Branch extends BaseAuditedObject implements SingleKeyEntityData<Lon
         retval.setId((Long) jsonContainer.get("id", Long.class.getName()));
         return retval;
     }
+
 }
