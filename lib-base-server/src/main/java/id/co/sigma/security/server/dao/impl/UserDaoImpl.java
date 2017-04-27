@@ -125,7 +125,7 @@ public class UserDaoImpl extends BaseJPADao implements IUserDao{
 		userRoles = qry.getResultList();
 		
 		Query qryDelegate = getEntityManager().createQuery("from Role r where r.id in (select udr.roleId from UserDelegationRole udr where udr.userDelegateId in ("
-				+ "select ud.id from UserDelegation ud where ud.destUserId=:USER_ID and ud.dataStatus='A'))");
+				+ "select ud.id from UserDelegation ud where ud.destUserId=:USER_ID and ud.dataStatus='A' and (DATE(NOW()) BETWEEN ud.startDate AND ud.endDate) ))");
 		qryDelegate.setParameter("USER_ID", id);
 		delegateRoles = qryDelegate.getResultList();
 		
