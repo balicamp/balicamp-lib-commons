@@ -23,9 +23,9 @@ import org.springframework.stereotype.Repository;
 public class PasswordPolicyDaoImpl extends BaseGenericDao implements
 		IPasswordPolicyDao {
 	
-	public final String ALPHABET_REGEX = "[a-zA-Z]";
+	public final String ALPHABET_REGEX = "[a-z]";
 	public final String NUMERIC_REGEX = "[0-9]";
-	
+	public final String ALPHABET_UPPER_REGEX = "[A-Z]";
 	@Override
 	public List<PasswordPolicy> getPasswordPolicy()
 			throws Exception {

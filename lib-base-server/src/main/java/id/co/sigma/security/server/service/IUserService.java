@@ -4,6 +4,7 @@ import id.co.sigma.common.data.PagedResultHolder;
 import id.co.sigma.common.data.query.SimpleQueryFilter;
 import id.co.sigma.common.security.domain.User;
 import id.co.sigma.common.security.domain.UserGroupAssignment;
+import id.co.sigma.common.security.domain.UserPassword;
 import id.co.sigma.common.security.domain.UserRole;
 import id.co.sigma.common.security.dto.UserDTO;
 import id.co.sigma.common.security.exception.PasswordPolicyException;
@@ -102,4 +103,6 @@ public interface IUserService {
 	 * @throws Exception
 	 */
 	public Boolean isUserCodeExist(String userCode, Integer applicationId) throws Exception;
+	
+	
 }
