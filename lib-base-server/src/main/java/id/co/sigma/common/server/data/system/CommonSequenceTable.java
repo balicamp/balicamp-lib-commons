@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * 
@@ -40,6 +41,7 @@ public class CommonSequenceTable implements Serializable{
 	 * column : latest_seq
 	 * sequence terakhir nomor berapa
 	 */
+	@Version
 	@Column(name="latest_seq" , nullable=false)
 	private Long latesSequence = 0L ; 
 	
