@@ -1,6 +1,7 @@
 package id.co.sigma.common.server.data.security;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -171,69 +172,16 @@ public class SimpleUserData implements UserDetails{
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((authorities == null) ? 0 : authorities.hashCode());
-		result = prime * result
-				+ ((branchCode == null) ? 0 : branchCode.hashCode());
-		result = prime * result
-				+ ((branchName == null) ? 0 : branchName.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result
-				+ ((fullName == null) ? 0 : fullName.hashCode());
-		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
-		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		SimpleUserData that = (SimpleUserData) o;
+		return Objects.equals(username, that.username);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SimpleUserData other = (SimpleUserData) obj;
-		if (authorities == null) {
-			if (other.authorities != null)
-				return false;
-		} else if (!authorities.equals(other.authorities))
-			return false;
-		if (branchCode == null) {
-			if (other.branchCode != null)
-				return false;
-		} else if (!branchCode.equals(other.branchCode))
-			return false;
-		if (branchName == null) {
-			if (other.branchName != null)
-				return false;
-		} else if (!branchName.equals(other.branchName))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (fullName == null) {
-			if (other.fullName != null)
-				return false;
-		} else if (!fullName.equals(other.fullName))
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		if (uuid == null) {
-			if (other.uuid != null)
-				return false;
-		} else if (!uuid.equals(other.uuid))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(username);
 	}
 
 	@Override
