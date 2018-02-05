@@ -81,14 +81,14 @@
 
     <distributionManagement>
         <repository>
-            <id>deployment</id>
-            <name>Internal Releases</name>
-            <url>http://192.168.41.16:9080/nexus/content/repositories/releases/</url>
+            <id>nexus</id>
+            <name>Releases</name>
+            <url>http://192.168.41.4:8081/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
-            <id>deployment</id>
-            <name>Internal Releases</name>
-            <url>http://192.168.41.16:9080/nexus/content/repositories/snapshots/</url>
+            <id>nexus</id>
+            <name>Snapshot</name>
+            <url>http://192.168.41.4:8081/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
